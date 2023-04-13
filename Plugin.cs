@@ -29,7 +29,7 @@ public partial class Plugin : BasePlugin
     public static ConfigEntry<KeyCode> smokyaceMenurKey = configFile.Bind("General", "MenuKey", KeyCode.Keypad4, "Hotkey for opening menu");
     public static ConfigEntry<bool> smokyaceLogToConsole = configFile.Bind("Advanced", "ShowLogs", false, new ConfigDescription("Logs will display in the console", null, "Advanced"));
     public static ConfigEntry<bool> smokyacePostFixLogsToConsole = configFile.Bind("Advanced", "DisplayPostFixLogs", false, new ConfigDescription("Display PostFix Logs each time its called to console", null, "Advanced"));
-    public static ConfigEntry<bool> smokyaceDeactivate = configFile.Bind("General", "DisableMod", false, "If true mod will not work");
+    public static ConfigEntry<bool> smokyaceDeactivate = configFile.Bind("General", "SoftDeactivate", false, "Disables the mod, but does not unregister objects");
 
 
     public static ManualLogSource DLog = new ManualLogSource("DLog");
