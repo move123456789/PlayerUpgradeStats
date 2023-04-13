@@ -45,6 +45,13 @@ public partial class Plugin : BasePlugin
         //For Mono Behavior
         base.AddComponent<PlayerStatsMono>();
 
+        // Data Folder
+        string dir = @"PlayerUpgradeStatsData";
+        // If directory does not exist, create it
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
     }
 
     public class PlayerStatsPatcher

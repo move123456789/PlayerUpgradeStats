@@ -59,14 +59,13 @@ namespace PlayerUpgradeStats
                     }
                     else if (GameSetupManager._instance._saveGameType == SaveGameType.SinglePlayer)
                     {
-                        PostLogsToConsole("SaveUserId = " + GameSetup.SaveUserId);
-                        PostLogsToConsole("GetSelectedSaveId = " + GameSetupManager.GetSelectedSaveId().ToString());
-                        PostLogsToConsole("Get Game Id = " + GameSetupManager.GetGameId());
-                        PostLogsToConsole("OldFileName = " + SaveGameManager.OldSaveFileName);
-                        PostLogsToConsole("FileName = " + SaveGameManager.SaveFileName);
-                        
+                        DataHandler.SaveDataSingePlayer();
                     }
 
+                }
+                if (Input.GetKeyDown(KeyCode.Insert))
+                {
+                    DataHandler.GetDataSingePlayer();
                 }
                 if (doUpdateSpeeds)
                 {
@@ -116,7 +115,7 @@ namespace PlayerUpgradeStats
                 MyPanel.walkSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
                 MyPanel.sprintSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
                 MyPanel.jumpHeightIncrease.text = $"Height: +0%" + $"  Level 0/5";
-
+                PlayerStatsPatcher.postfixSaveID = 0;
             }
         }
     }
