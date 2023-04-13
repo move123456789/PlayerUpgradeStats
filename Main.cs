@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using UniverseLib.UI.Models;
 using TheForest;
 using Sons.Gui;
+using Bolt;
 
 namespace PlayerUpgradeStats
 {
@@ -184,6 +185,7 @@ namespace PlayerUpgradeStats
         public static int currentPoints;
         public static int pointsUsed;
         public static bool doUpdateSpeeds;
-        
+
+
     }
 }

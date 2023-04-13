@@ -13,6 +13,7 @@ using Sons.Gui;
 using Sons.Gameplay.GPS;
 using UniverseLib.UI;
 using static PlayerUpgradeStats.Plugin;
+using Sons.Gameplay.GameSetup;
 
 namespace PlayerUpgradeStats;
 
@@ -88,5 +89,18 @@ public partial class Plugin : BasePlugin
         }
         public static int currentStrengthLevel = 10;
 
+        [HarmonyPatch(typeof(GameSetupManager), "GetSelectedSaveId")]
+        [HarmonyPostfix]
+        public static void PostfixGetLoadedSaveID(uint __result)
+        {
+            PostLogsToConsole("Postfix PostfixGetLoadedSaveID Loaded");
+            PostLogsToConsole("Save Id = " + __result);
+            if (__result != 0)
+            {
+                postfixSaveID = __result;
+            }
+        }
+        
+        public static uint postfixSaveID;
     }
 }

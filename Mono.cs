@@ -64,6 +64,7 @@ namespace PlayerUpgradeStats
                         PostLogsToConsole("Get Game Id = " + GameSetupManager.GetGameId());
                         PostLogsToConsole("OldFileName = " + SaveGameManager.OldSaveFileName);
                         PostLogsToConsole("FileName = " + SaveGameManager.SaveFileName);
+                        
                     }
 
                 }
