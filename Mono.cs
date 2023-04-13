@@ -49,8 +49,22 @@ namespace PlayerUpgradeStats
                 }
                 if (Input.GetKeyDown(KeyCode.Keypad9))
                 {
-                    PostLogsToConsole("_defaultGameNameText = " + SavedSlot._defaultGameNameText);
-                    PostLogsToConsole("SaveGameManager.SaveFileName = " + SaveGameManager.SaveFileName);
+                    if (GameSetupManager._instance._saveGameType == SaveGameType.MultiplayerClient)
+                    {
+                        PostLogsToConsole("_gameId = " + GameSetupManager._instance._gameId);
+                    } 
+                    else if (GameSetupManager._instance._saveGameType == SaveGameType.Multiplayer)
+                    {
+                        PostLogsToConsole("_gameId = " + GameSetupManager._instance._gameId);
+                    }
+                    else if (GameSetupManager._instance._saveGameType == SaveGameType.SinglePlayer)
+                    {
+                        PostLogsToConsole("SaveUserId = " + GameSetup.SaveUserId);
+                        PostLogsToConsole("GetSelectedSaveId = " + GameSetupManager.GetSelectedSaveId().ToString());
+                        PostLogsToConsole("Get Game Id = " + GameSetupManager.GetGameId());
+                        PostLogsToConsole("OldFileName = " + SaveGameManager.OldSaveFileName);
+                        PostLogsToConsole("FileName = " + SaveGameManager.SaveFileName);
+                    }
 
                 }
                 if (doUpdateSpeeds)
