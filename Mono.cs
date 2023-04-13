@@ -47,26 +47,6 @@ namespace PlayerUpgradeStats
                     }
                     
                 }
-                if (Input.GetKeyDown(KeyCode.Keypad9))
-                {
-                    if (GameSetupManager._instance._saveGameType == SaveGameType.MultiplayerClient)
-                    {
-                        PostLogsToConsole("_gameId = " + GameSetupManager._instance._gameId);
-                    } 
-                    else if (GameSetupManager._instance._saveGameType == SaveGameType.Multiplayer)
-                    {
-                        PostLogsToConsole("_gameId = " + GameSetupManager._instance._gameId);
-                    }
-                    else if (GameSetupManager._instance._saveGameType == SaveGameType.SinglePlayer)
-                    {
-                        DataHandler.SaveDataSingePlayer();
-                    }
-
-                }
-                if (Input.GetKeyDown(KeyCode.Insert))
-                {
-                    DataHandler.GetDataSingePlayer();
-                }
                 if (doUpdateSpeeds)
                 {
                     if (!hasGottenOriginalValues)
@@ -103,6 +83,7 @@ namespace PlayerUpgradeStats
             private void Quitting()
             {
                 PostLogsToConsole("Quit Button Pressed");
+                DataHandler.SaveData();
                 hasGottenOriginalValues = false;
                 isQuitEventAdded = false;
                 pointsUsed = 0;

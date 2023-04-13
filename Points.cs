@@ -47,7 +47,7 @@ namespace PlayerUpgradeStats
                     float totalwalkSpeedIncrease = currentWalkSpeedLevel * 20;
                     MyPanel.walkSpeedIncrease.text = $"Speed: +{totalwalkSpeedIncrease}%" + $"  Level {currentWalkSpeedLevel}/5";
                     MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
-                    
+                    DataHandler.SaveData();
 
 
                 } else if (currentWalkSpeedLevel == maxWalkSpeedLevel)
@@ -99,7 +99,7 @@ namespace PlayerUpgradeStats
                     float totalSprintSpeedIncrease = currentSprintSpeedLevel * 20;
                     MyPanel.sprintSpeedIncrease.text = $"Speed: +{totalSprintSpeedIncrease}%" + $"  Level {currentSprintSpeedLevel}/5";
                     MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
-
+                    DataHandler.SaveData();
 
 
                 }
@@ -152,7 +152,7 @@ namespace PlayerUpgradeStats
                     float totalJumpHeightIncrease = currentJumpHeightLevel * 20;
                     MyPanel.jumpHeightIncrease.text = $"Height: +{totalJumpHeightIncrease}%" + $"  Level {currentJumpHeightLevel}/5";
                     MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
-
+                    DataHandler.SaveData();
 
 
                 }
@@ -205,7 +205,7 @@ namespace PlayerUpgradeStats
                     float totalSwimSpeedIncrease = currentSwimSpeedLevel * 20;
                     MyPanel.swimSpeedIncrease.text = $"Speed: +{totalSwimSpeedIncrease}%" + $"  Level {currentSwimSpeedLevel}/5";
                     MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
-
+                    DataHandler.SaveData();
 
 
                 }

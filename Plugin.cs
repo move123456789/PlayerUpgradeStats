@@ -92,9 +92,12 @@ public partial class Plugin : BasePlugin
         public static void PostfixGetStrengthLevel(ref Vitals __instance)
         {
             PostLogsToConsole("Postfix PostfixGetStrengthLevel Loaded");
-            //currentStrengthLevel = __instance._currentStrengthLevel;
+            currentStrengthLevel = __instance._currentStrengthLevel;
+            // Indent Line Above For Testing
         }
-        public static int currentStrengthLevel = 10;
+        // For Testing  - Line Below
+        //public static int currentStrengthLevel = 10;
+        public static int currentStrengthLevel;
 
         [HarmonyPatch(typeof(GameSetupManager), "GetSelectedSaveId")]
         [HarmonyPostfix]
@@ -105,6 +108,7 @@ public partial class Plugin : BasePlugin
             if (__result != 0)
             {
                 postfixSaveID = __result;
+                DataHandler.GetData();
             }
         }
         

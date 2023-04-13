@@ -57,6 +57,12 @@
     <Reference Include="Sons.Gui">
       <HintPath>NewLibs\Sons.Gui.dll</HintPath>
     </Reference>
+    <Reference Include="Sons.Gui.Multiplayer">
+      <HintPath>NewLibs\Sons.Gui.Multiplayer.dll</HintPath>
+    </Reference>
+    <Reference Include="Sons.Multiplayer">
+      <HintPath>NewLibs\Sons.Multiplayer.dll</HintPath>
+    </Reference>
     <Reference Include="Sons.Physics">
       <HintPath>NewLibs\Sons.Physics.dll</HintPath>
     </Reference>

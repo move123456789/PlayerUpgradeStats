@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Sons.Gameplay.GameSetup;
+using Sons.Save;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace PlayerUpgradeStats
             using var utf8JsonWriter = new Utf8JsonWriter(fileStream);
             jsonObj.WriteTo(utf8JsonWriter);
         }
-        public static void SaveDataSingePlayer()
+        public static void SaveData()
         {
             Plugin.PostLogsToConsole("Saving");
             if (PlayerStatsPatcher.postfixSaveID != 0)
@@ -38,7 +40,7 @@ namespace PlayerUpgradeStats
                 DataHandler.WriteDynamicJsonObject(jsonObj, fileName);
             }
         }
-        public static void GetDataSingePlayer()
+        public static void GetData()
         {
             if (PlayerStatsPatcher.postfixSaveID != 0)
             {
