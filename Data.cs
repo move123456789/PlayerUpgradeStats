@@ -27,7 +27,7 @@ namespace PlayerUpgradeStats
                 var fileName = $"{PlayerStatsPatcher.postfixSaveID}.json";
                 var jsonObj = new JsonObject
                 {
-                    ["WorldID"] = $"{PlayerStatsPatcher.postfixSaveID}",
+                    ["WorldID"] = PlayerStatsPatcher.postfixSaveID,
                     ["pointsUsed"] = pointsUsed,
                     ["currentPoints"] = currentPoints,
                     ["currentWalkSpeedLevel"] = BuyUpgrades.currentWalkSpeedLevel,
@@ -45,11 +45,11 @@ namespace PlayerUpgradeStats
                 if (File.Exists("PlayerUpgradeStatsData/" + $"{PlayerStatsPatcher.postfixSaveID}.json"))
                 {
                     PostLogsToConsole("Save File For World Found");
-                    string text = File.ReadAllText("PlayerUpgradeStatsData/" + $"{PlayerStatsPatcher.postfixSaveID}.json");
+                    string text = File.ReadAllText($"PlayerUpgradeStatsData/{PlayerStatsPatcher.postfixSaveID}.json");
                     var saveInfo = JsonSerializer.Deserialize<SavedInfo>(text);
                     PostLogsToConsole("Updating Values");
                     PostLogsToConsole("postfixSaveID = " + PlayerStatsPatcher.postfixSaveID + "  FromFileWorldID = " + saveInfo.WorldID);
-                    if(PlayerStatsPatcher.postfixSaveID == saveInfo.WorldID)
+                    if (PlayerStatsPatcher.postfixSaveID == saveInfo.WorldID)
                     {
                         pointsUsed = saveInfo.pointsUsed;
                         currentPoints = saveInfo.currentPoints;
@@ -58,7 +58,7 @@ namespace PlayerUpgradeStats
                         BuyUpgrades.currentJumpHeightLevel = saveInfo.currentJumpHeightLevel;
                         BuyUpgrades.currentSwimSpeedLevel = saveInfo.currentSwimSpeedLevel;
                         UpdateDisplayedData();
-                        
+
                     }
 
                 }
