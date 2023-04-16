@@ -14,6 +14,9 @@ using Sons.Gameplay.GPS;
 using UniverseLib.UI;
 using static PlayerUpgradeStats.Plugin;
 using Sons.Gameplay.GameSetup;
+using Sons;
+using System.Threading.Tasks;
+using Sons.StatSystem;
 
 namespace PlayerUpgradeStats;
 
@@ -81,22 +84,10 @@ public partial class Plugin : BasePlugin
                 myPanel = new(myUIBase);
                 myPanel.SetActive(false);
             }
-
-            LoadStats();
+            DataHandler.GetStrengthLevelFromText();
         }
         public static UIBase myUIBase;
         public static MyPanel myPanel;
-
-        [HarmonyPatch(typeof(GPSTrackerSystem), "OnEnable")]
-        [HarmonyPostfix]
-        public static void PostfixGetStrengthLevel(ref Vitals __instance)
-        {
-            PostLogsToConsole("Postfix PostfixGetStrengthLevel Loaded");
-            currentStrengthLevel = __instance._currentStrengthLevel;
-            // Indent Line Above For Testing
-        }
-        // For Testing  - Line Below
-        //public static int currentStrengthLevel = 10;
         public static int currentStrengthLevel;
 
         [HarmonyPatch(typeof(GameSetupManager), "GetSelectedSaveId")]
@@ -104,12 +95,18 @@ public partial class Plugin : BasePlugin
         public static void PostfixGetLoadedSaveID(uint __result)
         {
             PostLogsToConsole("Postfix PostfixGetLoadedSaveID Loaded");
-            PostLogsToConsole("Save Id = " + __result);
-            if (__result != 0)
+            uint? nullable = __result;
+            if (nullable.HasValue)
             {
-                postfixSaveID = __result;
-                DataHandler.GetData();
+                PostLogsToConsole("Save Id = " + __result);
+                if (__result != 0)
+                {
+                    postfixSaveID = __result;
+                    DataHandler.GetData();
+                }
             }
+            else { PostLogsToConsole("SaveId Posfix __result Does Not Have A Value"); }
+            
         }
         
         public static uint postfixSaveID;

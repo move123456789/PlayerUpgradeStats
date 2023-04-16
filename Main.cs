@@ -29,6 +29,10 @@ namespace PlayerUpgradeStats
 
         public static int GetCurrentPoints(int currentStrengthLevel, int pointsUsed)
         {
+            if (currentStrengthLevel == 0)
+            {
+                return currentPoints = 0;
+            }
             currentPoints = currentStrengthLevel - pointsUsed;
             return currentPoints;
         }
@@ -56,7 +60,7 @@ namespace PlayerUpgradeStats
                 // Top Bar
                 GameObject topBarGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "TopBar", false, false, true, true, 4, new Vector4(3, 3, 3, 3),
                 Color2);
-                Text curStrengthLvl = UIFactory.CreateLabel(topBarGroup, "curStrengthLvl", "Your Strength Level: " + PlayerStatsPatcher.currentStrengthLevel);
+                curStrengthLvl = UIFactory.CreateLabel(topBarGroup, "curStrengthLvl", "Your Strength Level: " + PlayerStatsPatcher.currentStrengthLevel);
                 curPoints = UIFactory.CreateLabel(topBarGroup, "curPoints", "Upgrade Points Left: " + currentPoints);
                 UIFactory.SetLayoutElement(curStrengthLvl.gameObject, minWidth: 200, minHeight: 25);
                 UIFactory.SetLayoutElement(curPoints.gameObject, minWidth: 200, minHeight: 25);
@@ -177,7 +181,9 @@ namespace PlayerUpgradeStats
 
             // Publics
             public static Text curPoints;
-            
+            public static Text curStrengthLvl;
+
+
 
         }
         

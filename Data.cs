@@ -1,5 +1,6 @@
 ﻿using Sons.Gameplay.GameSetup;
 using Sons.Save;
+using Sons.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,9 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using static BoltDebugStartSettings;
 using static PlayerUpgradeStats.Plugin;
 
 namespace PlayerUpgradeStats
@@ -24,7 +27,7 @@ namespace PlayerUpgradeStats
         public static void SaveData()
         {
             Plugin.PostLogsToConsole("Saving");
-            if (PlayerStatsPatcher.postfixSaveID != 0)
+            if (PlayerStatsPatcher.postfixSaveID != 0 || currentPoints != 0)
             {
                 var fileName = $"{PlayerStatsPatcher.postfixSaveID}.json";
                 var jsonObj = new JsonObject
@@ -92,5 +95,35 @@ namespace PlayerUpgradeStats
             float totalSwimSpeedIncrease = BuyUpgrades.currentSwimSpeedLevel * 20;
             MyPanel.swimSpeedIncrease.text = $"Speed: +{totalSwimSpeedIncrease}%" + $"  Level {BuyUpgrades.currentSwimSpeedLevel}/5";
         }
+        private static void GetGameObject()
+        {
+            GetStrengthLevelLabel = GameObject.Find("PlayerStandin/PlayerUI/PlayerVitalsUiWorldSpace/StrengthPiv/StrengthLevelLabel");
+        }
+        internal static async void WaitUntilLoaded()
+        {
+            await Task.Delay(10000);
+            await Task.Run(GetStrengthLevelFromText);
+        }
+        public static async void GetStrengthLevelFromText()
+        {
+            await Task.Run(GetGameObject);
+            TextMeshPro StrengthTextComponent = GetStrengthLevelLabel.gameObject.GetComponent<TextMeshPro>();
+            if (StrengthTextComponent.m_text != null)
+            {
+                string StrengthTextValue = StrengthTextComponent.m_text;
+                int CurrentStrengthLevelInt = int.Parse(StrengthTextValue);
+                if (CurrentStrengthLevelInt == 21)
+                {
+                    WaitUntilLoaded();
+                } else
+                {
+                    PostLogsToConsole($"CurrentStrengthLevelInt = {CurrentStrengthLevelInt}");
+                    PlayerStatsPatcher.currentStrengthLevel = CurrentStrengthLevelInt;
+                    MyPanel.curStrengthLvl.text = $"Your Strength Level: {PlayerStatsPatcher.currentStrengthLevel}";
+                    Plugin.LoadStats();
+                }
+            } 
+        }
+        private static GameObject GetStrengthLevelLabel;
     }
 }
