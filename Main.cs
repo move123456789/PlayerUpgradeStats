@@ -158,7 +158,9 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(upgradeSwimSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
                 UIFactory.SetLayoutElement(swimNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
-            }
+                // Ui Loaded
+                isUiLoaded = true;
+        }
             // For Walk Speed
             public static Text walkNotEnogthPoints;
             public static Text walkMaxLevel;
@@ -195,6 +197,7 @@ namespace PlayerUpgradeStats
         public static int currentPoints;
         public static int pointsUsed;
         public static bool doUpdateSpeeds;
+        public static bool isUiLoaded;
 
 
     }

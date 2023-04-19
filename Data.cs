@@ -46,7 +46,7 @@ namespace PlayerUpgradeStats
         }
         internal static void GetData()
         {
-            if (PlayerStatsPatcher.postfixSaveID != 0)
+            if (PlayerStatsPatcher.postfixSaveID != 0 && isUiLoaded)
             {
                 if (File.Exists("PlayerUpgradeStatsData/" + $"{PlayerStatsPatcher.postfixSaveID}.json"))
                 {
@@ -113,18 +113,10 @@ namespace PlayerUpgradeStats
             } else { PostLogsToConsole("GetGameObject != null"); }
             
         }
-        public static async void WaitUntilLoaded()
-        {
-            asyncWaitUntilLoaded = true;
-            if (!gottenStrengthLevel)
-            {
-                await Task.Delay(10000);
-                await Task.Run(GetStrengthLevelFromText);
-            }
-            asyncWaitUntilLoaded = false;
-        }
+
         public static async void GetStrengthLevelFromText()
         {
+            PostLogsToConsole("GetStrengthLevelFromText called");
             await Task.Run(GetGameObject);
             if (StrengthTextComponent == null)
             {
@@ -134,22 +126,22 @@ namespace PlayerUpgradeStats
             {
                 string StrengthTextValue = StrengthTextComponent.m_text;
                 int CurrentStrengthLevelInt = int.Parse(StrengthTextValue);
-                if (CurrentStrengthLevelInt == 21)
-                {
-                    if (!asyncWaitUntilLoaded) { WaitUntilLoaded(); } else { return; }
-                } else
+                if (CurrentStrengthLevelInt != 21)
                 {
                     PostLogsToConsole($"CurrentStrengthLevelInt = {CurrentStrengthLevelInt}");
                     PlayerStatsPatcher.currentStrengthLevel = CurrentStrengthLevelInt;
                     MyPanel.curStrengthLvl.text = $"Your Strength Level: {PlayerStatsPatcher.currentStrengthLevel}";
+                    MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
                     Plugin.LoadStats();
-                    gottenStrengthLevel = true;
+                } else
+                {
+                    PostLogsToConsole("CurrentStrengthLevelInt == " + CurrentStrengthLevelInt + ", Running GetStrengthLevelFromText Agian");
+                    await Task.Delay(2500);
+                    GetStrengthLevelFromText();
                 }
             } 
         }
         private static TextMeshPro StrengthTextComponent;
         private static GameObject GetStrengthLevelLabel;
-        private static bool asyncWaitUntilLoaded;
-        private static bool gottenStrengthLevel = false;
     }
 }
