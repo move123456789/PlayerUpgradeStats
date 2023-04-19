@@ -15,10 +15,14 @@ namespace PlayerUpgradeStats
 {
     public partial class Plugin
     {
-        public static void PostLogsToConsole(string message)
+        internal static void PostLogsToConsole(string message)
         {
             if (!smokyaceLogToConsole.Value) { return; }
             DLog.LogInfo(message);
+        }
+        internal static void PostErrorToConsole(string message)
+        {
+            DLog.LogError(message);
         }
 
         public static void LoadStats()
