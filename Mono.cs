@@ -1,4 +1,6 @@
-﻿using Sons.Gameplay.GameSetup;
+﻿using Bolt;
+using BoltInternal;
+using Sons.Gameplay.GameSetup;
 using Sons.Gui;
 using Sons.Save;
 using Sons.Weapon;
@@ -22,13 +24,12 @@ namespace PlayerUpgradeStats
         
         public class PlayerStatsMono : MonoBehaviour
         {
-            internal bool showMenu = false;
+            internal static bool showMenu = false;
             private bool hasGottenOriginalValues = false;
             private float originalWalkSpeed;
             private float originalSprintSpeed;
             private float originalJumpHeight;
             private float originalSwimSpeed;
-            internal static float originalChainsawSpeed;
             private bool isQuitEventAdded;
             private void Update()
             {
@@ -41,6 +42,10 @@ namespace PlayerUpgradeStats
                         showMenu = true;
                         PlayerStatsPatcher.myPanel.SetActive(true);
                         PostLogsToConsole("myPanel == Active");
+                        if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
+                        {
+                            PauseMenu._instance.Open();
+                        }
                     } else if (showMenu)
                     {
                         showMenu = false;
@@ -51,10 +56,7 @@ namespace PlayerUpgradeStats
                 }
                 if (Input.GetKeyDown(KeyCode.KeypadPlus))
                 {
-                    PostLogsToConsole("Maju = " + LocalPlayer.Inventory.RightHandItem.ItemObject.name);
-                    PostLogsToConsole("Has Item = " + LocalPlayer.Inventory.HeldOnlyItemController.HasItem);
-                    PostLogsToConsole("Has ChainSaw = " + LocalPlayer.Inventory.HeldOnlyItemController.Has(394));
-                    PostLogsToConsole("HeldItem._itemID = " + LocalPlayer.Inventory.HeldOnlyItemController.HeldItem._itemID);
+                    
                 }
                 if (doUpdateSpeeds)
                 {
@@ -65,7 +67,6 @@ namespace PlayerUpgradeStats
                         originalSprintSpeed = LocalPlayer._FpCharacter_k__BackingField._runSpeed;
                         originalJumpHeight = LocalPlayer._FpCharacter_k__BackingField._jumpHeight;
                         originalSwimSpeed = LocalPlayer._FpCharacter_k__BackingField._swimSpeed;
-                        originalChainsawSpeed = ChainSawModifications.ChainSawHitFrequency;
                     }
                     PostLogsToConsole("Updating Speeds");
                     doUpdateSpeeds = false;
@@ -81,13 +82,13 @@ namespace PlayerUpgradeStats
                     // For Swin Speed
                     LocalPlayer._FpCharacter_k__BackingField._swimSpeed = originalSwimSpeed * (BuyUpgrades.currentSwimSpeedLevel * 20 / 100 + 1);
                     PostLogsToConsole("Current Swim Speed = " + LocalPlayer._FpCharacter_k__BackingField._swimSpeed);
-                    
                 }
                 if (!isQuitEventAdded)
                 {
                     PostLogsToConsole("Adding Quit Event");
                     isQuitEventAdded = true;
                     PauseMenu.add_OnQuitEvent((Il2CppSystem.Action)Quitting);
+                    
                 }
             }
             private void Quitting()

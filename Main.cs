@@ -13,6 +13,7 @@ using Bolt;
 using TheForest.Utils;
 using Sons.Weapon;
 using System.Xml.Linq;
+using Sons.Gameplay;
 
 namespace PlayerUpgradeStats
 {
@@ -61,7 +62,13 @@ namespace PlayerUpgradeStats
             public override bool CanDragAndResize => true;
             private Color btnColor = new Color(0.5f, 0.5f, 0.5f, 1);
             private Color Color2 = new Color(0.1f, 0.1f, 0.1f);
-            
+            protected override void OnClosePanelClicked()
+            {
+                this.SetActive(false);
+                PostLogsToConsole("Close Button Clicked");
+                PlayerStatsMono.showMenu = false;
+            }
+
             protected override void ConstructPanelContent()
             {
                 // Top Bar
@@ -183,6 +190,29 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(upgradeChainsawSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
                 UIFactory.SetLayoutElement(chainSawNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
+                // KnightV Speed
+                Text knightVSpeedHeader = UIFactory.CreateLabel(ContentRoot, "knightVSpeedHeader", "KnightV Speed");
+                knightVNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "knightVNotEnogthPoints", "You don't have enogth points!");
+                knightVNotEnogthPoints.enabled = false;
+                knightVMaxLevel = UIFactory.CreateLabel(ContentRoot, "knightVMaxLevel", "You have reached the max level!");
+                knightVMaxLevel.enabled = false;
+                GameObject knightVSpeedGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "knightVSpeedHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
+                ButtonRef upgradeKnightVSpeed = UIFactory.CreateButton(knightVSpeedGroup, "upgradeKnightVSpeed", "+20% KnightV Speed", btnColor);
+                upgradeKnightVSpeed.OnClick += () =>
+                {
+                    BuyUpgrades.BuyKnightVSpeed();
+                };
+                knightVSpeedIncrease = UIFactory.CreateLabel(knightVSpeedGroup, "knightVSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentKnightVSpeedLevel}/5");
+                knightVSpeedCost = UIFactory.CreateLabel(knightVSpeedGroup, "knightVSpeedCost", "Cost: 2");
+                UIFactory.SetLayoutGroup<HorizontalLayoutGroup>(knightVSpeedGroup, padLeft: 2, padBottom: 0, padTop: 0, spacing: 5);
+                UIFactory.SetLayoutElement(knightVSpeedHeader.gameObject, minWidth: 50, minHeight: 25);
+                UIFactory.SetLayoutElement(knightVSpeedGroup.gameObject, minWidth: 200, minHeight: 25);
+                UIFactory.SetLayoutElement(knightVSpeedIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
+                UIFactory.SetLayoutElement(knightVSpeedCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
+                UIFactory.SetLayoutElement(upgradeKnightVSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
+                UIFactory.SetLayoutElement(knightVNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+
+
                 // Ui Loaded
                 isUiLoaded = true;
         }
@@ -216,6 +246,12 @@ namespace PlayerUpgradeStats
             public static Text chainSawSpeedCost;
             public static Text chainSawSpeedIncrease;
 
+            // For KnightV Speed
+            public static Text knightVNotEnogthPoints;
+            public static Text knightVMaxLevel;
+            public static Text knightVSpeedCost;
+            public static Text knightVSpeedIncrease;
+
             // Publics
             public static Text curPoints;
             public static Text curStrengthLvl;
@@ -240,7 +276,7 @@ namespace PlayerUpgradeStats
             {
 
                 if (!LocalPlayer.IsInWorld) { PostLogsToConsole("GetChainSawComponent, Player Not In World"); return null; }
-                if (LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PostLogsToConsole("Chanisaw name != TacticalChainsawHeld, so chainsaw is not in hand"); return null; }
+                if (LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PostLogsToConsole("Chanisaw name != TacticalChainsawHeld, so chainsaw is not in hand from GetChainSawComponent"); return null; }
                 ChainsawWeaponController ComponentChainsawWeaponController = GameObject.Find("TacticalChainsawHeld").GetComponent<ChainsawWeaponController>();
                 if (ComponentChainsawWeaponController == null) { PostErrorToConsole("In GetChainSawComponent, Found Object == null"); return null; } else { PostErrorToConsole("Found ComponentChainsawWeaponController"); }
                 return ComponentChainsawWeaponController;
@@ -268,10 +304,47 @@ namespace PlayerUpgradeStats
             internal static void UpgradeChainsawHitFrequency(float currentChainsawSpeedLevel)
             {
                 PostLogsToConsole("In UpgradeChainsawHitFrequency");
-                ChainSawHitFrequency = defaultChainsawHitFrequency * (1 - currentChainsawSpeedLevel * 19 / 100);
+                try
+                {
+                    if (currentChainsawSpeedLevel == 0) { PostLogsToConsole("No Need To UpgradeChainsawHitFrequency, currentChainsawSpeedLevel == 0"); return; }
+                    if (!LocalPlayer.IsInWorld) { PostLogsToConsole("GetChainSawComponent, Player Not In World"); return; }
+                    if (LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PostLogsToConsole("Chanisaw name != TacticalChainsawHeld, so chainsaw is not in hand, from UpgradeChainsawHitFrequency"); return; }
+                    ChainSawHitFrequency = defaultChainsawHitFrequency * (1 - currentChainsawSpeedLevel * 19 / 100);
+                }
+                catch (Exception e) { PostErrorToConsole("Something went wrong in UpgradeChainsawHitFrequency, Error: " + e); }
+
                 PostLogsToConsole("Current Chainsaw Speed = " + ChainSawHitFrequency);
             }
             
         }
+        //internal class KnightVModifications
+        //{
+        //    internal static KnightVControlDefinition GetKnightVComponent()
+        //    {
+        //        if (!LocalPlayer.IsInWorld) { PostLogsToConsole("GetKnightVComponent, Player Not In World"); return null; }
+        //        PostLogsToConsole("Searching for component KnightVControlDefinition");
+        //        KnightVControlDefinition knightVControlDefinition = ScriptableObject.FindObjectOfType<KnightVControlDefinition>();
+        //        if (knightVControlDefinition == null) { PostErrorToConsole("In GetKnightVComponent, Object == null"); return null; } else { PostErrorToConsole("Found KnightVControlDefinition"); }
+        //        return knightVControlDefinition;
+        //    }
+        //    internal static float KnightVMaxVelocity
+        //    {
+        //        get
+        //        {
+        //            if (GetKnightVComponent == null) { PostLogsToConsole("In Get KnightVMaxVelocity, GetKnightVComponent == null"); return KnightVMaxVelocity = 0; }
+        //            return GetKnightVComponent()._MaxVelocity_k__BackingField;
+        //        }
+        //        set
+        //        {
+        //            if (GetKnightVComponent == null) { PostLogsToConsole("In Set KnightVMaxVelocity, GetKnightVComponent == null"); return; }
+        //            try
+        //            {
+        //                PostLogsToConsole("Setting _MaxVelocity = value");
+        //                GetKnightVComponent()._MaxVelocity_k__BackingField = value;
+        //            }
+        //            catch (Exception e) { PostErrorToConsole("Could not set _MaxVelocity Error: " + e); }
+        //        }
+        //    }
+        //}
     }
 }

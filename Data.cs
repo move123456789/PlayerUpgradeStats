@@ -39,7 +39,8 @@ namespace PlayerUpgradeStats
                     ["currentWalkSpeedLevel"] = BuyUpgrades.currentWalkSpeedLevel,
                     ["currentSprintSpeedLevel"] = BuyUpgrades.currentSprintSpeedLevel,
                     ["currentJumpHeightLevel"] = BuyUpgrades.currentJumpHeightLevel,
-                    ["currentSwimSpeedLevel"] = BuyUpgrades.currentSwimSpeedLevel
+                    ["currentSwimSpeedLevel"] = BuyUpgrades.currentSwimSpeedLevel,
+                    ["currentChainsawSpeedLevel"] = BuyUpgrades.currentChainsawSpeedLevel
                 };
                 DataHandler.WriteDynamicJsonObject(jsonObj, fileName);
             }
@@ -66,7 +67,9 @@ namespace PlayerUpgradeStats
                             BuyUpgrades.currentSprintSpeedLevel = saveInfo.currentSprintSpeedLevel;
                             BuyUpgrades.currentJumpHeightLevel = saveInfo.currentJumpHeightLevel;
                             BuyUpgrades.currentSwimSpeedLevel = saveInfo.currentSwimSpeedLevel;
+                            BuyUpgrades.currentChainsawSpeedLevel = saveInfo.currentChainsawSpeedLevel;
                             UpdateDisplayedData();
+                            UpdateDisplayedCost();
                         }
                     }
                     catch (Exception e) { PostErrorToConsole("Something went wrong trying to load saved data from file. Error: " + e); }
@@ -85,6 +88,7 @@ namespace PlayerUpgradeStats
             public float currentSprintSpeedLevel { get; set; }
             public float currentJumpHeightLevel { get; set; }
             public float currentSwimSpeedLevel { get; set; }
+            public float currentChainsawSpeedLevel { get; set; }
 
         }
         public static void UpdateDisplayedData()
@@ -99,6 +103,16 @@ namespace PlayerUpgradeStats
             MyPanel.jumpHeightIncrease.text = $"Height: +{totalJumpHeightIncrease}%" + $"  Level {BuyUpgrades.currentJumpHeightLevel}/5";
             float totalSwimSpeedIncrease = BuyUpgrades.currentSwimSpeedLevel * 20;
             MyPanel.swimSpeedIncrease.text = $"Speed: +{totalSwimSpeedIncrease}%" + $"  Level {BuyUpgrades.currentSwimSpeedLevel}/5";
+            float totalChainsawSpeedIncrease = BuyUpgrades.currentChainsawSpeedLevel * 20;
+            MyPanel.chainSawSpeedIncrease.text = $"Speed: +{totalChainsawSpeedIncrease}%" + $"  Level {BuyUpgrades.currentChainsawSpeedLevel}/5";
+        }
+        public static void UpdateDisplayedCost()
+        {
+            if (BuyUpgrades.currentWalkSpeedLevel >= 2) { MyPanel.walkSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
+            if (BuyUpgrades.currentSprintSpeedLevel >= 2) { MyPanel.sprintSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
+            if (BuyUpgrades.currentJumpHeightLevel >= 2) { MyPanel.jumpHeightCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
+            if (BuyUpgrades.currentSwimSpeedLevel >= 2) { MyPanel.swimSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
+            if (BuyUpgrades.currentChainsawSpeedLevel >= 2) { MyPanel.chainSawSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
         }
 
         public static async void GetStrengthLevelVitals()

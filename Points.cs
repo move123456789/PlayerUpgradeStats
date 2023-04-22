@@ -19,8 +19,9 @@ namespace PlayerUpgradeStats
         public static float currentJumpHeightLevel;
         public static float currentSwimSpeedLevel;
         public static float currentChainsawSpeedLevel;
-        private static string pointPriceText2 = "2";
-        private static string pointPriceText4 = "4";
+        public static float currentKnightVSpeedLevel;
+        internal const string pointPriceText2 = "2";
+        internal const string pointPriceText4 = "4";
         public async static void BuyWalkSpeed()
         {
             Plugin.LoadStats();
@@ -319,6 +320,66 @@ namespace PlayerUpgradeStats
             }
         }
 
+        public async static void BuyKnightVSpeed()
+        {
+            Plugin.LoadStats();
+
+            if (Plugin.currentPoints > 0 || currentKnightVSpeedLevel == maxWalkSpeedLevel)
+            {
+                if (currentKnightVSpeedLevel < maxWalkSpeedLevel)
+                {
+                    currentKnightVSpeedLevel++;
+                    if (currentKnightVSpeedLevel < 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplayKnightVUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                    }
+                    if (currentKnightVSpeedLevel == 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplayKnightVUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                        MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
+                    }
+                    if (currentKnightVSpeedLevel > 2)
+                    {
+                        if (currentPoints < 4) { await Task.Run(DisplayKnightVUpgradeWarning); return; }
+                        currentPoints -= 4;
+                        pointsUsed += 4;
+                        MyPanel.knightVSpeedCost.text = "Cost: 4";
+                    }
+                    doUpdateSpeeds = true;
+                    PostLogsToConsole("currentKnightVSpeedLevel = " + currentKnightVSpeedLevel);
+                    PostLogsToConsole("currentPoints = " + Plugin.currentPoints);
+                    PostLogsToConsole("pointsUsed = " + pointsUsed);
+                    float totalKnightVSpeedIncrease = currentKnightVSpeedLevel * 20;
+                    MyPanel.knightVSpeedIncrease.text = $"Speed: +{totalKnightVSpeedIncrease}%" + $"  Level {currentKnightVSpeedLevel}/5";
+                    MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
+                    DataHandler.SaveData();
+
+
+                }
+                else if (currentKnightVSpeedLevel == maxWalkSpeedLevel)
+                {
+                    if (isRunning) { return; }
+                    MyPanel.knightVMaxLevel.enabled = true;
+                    isRunning = true;
+                    await Task.Run(WarningTimer);
+                    MyPanel.knightVMaxLevel.enabled = false;
+                }
+
+            }
+            else
+            {
+                if (isRunning) { return; }
+                MyPanel.knightVNotEnogthPoints.enabled = true;
+                isRunning = true;
+                await Task.Run(WarningTimer);
+                MyPanel.knightVNotEnogthPoints.enabled = false;
+            }
+        }
+
         public static async Task WarningTimer()
         {
             await Task.Delay(2500);
@@ -367,6 +428,14 @@ namespace PlayerUpgradeStats
             isRunning = true;
             await Task.Run(WarningTimer);
             MyPanel.chainSawNotEnogthPoints.enabled = false;
+        }
+        public static async Task DisplayKnightVUpgradeWarning()
+        {
+            if (isRunning) { return; }
+            MyPanel.knightVNotEnogthPoints.enabled = true;
+            isRunning = true;
+            await Task.Run(WarningTimer);
+            MyPanel.knightVNotEnogthPoints.enabled = false;
         }
     }
 }

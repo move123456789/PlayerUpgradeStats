@@ -17,6 +17,8 @@ using Sons.Gameplay.GameSetup;
 using Sons;
 using System.Threading.Tasks;
 using Sons.StatSystem;
+using Sons.Weapon;
+using System;
 
 namespace PlayerUpgradeStats;
 
@@ -25,14 +27,14 @@ public partial class Plugin : BasePlugin
 {
     public const string PLUGIN_GUID = "Smokyace.PlayerUpgradeStats";
     public const string PLUGIN_NAME = "PlayerUpgradeStats";
-    public const string PLUGIN_VERSION = "1.0.2";
+    public const string PLUGIN_VERSION = "1.0.3";
     private const string author = "SmokyAce";
 
     public static ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "PlayerUpgradeStats.cfg"), true);
     public static ConfigEntry<KeyCode> smokyaceMenurKey = configFile.Bind("General", "MenuKey", KeyCode.Keypad4, "Hotkey for opening menu");
     public static ConfigEntry<bool> smokyaceLogToConsole = configFile.Bind("Advanced", "ShowLogs", false, new ConfigDescription("Logs will display in the console", null, "Advanced"));
     public static ConfigEntry<bool> smokyacePostFixLogsToConsole = configFile.Bind("Advanced", "DisplayPostFixLogs", false, new ConfigDescription("Display PostFix Logs each time its called to console", null, "Advanced"));
-    public static ConfigEntry<bool> smokyaceDeactivate = configFile.Bind("General", "SoftDeactivate", false, "Disables the mod, but does not unregister objects");
+    public static ConfigEntry<bool> smokyaceDeactivate = configFile.Bind("General", "SoftDeactivate", false, "Disables some parts of the mod, does not unregister objects saveid identification");
 
 
     public static ManualLogSource DLog = new ManualLogSource("DLog");
@@ -110,5 +112,38 @@ public partial class Plugin : BasePlugin
         }
         
         public static uint postfixSaveID;
+
+        [HarmonyPatch(typeof(GenericMeleeWeaponController), "OnEnable")]
+        [HarmonyPostfix]
+        public static void PostfixGenericMeleeWeaponController(ref GenericMeleeWeaponController __instance)
+        {
+            PostLogsToConsole("OnEnable GenericMeleeWeaponController");
+            string instanceName = __instance.name;
+            if (instanceName == "TacticalChainsawHeld" || instanceName == "TacticalChainsawHeld(Clone)")
+            {
+                PostLogsToConsole("__instance.gameObject.name = " + __instance.gameObject.name);
+                PostLogsToConsole("Trying to get component ChainsawWeaponController");
+                ChainsawWeaponController chainsawWeaponController = __instance.gameObject.GetComponent<ChainsawWeaponController>();
+                chainsawWeaponController._treeHitFrequency = 0.25f * (1 - BuyUpgrades.currentChainsawSpeedLevel * 19 / 100);
+                PostLogsToConsole("_treeHitFrequency updated, new value = " + 0.25f * (1 - BuyUpgrades.currentChainsawSpeedLevel * 19 / 100));
+            }
+
+        }
+        [HarmonyPatch(typeof(GPSTrackerSystem), "OnEnable")]
+        [HarmonyPostfix]
+        public static void PostfixKnightVControlDefinition(ref KnightVControlDefinition __instance)
+        {
+            PostLogsToConsole("OnEnable KnightVControlDefinition");
+            if (BuyUpgrades.currentKnightVSpeedLevel == 0) { PostLogsToConsole("currentKnightVSpeedLevel == 0, no need for updating"); return; }
+            try
+            {
+                float calculatedMaxVelocity = defaultMaxVelocity * (BuyUpgrades.currentKnightVSpeedLevel * 20 / 100 + 1);
+                PostLogsToConsole("Calculated New Current KnightV Speed = " + calculatedMaxVelocity);
+                if (__instance._MaxVelocity_k__BackingField == calculatedMaxVelocity) { PostLogsToConsole("KnightVControlDefinition does not need updating"); return; }
+                __instance._MaxVelocity_k__BackingField = defaultMaxVelocity * (BuyUpgrades.currentKnightVSpeedLevel * 20 / 100 + 1);
+            }
+            catch (Exception e) { PostErrorToConsole("Something went wrong in PostfixKnightVControlDefinition, Error: " + e); }
+        }
+        private static float defaultMaxVelocity = 20f;
     }
 }
