@@ -85,6 +85,7 @@ public partial class Plugin : BasePlugin
                 myPanel.SetActive(false);
             }
             DataHandler.GetStrengthLevelFromText();
+            DataHandler.GetStrengthLevelVitals();
         }
         public static UIBase myUIBase;
         public static MyPanel myPanel;

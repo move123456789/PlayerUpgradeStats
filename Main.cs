@@ -10,6 +10,9 @@ using UniverseLib.UI.Models;
 using TheForest;
 using Sons.Gui;
 using Bolt;
+using TheForest.Utils;
+using Sons.Weapon;
+using System.Xml.Linq;
 
 namespace PlayerUpgradeStats
 {
@@ -136,7 +139,7 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(upgradeJumpHeight.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
                 UIFactory.SetLayoutElement(jumpNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
-                // Swin Speed
+                // Swim Speed
                 Text swimSpeedHeader = UIFactory.CreateLabel(ContentRoot, "swimSpeedHeader", "Swim Speed");
                 swimNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "swimNotEnogthPoints", "You don't have enogth points!");
                 swimNotEnogthPoints.enabled = false;
@@ -157,6 +160,28 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(swimSpeedCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(upgradeSwimSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
                 UIFactory.SetLayoutElement(swimNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+
+                // Chainsaw Speed
+                Text chainSawSpeedHeader = UIFactory.CreateLabel(ContentRoot, "chanSawSpeedHeader", "Chainsaw Speed");
+                chainSawNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "chainSawNotEnogthPoints", "You don't have enogth points!");
+                chainSawNotEnogthPoints.enabled = false;
+                chainSawMaxLevel = UIFactory.CreateLabel(ContentRoot, "chainSawMaxLevel", "You have reached the max level!");
+                chainSawMaxLevel.enabled = false;
+                GameObject chainSawSpeedGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "chainSawSpeedHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
+                ButtonRef upgradeChainsawSpeed = UIFactory.CreateButton(chainSawSpeedGroup, "upgradeChainsawSpeed", "+20% Chainsaw Speed", btnColor);
+                upgradeChainsawSpeed.OnClick += () =>
+                {
+                    BuyUpgrades.BuyChainsawSpeed();
+                };
+                chainSawSpeedIncrease = UIFactory.CreateLabel(chainSawSpeedGroup, "chainSawSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentChainsawSpeedLevel}/5");
+                chainSawSpeedCost = UIFactory.CreateLabel(chainSawSpeedGroup, "chainSawSpeedCost", "Cost: 2");
+                UIFactory.SetLayoutGroup<HorizontalLayoutGroup>(chainSawSpeedGroup, padLeft: 2, padBottom: 0, padTop: 0, spacing: 5);
+                UIFactory.SetLayoutElement(chainSawSpeedHeader.gameObject, minWidth: 50, minHeight: 25);
+                UIFactory.SetLayoutElement(chainSawSpeedGroup.gameObject, minWidth: 200, minHeight: 25);
+                UIFactory.SetLayoutElement(chainSawSpeedIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
+                UIFactory.SetLayoutElement(chainSawSpeedCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
+                UIFactory.SetLayoutElement(upgradeChainsawSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
+                UIFactory.SetLayoutElement(chainSawNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // Ui Loaded
                 isUiLoaded = true;
@@ -185,6 +210,12 @@ namespace PlayerUpgradeStats
             public static Text swimSpeedCost;
             public static Text swimSpeedIncrease;
 
+            // For Chainsaw Speed
+            public static Text chainSawNotEnogthPoints;
+            public static Text chainSawMaxLevel;
+            public static Text chainSawSpeedCost;
+            public static Text chainSawSpeedIncrease;
+
             // Publics
             public static Text curPoints;
             public static Text curStrengthLvl;
@@ -200,5 +231,47 @@ namespace PlayerUpgradeStats
         public static bool isUiLoaded;
 
 
+
+
+        internal class ChainSawModifications
+        {
+            private static float defaultChainsawHitFrequency = 0.25f;
+            internal static ChainsawWeaponController GetChainSawComponent()
+            {
+
+                if (!LocalPlayer.IsInWorld) { PostLogsToConsole("GetChainSawComponent, Player Not In World"); return null; }
+                if (LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PostLogsToConsole("Chanisaw name != TacticalChainsawHeld, so chainsaw is not in hand"); return null; }
+                ChainsawWeaponController ComponentChainsawWeaponController = GameObject.Find("TacticalChainsawHeld").GetComponent<ChainsawWeaponController>();
+                if (ComponentChainsawWeaponController == null) { PostErrorToConsole("In GetChainSawComponent, Found Object == null"); return null; } else { PostErrorToConsole("Found ComponentChainsawWeaponController"); }
+                return ComponentChainsawWeaponController;
+
+            }
+            internal static float ChainSawHitFrequency
+            {
+                get
+                {
+                    if (GetChainSawComponent == null) { PostLogsToConsole("In Get ChainSawHitFrequency, GetChainSawComponent == null"); return ChainSawHitFrequency = 0; }
+                    return GetChainSawComponent()._treeHitFrequency;
+                }
+                set
+                {
+                    if (GetChainSawComponent == null) { PostLogsToConsole("In Set ChainSawHitFrequency, GetChainSawComponent == null"); return; }
+                    try
+                    {
+                        PostLogsToConsole("Setting _treeHitFrequency = value");
+                        GetChainSawComponent()._treeHitFrequency = value;
+                    }
+                    catch (Exception e) { PostErrorToConsole("Could not set _treeHitFrequency Error: " + e); }
+
+                }
+            }
+            internal static void UpgradeChainsawHitFrequency(float currentChainsawSpeedLevel)
+            {
+                PostLogsToConsole("In UpgradeChainsawHitFrequency");
+                ChainSawHitFrequency = defaultChainsawHitFrequency * (1 - currentChainsawSpeedLevel * 19 / 100);
+                PostLogsToConsole("Current Chainsaw Speed = " + ChainSawHitFrequency);
+            }
+            
+        }
     }
 }

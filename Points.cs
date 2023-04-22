@@ -18,6 +18,9 @@ namespace PlayerUpgradeStats
         public static float currentSprintSpeedLevel;
         public static float currentJumpHeightLevel;
         public static float currentSwimSpeedLevel;
+        public static float currentChainsawSpeedLevel;
+        private static string pointPriceText2 = "2";
+        private static string pointPriceText4 = "4";
         public async static void BuyWalkSpeed()
         {
             Plugin.LoadStats();
@@ -27,18 +30,25 @@ namespace PlayerUpgradeStats
                 if (currentWalkSpeedLevel < maxWalkSpeedLevel)
                 {
                     currentWalkSpeedLevel++;
-                    if (currentWalkSpeedLevel <= 2)
+                    if (currentWalkSpeedLevel < 2)
                     {
                         if (currentPoints < 2) { await Task.Run(DisplayWalkUpgradeWarning); return; }
                         currentPoints -=2;
                         pointsUsed += 2;
+                    }
+                    if (currentWalkSpeedLevel == 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplayWalkUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                        MyPanel.walkSpeedCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentWalkSpeedLevel > 2)
                     {
                         if (currentPoints < 4) { await Task.Run(DisplayWalkUpgradeWarning); return; }
                         currentPoints -=4;
                         pointsUsed += 4;
-                        MyPanel.walkSpeedCost.text = "Cost: 4";
+                        MyPanel.walkSpeedCost.text = $"Cost: {pointPriceText4}";
                     }
                     doUpdateSpeeds = true;
                     PostLogsToConsole("currentWalkSpeedLevel = " + currentWalkSpeedLevel);
@@ -79,18 +89,25 @@ namespace PlayerUpgradeStats
                 if (currentSprintSpeedLevel < maxWalkSpeedLevel)
                 {
                     currentSprintSpeedLevel++;
-                    if (currentSprintSpeedLevel <= 2)
+                    if (currentSprintSpeedLevel < 2)
                     {
                         if (currentPoints < 2) { await Task.Run(DisplaySprintUpgradeWarning); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
+                    }
+                    if (currentSprintSpeedLevel == 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplaySprintUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                        MyPanel.sprintSpeedCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentSprintSpeedLevel > 2)
                     {
                         if (currentPoints < 4) { await Task.Run(DisplaySprintUpgradeWarning); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
-                        MyPanel.sprintSpeedCost.text = "Cost: 4";
+                        MyPanel.sprintSpeedCost.text = $"Cost: {pointPriceText4}";
                     }
                     doUpdateSpeeds = true;
                     PostLogsToConsole("currentSprintSpeedLevel = " + currentSprintSpeedLevel);
@@ -132,18 +149,25 @@ namespace PlayerUpgradeStats
                 if (currentJumpHeightLevel < maxWalkSpeedLevel)
                 {
                     currentJumpHeightLevel++;
-                    if (currentJumpHeightLevel <= 2)
+                    if (currentJumpHeightLevel < 2)
                     {
                         if (currentPoints < 2) { await Task.Run(DisplayJumpUpgradeWarning); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
+                    }
+                    if (currentJumpHeightLevel == 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplayJumpUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                        MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentJumpHeightLevel > 2)
                     {
                         if (currentPoints < 4) { await Task.Run(DisplayJumpUpgradeWarning); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
-                        MyPanel.jumpHeightCost.text = "Cost: 4";
+                        MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
                     }
                     doUpdateSpeeds = true;
                     PostLogsToConsole("currentJumpHeightLevel = " + currentJumpHeightLevel);
@@ -185,11 +209,18 @@ namespace PlayerUpgradeStats
                 if (currentSwimSpeedLevel < maxWalkSpeedLevel)
                 {
                     currentSwimSpeedLevel++;
-                    if (currentSwimSpeedLevel <= 2)
+                    if (currentSwimSpeedLevel < 2)
                     {
                         if (currentPoints < 2) { await Task.Run(DisplaySwimUpgradeWarning); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
+                    }
+                    if (currentSwimSpeedLevel == 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplaySwimUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                        MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentSwimSpeedLevel > 2)
                     {
@@ -226,6 +257,65 @@ namespace PlayerUpgradeStats
                 isRunning = true;
                 await Task.Run(WarningTimer);
                 MyPanel.swimNotEnogthPoints.enabled = false;
+            }
+        }
+        public async static void BuyChainsawSpeed()
+        {
+            Plugin.LoadStats();
+
+            if (Plugin.currentPoints > 0 || currentChainsawSpeedLevel == maxWalkSpeedLevel)
+            {
+                if (currentChainsawSpeedLevel < maxWalkSpeedLevel)
+                {
+                    currentChainsawSpeedLevel++;
+                    if (currentChainsawSpeedLevel < 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplayChainsawUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                    }
+                    if (currentChainsawSpeedLevel == 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplayChainsawUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                        MyPanel.chainSawSpeedCost.text = $"Cost: {pointPriceText4}";
+                    }
+                    if (currentChainsawSpeedLevel > 2)
+                    {
+                        if (currentPoints < 4) { await Task.Run(DisplayChainsawUpgradeWarning); return; }
+                        currentPoints -= 4;
+                        pointsUsed += 4;
+                        MyPanel.chainSawSpeedCost.text = $"Cost: {pointPriceText4}";
+                    }
+                    ChainSawModifications.UpgradeChainsawHitFrequency(currentChainsawSpeedLevel);
+                    PostLogsToConsole("currentChainsawSpeedLevel = " + currentChainsawSpeedLevel);
+                    PostLogsToConsole("currentPoints = " + Plugin.currentPoints);
+                    PostLogsToConsole("pointsUsed = " + pointsUsed);
+                    float totalchainSawSpeedIncrease = currentChainsawSpeedLevel * 20;
+                    MyPanel.chainSawSpeedIncrease.text = $"Speed: +{totalchainSawSpeedIncrease}%" + $"  Level {currentChainsawSpeedLevel}/5";
+                    MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
+                    DataHandler.SaveData();
+
+
+                }
+                else if (currentChainsawSpeedLevel == maxWalkSpeedLevel)
+                {
+                    if (isRunning) { return; }
+                    MyPanel.chainSawMaxLevel.enabled = true;
+                    isRunning = true;
+                    await Task.Run(WarningTimer);
+                    MyPanel.chainSawMaxLevel.enabled = false;
+                }
+
+            }
+            else
+            {
+                if (isRunning) { return; }
+                MyPanel.chainSawNotEnogthPoints.enabled = true;
+                isRunning = true;
+                await Task.Run(WarningTimer);
+                MyPanel.chainSawNotEnogthPoints.enabled = false;
             }
         }
 
@@ -269,6 +359,14 @@ namespace PlayerUpgradeStats
             isRunning = true;
             await Task.Run(WarningTimer);
             MyPanel.swimNotEnogthPoints.enabled = false;
+        }
+        public static async Task DisplayChainsawUpgradeWarning()
+        {
+            if (isRunning) { return; }
+            MyPanel.chainSawNotEnogthPoints.enabled = true;
+            isRunning = true;
+            await Task.Run(WarningTimer);
+            MyPanel.chainSawNotEnogthPoints.enabled = false;
         }
     }
 }

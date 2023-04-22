@@ -72,6 +72,9 @@
     <Reference Include="Sons.StatSystem">
       <HintPath>NewLibs\Sons.StatSystem.dll</HintPath>
     </Reference>
+    <Reference Include="Sons.Weapon">
+      <HintPath>NewLibs\Sons.Weapon.dll</HintPath>
+    </Reference>
     <Reference Include="TheForest.Commons">
       <HintPath>NewLibs\TheForest.Commons.dll</HintPath>
     </Reference>
