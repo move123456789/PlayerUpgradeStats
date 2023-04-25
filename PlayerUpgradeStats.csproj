@@ -33,6 +33,9 @@
     <Reference Include="bolt.user">
       <HintPath>NewLibs\bolt.user.dll</HintPath>
     </Reference>
+    <Reference Include="BulletBallistics">
+      <HintPath>NewLibs\BulletBallistics.dll</HintPath>
+    </Reference>
     <Reference Include="Endnight">
       <HintPath>NewLibs\Endnight.dll</HintPath>
     </Reference>

@@ -35,8 +35,6 @@ namespace PlayerUpgradeStats
             private float originalJumpHeight;
             private float originalSwimSpeed;
             private bool isQuitEventAdded;
-            private PlayerKnightVAction test1;
-            private KnightVControlDefinition test2;
             private void Update()
             {
                 if (smokyaceDeactivate.Value || !LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }

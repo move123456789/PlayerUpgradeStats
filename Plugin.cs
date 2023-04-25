@@ -147,5 +147,22 @@ public partial class Plugin : BasePlugin
             catch (Exception e) { PostErrorToConsole("Something went wrong in PostfixKnightVControlDefinition, Error: " + e); }
         }
         private static float defaultMaxVelocity = 20f;
+
+        [HarmonyPatch(typeof(RangedWeapon), "Awake")]
+        [HarmonyPostfix]
+        public static void PostfixBowDamage(ref RangedWeapon __instance)
+        {
+            PostLogsToConsole("Awake RangedWeapon");
+            if (__instance._weaponItemId == 443)
+            {
+                PostLogsToConsole("Bow In Hand");
+                //if (currentBowDamageLevel == 0) { PostLogsToConsole("No Need for Updating, currentBowDamageLevel = 0"); return; }
+                try
+                {
+                    __instance._simulatedBulletInfo.muzzleDamage = 100;
+                }
+                catch (Exception e) { PostErrorToConsole("Something went wrong in PostfixBowDamage, Error: " + e); }
+            }
+        }
     }
 }
