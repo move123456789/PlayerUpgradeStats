@@ -60,15 +60,6 @@ namespace PlayerUpgradeStats
                     }
                     
                 }
-                if (Input.GetKeyDown(KeyCode.KeypadPlus))
-                {
-                    PostLogsToConsole("Button Pressed");
-                    test1 = LocalPlayer.SpecialActions.transform.GetComponentInChildren<PlayerKnightVAction>();
-                    test2 = test1._controlDefinition;
-                    PostLogsToConsole($"Test: {test2.name}, {test2.MaxVelocity}, {test2._MaxVelocity_k__BackingField}");
-                    test2.MaxVelocity = 80;
-                    PostLogsToConsole($"Test: {test2.name}, {test2.MaxVelocity}, {test2._MaxVelocity_k__BackingField}");
-                }
                 if (doUpdateSpeeds)
                 {
                     if (!hasGottenOriginalValues)
@@ -114,12 +105,14 @@ namespace PlayerUpgradeStats
                 BuyUpgrades.currentJumpHeightLevel = 0;
                 BuyUpgrades.currentSwimSpeedLevel = 0;
                 BuyUpgrades.currentChainsawSpeedLevel = 0;
+                BuyUpgrades.currentKnightVSpeedLevel = 0;
                 currentPoints = 0;
                 MyPanel.swimSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
                 MyPanel.walkSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
                 MyPanel.sprintSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
                 MyPanel.jumpHeightIncrease.text = $"Height: +0%" + $"  Level 0/5";
                 MyPanel.chainSawSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
+                MyPanel.knightVSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
                 PlayerStatsPatcher.postfixSaveID = 0;
             }
         }

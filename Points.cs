@@ -347,7 +347,7 @@ namespace PlayerUpgradeStats
                         if (currentPoints < 4) { await Task.Run(DisplayKnightVUpgradeWarning); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
-                        MyPanel.knightVSpeedCost.text = "Cost: 4";
+                        MyPanel.knightVSpeedCost.text = $"Cost: {pointPriceText4}";
                     }
                     doUpdateSpeeds = true;
                     PostLogsToConsole("currentKnightVSpeedLevel = " + currentKnightVSpeedLevel);

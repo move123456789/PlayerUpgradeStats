@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using TheForest.Utils;
 using TMPro;
 using UnityEngine;
-using static BoltDebugStartSettings;
 using static PlayerUpgradeStats.Plugin;
 
 namespace PlayerUpgradeStats
@@ -40,7 +39,8 @@ namespace PlayerUpgradeStats
                     ["currentSprintSpeedLevel"] = BuyUpgrades.currentSprintSpeedLevel,
                     ["currentJumpHeightLevel"] = BuyUpgrades.currentJumpHeightLevel,
                     ["currentSwimSpeedLevel"] = BuyUpgrades.currentSwimSpeedLevel,
-                    ["currentChainsawSpeedLevel"] = BuyUpgrades.currentChainsawSpeedLevel
+                    ["currentChainsawSpeedLevel"] = BuyUpgrades.currentChainsawSpeedLevel,
+                    ["currentKnightVSpeedLevel"] = BuyUpgrades.currentKnightVSpeedLevel
                 };
                 DataHandler.WriteDynamicJsonObject(jsonObj, fileName);
             }
@@ -68,6 +68,7 @@ namespace PlayerUpgradeStats
                             BuyUpgrades.currentJumpHeightLevel = saveInfo.currentJumpHeightLevel;
                             BuyUpgrades.currentSwimSpeedLevel = saveInfo.currentSwimSpeedLevel;
                             BuyUpgrades.currentChainsawSpeedLevel = saveInfo.currentChainsawSpeedLevel;
+                            BuyUpgrades.currentKnightVSpeedLevel = saveInfo.currentKnightVSpeedLevel;
                             UpdateDisplayedData();
                             UpdateDisplayedCost();
                         }
@@ -89,6 +90,7 @@ namespace PlayerUpgradeStats
             public float currentJumpHeightLevel { get; set; }
             public float currentSwimSpeedLevel { get; set; }
             public float currentChainsawSpeedLevel { get; set; }
+            public float currentKnightVSpeedLevel { get; set; }
 
         }
         public static void UpdateDisplayedData()
@@ -105,6 +107,8 @@ namespace PlayerUpgradeStats
             MyPanel.swimSpeedIncrease.text = $"Speed: +{totalSwimSpeedIncrease}%" + $"  Level {BuyUpgrades.currentSwimSpeedLevel}/5";
             float totalChainsawSpeedIncrease = BuyUpgrades.currentChainsawSpeedLevel * 20;
             MyPanel.chainSawSpeedIncrease.text = $"Speed: +{totalChainsawSpeedIncrease}%" + $"  Level {BuyUpgrades.currentChainsawSpeedLevel}/5";
+            float totalKnightVSpeedIncrease = BuyUpgrades.currentKnightVSpeedLevel * 20;
+            MyPanel.knightVSpeedIncrease.text = $"Speed: +{totalKnightVSpeedIncrease}%" + $"  Level {BuyUpgrades.currentKnightVSpeedLevel}/5";
         }
         public static void UpdateDisplayedCost()
         {
@@ -113,6 +117,7 @@ namespace PlayerUpgradeStats
             if (BuyUpgrades.currentJumpHeightLevel >= 2) { MyPanel.jumpHeightCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
             if (BuyUpgrades.currentSwimSpeedLevel >= 2) { MyPanel.swimSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
             if (BuyUpgrades.currentChainsawSpeedLevel >= 2) { MyPanel.chainSawSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
+            if (BuyUpgrades.currentKnightVSpeedLevel >= 2) { MyPanel.chainSawSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
         }
 
         public static async void GetStrengthLevelVitals()

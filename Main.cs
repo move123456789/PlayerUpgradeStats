@@ -317,34 +317,6 @@ namespace PlayerUpgradeStats
             }
             
         }
-        //internal class KnightVModifications
-        //{
-        //    internal static KnightVControlDefinition GetKnightVComponent()
-        //    {
-        //        if (!LocalPlayer.IsInWorld) { PostLogsToConsole("GetKnightVComponent, Player Not In World"); return null; }
-        //        PostLogsToConsole("Searching for component KnightVControlDefinition");
-        //        KnightVControlDefinition knightVControlDefinition = ScriptableObject.FindObjectOfType<KnightVControlDefinition>();
-        //        if (knightVControlDefinition == null) { PostErrorToConsole("In GetKnightVComponent, Object == null"); return null; } else { PostErrorToConsole("Found KnightVControlDefinition"); }
-        //        return knightVControlDefinition;
-        //    }
-        //    internal static float KnightVMaxVelocity
-        //    {
-        //        get
-        //        {
-        //            if (GetKnightVComponent == null) { PostLogsToConsole("In Get KnightVMaxVelocity, GetKnightVComponent == null"); return KnightVMaxVelocity = 0; }
-        //            return GetKnightVComponent()._MaxVelocity_k__BackingField;
-        //        }
-        //        set
-        //        {
-        //            if (GetKnightVComponent == null) { PostLogsToConsole("In Set KnightVMaxVelocity, GetKnightVComponent == null"); return; }
-        //            try
-        //            {
-        //                PostLogsToConsole("Setting _MaxVelocity = value");
-        //                GetKnightVComponent()._MaxVelocity_k__BackingField = value;
-        //            }
-        //            catch (Exception e) { PostErrorToConsole("Could not set _MaxVelocity Error: " + e); }
-        //        }
-        //    }
-        //}
+
     }
 }
