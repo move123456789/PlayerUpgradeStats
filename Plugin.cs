@@ -129,18 +129,20 @@ public partial class Plugin : BasePlugin
             }
 
         }
-        [HarmonyPatch(typeof(GPSTrackerSystem), "OnEnable")]
+        [HarmonyPatch(typeof(PlayerKnightVAction), nameof(PlayerKnightVAction.StartRiding))]
         [HarmonyPostfix]
-        public static void PostfixKnightVControlDefinition(ref KnightVControlDefinition __instance)
+        public static void PostfixKnightV(ref PlayerKnightVAction __instance)
         {
-            PostLogsToConsole("OnEnable KnightVControlDefinition");
+            PostLogsToConsole("OnEnable PlayerKnightVAction");
             if (BuyUpgrades.currentKnightVSpeedLevel == 0) { PostLogsToConsole("currentKnightVSpeedLevel == 0, no need for updating"); return; }
             try
             {
                 float calculatedMaxVelocity = defaultMaxVelocity * (BuyUpgrades.currentKnightVSpeedLevel * 20 / 100 + 1);
                 PostLogsToConsole("Calculated New Current KnightV Speed = " + calculatedMaxVelocity);
-                if (__instance._MaxVelocity_k__BackingField == calculatedMaxVelocity) { PostLogsToConsole("KnightVControlDefinition does not need updating"); return; }
-                __instance._MaxVelocity_k__BackingField = defaultMaxVelocity * (BuyUpgrades.currentKnightVSpeedLevel * 20 / 100 + 1);
+                if (__instance._controlDefinition.MaxVelocity == calculatedMaxVelocity) { PostLogsToConsole("KnightVControlDefinition does not need updating"); return; }
+                __instance._controlDefinition.MaxVelocity = defaultMaxVelocity * (BuyUpgrades.currentKnightVSpeedLevel * 20 / 100 + 1);
+                PostLogsToConsole("After Updated Veloicy, get result = " + __instance._controlDefinition.MaxVelocity);
+                
             }
             catch (Exception e) { PostErrorToConsole("Something went wrong in PostfixKnightVControlDefinition, Error: " + e); }
         }

@@ -1,5 +1,8 @@
 ﻿using Bolt;
 using BoltInternal;
+using Il2CppInterop.Runtime;
+using Il2CppSystem;
+using Sons.Gameplay;
 using Sons.Gameplay.GameSetup;
 using Sons.Gui;
 using Sons.Save;
@@ -25,12 +28,15 @@ namespace PlayerUpgradeStats
         public class PlayerStatsMono : MonoBehaviour
         {
             internal static bool showMenu = false;
+            internal static float MaxVelocity = 50;
             private bool hasGottenOriginalValues = false;
             private float originalWalkSpeed;
             private float originalSprintSpeed;
             private float originalJumpHeight;
             private float originalSwimSpeed;
             private bool isQuitEventAdded;
+            private PlayerKnightVAction test1;
+            private KnightVControlDefinition test2;
             private void Update()
             {
                 if (smokyaceDeactivate.Value || !LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
@@ -56,7 +62,12 @@ namespace PlayerUpgradeStats
                 }
                 if (Input.GetKeyDown(KeyCode.KeypadPlus))
                 {
-                    
+                    PostLogsToConsole("Button Pressed");
+                    test1 = LocalPlayer.SpecialActions.transform.GetComponentInChildren<PlayerKnightVAction>();
+                    test2 = test1._controlDefinition;
+                    PostLogsToConsole($"Test: {test2.name}, {test2.MaxVelocity}, {test2._MaxVelocity_k__BackingField}");
+                    test2.MaxVelocity = 80;
+                    PostLogsToConsole($"Test: {test2.name}, {test2.MaxVelocity}, {test2._MaxVelocity_k__BackingField}");
                 }
                 if (doUpdateSpeeds)
                 {
