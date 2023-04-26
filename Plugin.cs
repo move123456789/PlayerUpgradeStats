@@ -165,16 +165,9 @@ public partial class Plugin : BasePlugin
                     PostLogsToConsole("CraftedBowHeld - Item != null");
                     var ranged = item.ItemObject.GetComponentInChildren<RangedWeapon>();
                     ranged._simulatedBulletInfo = ranged.GetAmmo()?._properties?.ProjectileInfo;
-                    if (ranged.bulletPrefab != null)
-                    {
-                        PostLogsToConsole($"Bullet Prefab Name = {ranged.bulletPrefab.name}");
-                        if (ranged.bulletPrefab.name == "CraftedArrowProjectile")
-                        {
-                            PostLogsToConsole($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
-                            ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                            PostLogsToConsole($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
-                        }
-                    }
+                    PostLogsToConsole($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
+                    ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
+                    PostLogsToConsole($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
                 }
                 else { PostLogsToConsole("CraftedBowHeld - item == null"); }
             }

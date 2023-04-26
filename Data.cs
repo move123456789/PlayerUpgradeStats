@@ -1,4 +1,5 @@
-﻿using Sons.Save;
+﻿using Il2CppSystem;
+using Sons.Save;
 using Sons.Utilities;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,10 @@ namespace PlayerUpgradeStats
         }
         public static void SaveData()
         {
-            Plugin.PostLogsToConsole("Saving");
-            if (PlayerStatsPatcher.postfixSaveID != 0 && currentPoints !< 0)
+            Plugin.PostLogsToConsole("Trying To Save");
+            if (PlayerStatsPatcher.postfixSaveID != 0 && currentPoints >= 0)
             {
+                Plugin.PostLogsToConsole("Saving");
                 if (currentPoints > 50) { PostErrorToConsole("From Savedata() CurrentPoints can't be over 50"); return; }
                 var fileName = $"{PlayerStatsPatcher.postfixSaveID}.json";
                 var jsonObj = new JsonObject
@@ -75,7 +77,7 @@ namespace PlayerUpgradeStats
                             UpdateDisplayedCost();
                         }
                     }
-                    catch (Exception e) { PostErrorToConsole("Something went wrong trying to load saved data from file. Error: " + e); }
+                    catch (System.Exception e) { PostErrorToConsole("Something went wrong trying to load saved data from file. Error: " + e); }
 
                 }
                 else { PostLogsToConsole("File Not Found"); }
