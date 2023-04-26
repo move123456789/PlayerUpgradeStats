@@ -20,6 +20,7 @@ namespace PlayerUpgradeStats
         public static float currentSwimSpeedLevel;
         public static float currentChainsawSpeedLevel;
         public static float currentKnightVSpeedLevel;
+        public static float currentBowDamageLevel;
         internal const string pointPriceText2 = "2";
         internal const string pointPriceText4 = "4";
         public async static void BuyWalkSpeed()

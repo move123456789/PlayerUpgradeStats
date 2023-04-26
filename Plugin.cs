@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using Sons.StatSystem;
 using Sons.Weapon;
 using System;
+using Sons.Items.Core;
 
 namespace PlayerUpgradeStats;
 
@@ -148,21 +149,30 @@ public partial class Plugin : BasePlugin
         }
         private static float defaultMaxVelocity = 20f;
 
-        [HarmonyPatch(typeof(RangedWeapon), "Awake")]
+
+        [HarmonyPatch(typeof(RangedWeapon), "Start")]
         [HarmonyPostfix]
         public static void PostfixBowDamage(ref RangedWeapon __instance)
         {
             PostLogsToConsole("Awake RangedWeapon");
-            if (__instance._weaponItemId == 443)
+            if (__instance.name == "CraftedBowHeld" || __instance.name == "CraftedBowHeld(Clone)")
             {
-                PostLogsToConsole("Bow In Hand");
-                //if (currentBowDamageLevel == 0) { PostLogsToConsole("No Need for Updating, currentBowDamageLevel = 0"); return; }
-                try
+                PostLogsToConsole("Bow Now In Hand");
+                if (BuyUpgrades.currentBowDamageLevel == 0) { PostLogsToConsole("No Need for Updating, currentBowDamageLevel = 0"); return; }
+                var item = LocalPlayer.Inventory.RightHandItem;
+                if (item != null)
                 {
-                    __instance._simulatedBulletInfo.muzzleDamage = 100;
+                    PostLogsToConsole("Item != null");
+                    var ranged = item.ItemObject.GetComponentInChildren<RangedWeapon>();
+                    ranged._simulatedBulletInfo = ranged.GetAmmo()?._properties?.ProjectileInfo;
+                    PostLogsToConsole($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
+                    ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentKnightVSpeedLevel * 20 / 100 + 1);
+                    PostLogsToConsole($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
                 }
-                catch (Exception e) { PostErrorToConsole("Something went wrong in PostfixBowDamage, Error: " + e); }
+                else { PostLogsToConsole("CraftedBowHeld - item == null"); }
             }
         }
+        private static float defaultBowDamage = 20f;
+
     }
 }
