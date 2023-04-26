@@ -28,7 +28,7 @@ public partial class Plugin : BasePlugin
 {
     public const string PLUGIN_GUID = "Smokyace.PlayerUpgradeStats";
     public const string PLUGIN_NAME = "PlayerUpgradeStats";
-    public const string PLUGIN_VERSION = "1.0.4";
+    public const string PLUGIN_VERSION = "1.0.5";
     private const string author = "SmokyAce";
 
     public static ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "PlayerUpgradeStats.cfg"), true);
@@ -162,17 +162,71 @@ public partial class Plugin : BasePlugin
                 var item = LocalPlayer.Inventory.RightHandItem;
                 if (item != null)
                 {
-                    PostLogsToConsole("Item != null");
+                    PostLogsToConsole("CraftedBowHeld - Item != null");
                     var ranged = item.ItemObject.GetComponentInChildren<RangedWeapon>();
                     ranged._simulatedBulletInfo = ranged.GetAmmo()?._properties?.ProjectileInfo;
-                    PostLogsToConsole($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
-                    ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentKnightVSpeedLevel * 20 / 100 + 1);
-                    PostLogsToConsole($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                    if (ranged.bulletPrefab != null)
+                    {
+                        PostLogsToConsole($"Bullet Prefab Name = {ranged.bulletPrefab.name}");
+                        if (ranged.bulletPrefab.name == "CraftedArrowProjectile")
+                        {
+                            PostLogsToConsole($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
+                            ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
+                            PostLogsToConsole($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                        }
+                    }
                 }
                 else { PostLogsToConsole("CraftedBowHeld - item == null"); }
             }
         }
         private static float defaultBowDamage = 20f;
-
+        [HarmonyPatch(typeof(RangedWeapon), "CycleAmmoType")]
+        [HarmonyPostfix]
+        public static async void PostfixBowDamageChangeAmmo(RangedWeapon __instance)
+        {
+            PostLogsToConsole("Awake RangedWeapon");
+            if (__instance.name == "CraftedBowHeld" || __instance.name == "CraftedBowHeld(Clone)")
+            {
+                PostLogsToConsole("Bow Now In Hand");
+                if (BuyUpgrades.currentBowDamageLevel == 0) { PostLogsToConsole("No Need for Updating, currentBowDamageLevel = 0"); return; }
+                var item = LocalPlayer.Inventory.RightHandItem;
+                if (item != null)
+                {
+                    PostLogsToConsole("CraftedBowHeld - Item != null");
+                    var ranged = item.ItemObject.GetComponentInChildren<RangedWeapon>();
+                    ranged._simulatedBulletInfo = ranged.GetAmmo()?._properties?.ProjectileInfo;
+                    await Task.Run(BowProjectileUpdate);
+                    string curretArrow = ranged.bulletPrefab.name;
+                    if (curretArrow == null) { PostLogsToConsole("Prefab Name == null"); return; }
+                    PostLogsToConsole($"Bullet Prefab Name = {ranged.bulletPrefab.name}");
+                    switch (curretArrow)
+                    {
+                        case "CraftedArrowProjectile":
+                            // Crafted Arrow
+                            PostLogsToConsole($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
+                            ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
+                            PostLogsToConsole($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                            break;
+                        case "3dPrintedArrowProjectile":
+                            // 3dPrinted Arrow
+                            PostLogsToConsole($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
+                            ranged._simulatedBulletInfo.muzzleDamage = 30f * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
+                            PostLogsToConsole($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                            break;
+                        case "TacticalBowAmmoProjectile":
+                            // Found Arrow
+                            PostLogsToConsole($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
+                            ranged._simulatedBulletInfo.muzzleDamage = 35f * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
+                            PostLogsToConsole($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                            break;
+                    }
+                }
+                else { PostLogsToConsole("CraftedBowHeld - item == null"); }
+            }
+        }
+        public static async Task BowProjectileUpdate()
+        {
+            await Task.Delay(300);
+        }
     }
 }

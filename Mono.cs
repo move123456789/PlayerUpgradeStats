@@ -104,6 +104,7 @@ namespace PlayerUpgradeStats
                 BuyUpgrades.currentSwimSpeedLevel = 0;
                 BuyUpgrades.currentChainsawSpeedLevel = 0;
                 BuyUpgrades.currentKnightVSpeedLevel = 0;
+                BuyUpgrades.currentBowDamageLevel = 0;
                 currentPoints = 0;
                 MyPanel.swimSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
                 MyPanel.walkSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
@@ -111,6 +112,7 @@ namespace PlayerUpgradeStats
                 MyPanel.jumpHeightIncrease.text = $"Height: +0%" + $"  Level 0/5";
                 MyPanel.chainSawSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
                 MyPanel.knightVSpeedIncrease.text = $"Speed: +0%" + $"  Level 0/5";
+                MyPanel.bowDamageIncrease.text = $"Damage: +0%" + $"  Level 0/5";
                 PlayerStatsPatcher.postfixSaveID = 0;
             }
         }

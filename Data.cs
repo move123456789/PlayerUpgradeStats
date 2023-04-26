@@ -26,7 +26,7 @@ namespace PlayerUpgradeStats
         public static void SaveData()
         {
             Plugin.PostLogsToConsole("Saving");
-            if (PlayerStatsPatcher.postfixSaveID != 0 && currentPoints != 0)
+            if (PlayerStatsPatcher.postfixSaveID != 0 && currentPoints !< 0)
             {
                 if (currentPoints > 50) { PostErrorToConsole("From Savedata() CurrentPoints can't be over 50"); return; }
                 var fileName = $"{PlayerStatsPatcher.postfixSaveID}.json";
@@ -40,7 +40,8 @@ namespace PlayerUpgradeStats
                     ["currentJumpHeightLevel"] = BuyUpgrades.currentJumpHeightLevel,
                     ["currentSwimSpeedLevel"] = BuyUpgrades.currentSwimSpeedLevel,
                     ["currentChainsawSpeedLevel"] = BuyUpgrades.currentChainsawSpeedLevel,
-                    ["currentKnightVSpeedLevel"] = BuyUpgrades.currentKnightVSpeedLevel
+                    ["currentKnightVSpeedLevel"] = BuyUpgrades.currentKnightVSpeedLevel,
+                    ["currentBowDamageLevel"] = BuyUpgrades.currentBowDamageLevel
                 };
                 DataHandler.WriteDynamicJsonObject(jsonObj, fileName);
             }
@@ -69,6 +70,7 @@ namespace PlayerUpgradeStats
                             BuyUpgrades.currentSwimSpeedLevel = saveInfo.currentSwimSpeedLevel;
                             BuyUpgrades.currentChainsawSpeedLevel = saveInfo.currentChainsawSpeedLevel;
                             BuyUpgrades.currentKnightVSpeedLevel = saveInfo.currentKnightVSpeedLevel;
+                            BuyUpgrades.currentBowDamageLevel = saveInfo.currentBowDamageLevel;
                             UpdateDisplayedData();
                             UpdateDisplayedCost();
                         }
@@ -91,6 +93,7 @@ namespace PlayerUpgradeStats
             public float currentSwimSpeedLevel { get; set; }
             public float currentChainsawSpeedLevel { get; set; }
             public float currentKnightVSpeedLevel { get; set; }
+            public float currentBowDamageLevel { get; set; }
 
         }
         public static void UpdateDisplayedData()
@@ -109,6 +112,8 @@ namespace PlayerUpgradeStats
             MyPanel.chainSawSpeedIncrease.text = $"Speed: +{totalChainsawSpeedIncrease}%" + $"  Level {BuyUpgrades.currentChainsawSpeedLevel}/5";
             float totalKnightVSpeedIncrease = BuyUpgrades.currentKnightVSpeedLevel * 20;
             MyPanel.knightVSpeedIncrease.text = $"Speed: +{totalKnightVSpeedIncrease}%" + $"  Level {BuyUpgrades.currentKnightVSpeedLevel}/5";
+            float totalBowDamageIncrease = BuyUpgrades.currentBowDamageLevel * 20;
+            MyPanel.bowDamageIncrease.text = $"Speed: +{totalBowDamageIncrease}%" + $"  Level {BuyUpgrades.currentBowDamageLevel}/5";
         }
         public static void UpdateDisplayedCost()
         {
@@ -118,6 +123,7 @@ namespace PlayerUpgradeStats
             if (BuyUpgrades.currentSwimSpeedLevel >= 2) { MyPanel.swimSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
             if (BuyUpgrades.currentChainsawSpeedLevel >= 2) { MyPanel.chainSawSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
             if (BuyUpgrades.currentKnightVSpeedLevel >= 2) { MyPanel.chainSawSpeedCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
+            if (BuyUpgrades.currentBowDamageLevel >= 2) { MyPanel.bowDamageCost.text = $"Cost: {BuyUpgrades.pointPriceText4}"; }
         }
 
         public static async void GetStrengthLevelVitals()

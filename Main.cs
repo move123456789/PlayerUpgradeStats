@@ -212,6 +212,27 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(upgradeKnightVSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
                 UIFactory.SetLayoutElement(knightVNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
+                // Bow Damage
+                Text bowDamageHeader = UIFactory.CreateLabel(ContentRoot, "bowDamageHeader", "Crafted Bow Damage");
+                bowNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "bowNotEnogthPoints", "You don't have enogth points!");
+                bowNotEnogthPoints.enabled = false;
+                bowMaxLevel = UIFactory.CreateLabel(ContentRoot, "bowMaxLevel", "You have reached the max level!");
+                bowMaxLevel.enabled = false;
+                GameObject bowDamageGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "bowDamageHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
+                ButtonRef upgradeBowDamage = UIFactory.CreateButton(bowDamageGroup, "upgradeBowDamage", "+20% Bow Damage", btnColor);
+                upgradeBowDamage.OnClick += () =>
+                {
+                    BuyUpgrades.BuyBowDamage();
+                };
+                bowDamageIncrease = UIFactory.CreateLabel(bowDamageGroup, "bowDamageIncrease", "Damage: +0%" + $"  Level {BuyUpgrades.currentBowDamageLevel}/5");
+                bowDamageCost = UIFactory.CreateLabel(bowDamageGroup, "bowDamageCost", "Cost: 2");
+                UIFactory.SetLayoutGroup<HorizontalLayoutGroup>(bowDamageGroup, padLeft: 2, padBottom: 0, padTop: 0, spacing: 5);
+                UIFactory.SetLayoutElement(bowDamageHeader.gameObject, minWidth: 50, minHeight: 25);
+                UIFactory.SetLayoutElement(bowDamageGroup.gameObject, minWidth: 200, minHeight: 25);
+                UIFactory.SetLayoutElement(bowDamageIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
+                UIFactory.SetLayoutElement(bowDamageCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
+                UIFactory.SetLayoutElement(upgradeBowDamage.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
+                UIFactory.SetLayoutElement(bowNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // Ui Loaded
                 isUiLoaded = true;
@@ -251,6 +272,12 @@ namespace PlayerUpgradeStats
             public static Text knightVMaxLevel;
             public static Text knightVSpeedCost;
             public static Text knightVSpeedIncrease;
+
+            // For Bow Damage
+            public static Text bowNotEnogthPoints;
+            public static Text bowMaxLevel;
+            public static Text bowDamageCost;
+            public static Text bowDamageIncrease;
 
             // Publics
             public static Text curPoints;

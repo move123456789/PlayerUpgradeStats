@@ -12,15 +12,19 @@ namespace PlayerUpgradeStats
 {
     public class BuyUpgrades
     {
-        public static float currentWalkSpeedLevel;
-        private static bool isRunning;
+        // Max Level Of All Upgrades
         private const int maxWalkSpeedLevel = 5;
+
+        private static bool isRunning;
+        // Current Upgrade Level of Each Stat
+        public static float currentWalkSpeedLevel;
         public static float currentSprintSpeedLevel;
         public static float currentJumpHeightLevel;
         public static float currentSwimSpeedLevel;
         public static float currentChainsawSpeedLevel;
         public static float currentKnightVSpeedLevel;
         public static float currentBowDamageLevel;
+        // Price of Upgrades for UI
         internal const string pointPriceText2 = "2";
         internal const string pointPriceText4 = "4";
         public async static void BuyWalkSpeed()
@@ -381,6 +385,66 @@ namespace PlayerUpgradeStats
             }
         }
 
+        public async static void BuyBowDamage()
+        {
+            Plugin.LoadStats();
+
+            if (Plugin.currentPoints > 0 || currentBowDamageLevel == maxWalkSpeedLevel)
+            {
+                if (currentBowDamageLevel < maxWalkSpeedLevel)
+                {
+                    currentBowDamageLevel++;
+                    if (currentBowDamageLevel < 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplayBowUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                    }
+                    if (currentBowDamageLevel == 2)
+                    {
+                        if (currentPoints < 2) { await Task.Run(DisplayBowUpgradeWarning); return; }
+                        currentPoints -= 2;
+                        pointsUsed += 2;
+                        MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
+                    }
+                    if (currentBowDamageLevel > 2)
+                    {
+                        if (currentPoints < 4) { await Task.Run(DisplayBowUpgradeWarning); return; }
+                        currentPoints -= 4;
+                        pointsUsed += 4;
+                        MyPanel.bowDamageCost.text = $"Cost: {pointPriceText4}";
+                    }
+                    PostLogsToConsole("currentBowDamageLevel = " + currentBowDamageLevel);
+                    PostLogsToConsole("currentPoints = " + Plugin.currentPoints);
+                    PostLogsToConsole("pointsUsed = " + pointsUsed);
+                    float totalBowDamageIncrease = currentBowDamageLevel * 20;
+                    MyPanel.bowDamageIncrease.text = $"Damage: +{totalBowDamageIncrease}%" + $"  Level {currentBowDamageLevel}/5";
+                    MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
+                    DataHandler.SaveData();
+
+
+                }
+                else if (currentBowDamageLevel == maxWalkSpeedLevel)
+                {
+                    if (isRunning) { return; }
+                    MyPanel.bowMaxLevel.enabled = true;
+                    isRunning = true;
+                    await Task.Run(WarningTimer);
+                    MyPanel.bowMaxLevel.enabled = false;
+                }
+
+            }
+            else
+            {
+                if (isRunning) { return; }
+                MyPanel.bowNotEnogthPoints.enabled = true;
+                isRunning = true;
+                await Task.Run(WarningTimer);
+                MyPanel.bowNotEnogthPoints.enabled = false;
+            }
+        }
+
+        // A Little Async Function that adds a interval time when the UI Text will show
         public static async Task WarningTimer()
         {
             await Task.Delay(2500);
@@ -437,6 +501,14 @@ namespace PlayerUpgradeStats
             isRunning = true;
             await Task.Run(WarningTimer);
             MyPanel.knightVNotEnogthPoints.enabled = false;
+        }
+        public static async Task DisplayBowUpgradeWarning()
+        {
+            if (isRunning) { return; }
+            MyPanel.bowNotEnogthPoints.enabled = true;
+            isRunning = true;
+            await Task.Run(WarningTimer);
+            MyPanel.bowNotEnogthPoints.enabled = false;
         }
     }
 }
