@@ -14,7 +14,7 @@ namespace PlayerUpgradeStats
     public class BuyUpgrades
     {
         // Max Level Of All Upgrades
-        private const int maxWalkSpeedLevel = 5;
+        private const int MaxUpgradeLevel = 5;
 
         private static bool isRunning;
         // Current Upgrade Level of Each Stat
@@ -28,9 +28,6 @@ namespace PlayerUpgradeStats
         // Price of Upgrades for UI
         internal const string pointPriceText2 = "2";
         internal const string pointPriceText4 = "4";
-
-        // FOR TESTING
-        private const int MaxUpgradeLevel = 5;
 
         // Upgrade types
         public enum UpgradeType
