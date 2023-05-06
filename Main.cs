@@ -90,8 +90,7 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeWalkSpeed = UIFactory.CreateButton(walkSpeedGroup, "upgradeWalkSpeed", "+20% Walk Speed", btnColor);
                 upgradeWalkSpeed.OnClick += () =>
                 {
-                    //BuyUpgrades.BuyWalkSpeed();
-                    BuyUpgrades.BuyUpgrade(nameof(BuyUpgrades.currentWalkSpeedLevel));
+                    BuyUpgrades.BuyWalkSpeed();
                 };
                 walkSpeedIncrease = UIFactory.CreateLabel(walkSpeedGroup, "walkSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentWalkSpeedLevel}/5");
                 walkSpeedCost = UIFactory.CreateLabel(walkSpeedGroup, "walkSpeedCost", "Cost: 2");
@@ -113,8 +112,7 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeSprintSpeed = UIFactory.CreateButton(sprintSpeedGroup, "upgradeSprintSpeed", "+20% Sprint Speed", btnColor);
                 upgradeSprintSpeed.OnClick += () =>
                 {
-                    //BuyUpgrades.BuySprintSpeed();
-                    BuyUpgrades.BuyUpgrade(nameof(BuyUpgrades.currentSprintSpeedLevel));
+                    BuyUpgrades.BuySprintSpeed();
                 };
                 sprintSpeedIncrease = UIFactory.CreateLabel(sprintSpeedGroup, "sprintSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentSprintSpeedLevel}/5");
                 sprintSpeedCost = UIFactory.CreateLabel(sprintSpeedGroup, "sprintSpeedCost", "Cost: 2");
@@ -136,8 +134,7 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeJumpHeight = UIFactory.CreateButton(jumpHeightGroup, "upgradeJumpHeight", "+20% Jump Height", btnColor);
                 upgradeJumpHeight.OnClick += () =>
                 {
-                    //BuyUpgrades.BuyJumpHeight();
-                    BuyUpgrades.BuyUpgrade(nameof(BuyUpgrades.currentJumpHeightLevel));
+                    BuyUpgrades.BuyJumpHeight();
                 };
                 jumpHeightIncrease = UIFactory.CreateLabel(jumpHeightGroup, "jumpHeightIncrease", "Height: +0%" + $"  Level {BuyUpgrades.currentJumpHeightLevel}/5");
                 jumpHeightCost = UIFactory.CreateLabel(jumpHeightGroup, "jumpHeightCost", "Cost: 2");
@@ -159,8 +156,7 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeSwimSpeed = UIFactory.CreateButton(swimSpeedGroup, "upgradeSwimSpeed", "+20% Swim Speed", btnColor);
                 upgradeSwimSpeed.OnClick += () =>
                 {
-                    //BuyUpgrades.BuySwimSpeed();
-                    BuyUpgrades.BuyUpgrade(nameof(BuyUpgrades.currentSwimSpeedLevel));
+                    BuyUpgrades.BuySwimSpeed();
                 };
                 swimSpeedIncrease = UIFactory.CreateLabel(swimSpeedGroup, "swimSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentSwimSpeedLevel}/5");
                 swimSpeedCost = UIFactory.CreateLabel(swimSpeedGroup, "swimSpeedCost", "Cost: 2");
@@ -182,8 +178,7 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeChainsawSpeed = UIFactory.CreateButton(chainSawSpeedGroup, "upgradeChainsawSpeed", "+20% Chainsaw Speed", btnColor);
                 upgradeChainsawSpeed.OnClick += () =>
                 {
-                    //BuyUpgrades.BuyChainsawSpeed();
-                    BuyUpgrades.BuyUpgrade(nameof(BuyUpgrades.currentChainsawSpeedLevel));
+                    BuyUpgrades.BuyChainsawSpeed();
                 };
                 chainSawSpeedIncrease = UIFactory.CreateLabel(chainSawSpeedGroup, "chainSawSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentChainsawSpeedLevel}/5");
                 chainSawSpeedCost = UIFactory.CreateLabel(chainSawSpeedGroup, "chainSawSpeedCost", "Cost: 2");
@@ -205,8 +200,7 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeKnightVSpeed = UIFactory.CreateButton(knightVSpeedGroup, "upgradeKnightVSpeed", "+20% KnightV Speed", btnColor);
                 upgradeKnightVSpeed.OnClick += () =>
                 {
-                    //BuyUpgrades.BuyKnightVSpeed();
-                    BuyUpgrades.BuyUpgrade(nameof(BuyUpgrades.currentKnightVSpeedLevel));
+                    BuyUpgrades.BuyKnightVSpeed();
                 };
                 knightVSpeedIncrease = UIFactory.CreateLabel(knightVSpeedGroup, "knightVSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentKnightVSpeedLevel}/5");
                 knightVSpeedCost = UIFactory.CreateLabel(knightVSpeedGroup, "knightVSpeedCost", "Cost: 2");
@@ -228,8 +222,7 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeBowDamage = UIFactory.CreateButton(bowDamageGroup, "upgradeBowDamage", "+20% Bow Damage", btnColor);
                 upgradeBowDamage.OnClick += () =>
                 {
-                    //BuyUpgrades.BuyBowDamage();
-                    BuyUpgrades.BuyUpgrade(nameof(BuyUpgrades.currentBowDamageLevel));
+                    BuyUpgrades.BuyBowDamage();
                 };
                 bowDamageIncrease = UIFactory.CreateLabel(bowDamageGroup, "bowDamageIncrease", "Damage: +0%" + $"  Level {BuyUpgrades.currentBowDamageLevel}/5");
                 bowDamageCost = UIFactory.CreateLabel(bowDamageGroup, "bowDamageCost", "Cost: 2");
