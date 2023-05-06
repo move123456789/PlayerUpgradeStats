@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using static PlayerUpgradeStats.Plugin;
 
 namespace PlayerUpgradeStats
@@ -38,20 +39,20 @@ namespace PlayerUpgradeStats
                     currentWalkSpeedLevel++;
                     if (currentWalkSpeedLevel < 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayWalkUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
                         currentPoints -=2;
                         pointsUsed += 2;
                     }
                     if (currentWalkSpeedLevel == 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayWalkUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                         MyPanel.walkSpeedCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentWalkSpeedLevel > 2)
                     {
-                        if (currentPoints < 4) { await Task.Run(DisplayWalkUpgradeWarning); return; }
+                        if (currentPoints < 4) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
                         currentPoints -=4;
                         pointsUsed += 4;
                         MyPanel.walkSpeedCost.text = $"Cost: {pointPriceText4}";
@@ -68,21 +69,13 @@ namespace PlayerUpgradeStats
 
                 } else if (currentWalkSpeedLevel == maxWalkSpeedLevel)
                 {
-                    if (isRunning) { return; }
-                    MyPanel.walkMaxLevel.enabled = true;
-                    isRunning = true;
-                    await Task.Run(WarningTimer);
-                    MyPanel.walkMaxLevel.enabled = false;
+                    await DisplayWarning(MyPanel.walkMaxLevel);
                 }
                 
             }
             else
             {
-                if (isRunning) { return; }
-                MyPanel.walkNotEnogthPoints.enabled = true;
-                isRunning = true;
-                await Task.Run(WarningTimer);
-                MyPanel.walkNotEnogthPoints.enabled = false;
+                await DisplayWarning(MyPanel.walkNotEnogthPoints);
             }
         }
 
@@ -97,20 +90,20 @@ namespace PlayerUpgradeStats
                     currentSprintSpeedLevel++;
                     if (currentSprintSpeedLevel < 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplaySprintUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                     }
                     if (currentSprintSpeedLevel == 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplaySprintUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                         MyPanel.sprintSpeedCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentSprintSpeedLevel > 2)
                     {
-                        if (currentPoints < 4) { await Task.Run(DisplaySprintUpgradeWarning); return; }
+                        if (currentPoints < 4) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
                         MyPanel.sprintSpeedCost.text = $"Cost: {pointPriceText4}";
@@ -128,21 +121,13 @@ namespace PlayerUpgradeStats
                 }
                 else if (currentSprintSpeedLevel == maxWalkSpeedLevel)
                 {
-                    if (isRunning) { return; }
-                    MyPanel.sprintMaxLevel.enabled = true;
-                    isRunning = true;
-                    await Task.Run(WarningTimer);
-                    MyPanel.sprintMaxLevel.enabled = false;
+                    await DisplayWarning(MyPanel.sprintMaxLevel);
                 }
 
             }
             else
             {
-                if (isRunning) { return; }
-                MyPanel.sprintNotEnogthPoints.enabled = true;
-                isRunning = true;
-                await Task.Run(WarningTimer);
-                MyPanel.sprintNotEnogthPoints.enabled = false;
+                await DisplayWarning(MyPanel.sprintNotEnogthPoints);
             }
         }
 
@@ -157,20 +142,20 @@ namespace PlayerUpgradeStats
                     currentJumpHeightLevel++;
                     if (currentJumpHeightLevel < 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayJumpUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.jumpNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                     }
                     if (currentJumpHeightLevel == 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayJumpUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.jumpNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                         MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentJumpHeightLevel > 2)
                     {
-                        if (currentPoints < 4) { await Task.Run(DisplayJumpUpgradeWarning); return; }
+                        if (currentPoints < 4) { await DisplayWarning(MyPanel.jumpNotEnogthPoints); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
                         MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
@@ -188,21 +173,13 @@ namespace PlayerUpgradeStats
                 }
                 else if (currentJumpHeightLevel == maxWalkSpeedLevel)
                 {
-                    if (isRunning) { return; }
-                    MyPanel.jumpMaxLevel.enabled = true;
-                    isRunning = true;
-                    await Task.Run(WarningTimer);
-                    MyPanel.jumpMaxLevel.enabled = false;
+                    await DisplayWarning(MyPanel.jumpMaxLevel);
                 }
 
             }
             else
             {
-                if (isRunning) { return; }
-                MyPanel.jumpNotEnogthPoints.enabled = true;
-                isRunning = true;
-                await Task.Run(WarningTimer);
-                MyPanel.jumpNotEnogthPoints.enabled = false;
+                await DisplayWarning(MyPanel.jumpNotEnogthPoints);
             }
         }
 
@@ -217,20 +194,20 @@ namespace PlayerUpgradeStats
                     currentSwimSpeedLevel++;
                     if (currentSwimSpeedLevel < 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplaySwimUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.swimNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                     }
                     if (currentSwimSpeedLevel == 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplaySwimUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.swimNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                         MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentSwimSpeedLevel > 2)
                     {
-                        if (currentPoints < 4) { await Task.Run(DisplaySwimUpgradeWarning); return; }
+                        if (currentPoints < 4) { await DisplayWarning(MyPanel.swimNotEnogthPoints); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
                         MyPanel.swimSpeedCost.text = "Cost: 4";
@@ -248,21 +225,13 @@ namespace PlayerUpgradeStats
                 }
                 else if (currentSwimSpeedLevel == maxWalkSpeedLevel)
                 {
-                    if (isRunning) { return; }
-                    MyPanel.swimMaxLevel.enabled = true;
-                    isRunning = true;
-                    await Task.Run(WarningTimer);
-                    MyPanel.swimMaxLevel.enabled = false;
+                    await DisplayWarning(MyPanel.swimMaxLevel);
                 }
 
             }
             else
             {
-                if (isRunning) { return; }
-                MyPanel.swimNotEnogthPoints.enabled = true;
-                isRunning = true;
-                await Task.Run(WarningTimer);
-                MyPanel.swimNotEnogthPoints.enabled = false;
+                await DisplayWarning(MyPanel.swimNotEnogthPoints);
             }
         }
         public async static void BuyChainsawSpeed()
@@ -276,20 +245,20 @@ namespace PlayerUpgradeStats
                     currentChainsawSpeedLevel++;
                     if (currentChainsawSpeedLevel < 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayChainsawUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.chainSawNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                     }
                     if (currentChainsawSpeedLevel == 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayChainsawUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.chainSawNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                         MyPanel.chainSawSpeedCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentChainsawSpeedLevel > 2)
                     {
-                        if (currentPoints < 4) { await Task.Run(DisplayChainsawUpgradeWarning); return; }
+                        if (currentPoints < 4) { await DisplayWarning(MyPanel.chainSawNotEnogthPoints); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
                         MyPanel.chainSawSpeedCost.text = $"Cost: {pointPriceText4}";
@@ -307,21 +276,13 @@ namespace PlayerUpgradeStats
                 }
                 else if (currentChainsawSpeedLevel == maxWalkSpeedLevel)
                 {
-                    if (isRunning) { return; }
-                    MyPanel.chainSawMaxLevel.enabled = true;
-                    isRunning = true;
-                    await Task.Run(WarningTimer);
-                    MyPanel.chainSawMaxLevel.enabled = false;
+                    await DisplayWarning(MyPanel.chainSawMaxLevel);
                 }
 
             }
             else
             {
-                if (isRunning) { return; }
-                MyPanel.chainSawNotEnogthPoints.enabled = true;
-                isRunning = true;
-                await Task.Run(WarningTimer);
-                MyPanel.chainSawNotEnogthPoints.enabled = false;
+                await DisplayWarning(MyPanel.chainSawNotEnogthPoints);
             }
         }
 
@@ -336,20 +297,20 @@ namespace PlayerUpgradeStats
                     currentKnightVSpeedLevel++;
                     if (currentKnightVSpeedLevel < 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayKnightVUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.knightVNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                     }
                     if (currentKnightVSpeedLevel == 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayKnightVUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.knightVNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                         MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentKnightVSpeedLevel > 2)
                     {
-                        if (currentPoints < 4) { await Task.Run(DisplayKnightVUpgradeWarning); return; }
+                        if (currentPoints < 4) { await DisplayWarning(MyPanel.knightVNotEnogthPoints); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
                         MyPanel.knightVSpeedCost.text = $"Cost: {pointPriceText4}";
@@ -367,21 +328,13 @@ namespace PlayerUpgradeStats
                 }
                 else if (currentKnightVSpeedLevel == maxWalkSpeedLevel)
                 {
-                    if (isRunning) { return; }
-                    MyPanel.knightVMaxLevel.enabled = true;
-                    isRunning = true;
-                    await Task.Run(WarningTimer);
-                    MyPanel.knightVMaxLevel.enabled = false;
+                    await DisplayWarning(MyPanel.knightVMaxLevel);
                 }
 
             }
             else
             {
-                if (isRunning) { return; }
-                MyPanel.knightVNotEnogthPoints.enabled = true;
-                isRunning = true;
-                await Task.Run(WarningTimer);
-                MyPanel.knightVNotEnogthPoints.enabled = false;
+                await DisplayWarning(MyPanel.knightVNotEnogthPoints);
             }
         }
 
@@ -396,20 +349,20 @@ namespace PlayerUpgradeStats
                     currentBowDamageLevel++;
                     if (currentBowDamageLevel < 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayBowUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.bowNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                     }
                     if (currentBowDamageLevel == 2)
                     {
-                        if (currentPoints < 2) { await Task.Run(DisplayBowUpgradeWarning); return; }
+                        if (currentPoints < 2) { await DisplayWarning(MyPanel.bowNotEnogthPoints); return; }
                         currentPoints -= 2;
                         pointsUsed += 2;
                         MyPanel.jumpHeightCost.text = $"Cost: {pointPriceText4}";
                     }
                     if (currentBowDamageLevel > 2)
                     {
-                        if (currentPoints < 4) { await Task.Run(DisplayBowUpgradeWarning); return; }
+                        if (currentPoints < 4) { await DisplayWarning(MyPanel.bowNotEnogthPoints); return; }
                         currentPoints -= 4;
                         pointsUsed += 4;
                         MyPanel.bowDamageCost.text = $"Cost: {pointPriceText4}";
@@ -426,21 +379,13 @@ namespace PlayerUpgradeStats
                 }
                 else if (currentBowDamageLevel == maxWalkSpeedLevel)
                 {
-                    if (isRunning) { return; }
-                    MyPanel.bowMaxLevel.enabled = true;
-                    isRunning = true;
-                    await Task.Run(WarningTimer);
-                    MyPanel.bowMaxLevel.enabled = false;
+                    await DisplayWarning(MyPanel.bowMaxLevel);
                 }
 
             }
             else
             {
-                if (isRunning) { return; }
-                MyPanel.bowNotEnogthPoints.enabled = true;
-                isRunning = true;
-                await Task.Run(WarningTimer);
-                MyPanel.bowNotEnogthPoints.enabled = false;
+                await DisplayWarning(MyPanel.bowNotEnogthPoints);
             }
         }
 
@@ -451,64 +396,14 @@ namespace PlayerUpgradeStats
             isRunning = false;
         }
 
-        public static async Task DisplayWalkUpgradeWarning()
-        {
-            if (isRunning) { return; }
-            MyPanel.walkNotEnogthPoints.enabled = true;
-            isRunning = true;
-            await Task.Run(WarningTimer);
-            MyPanel.walkNotEnogthPoints.enabled = false;
-        }
 
-        public static async Task DisplaySprintUpgradeWarning()
+        public static async Task DisplayWarning(Text WarningText)
         {
             if (isRunning) { return; }
-            MyPanel.sprintNotEnogthPoints.enabled = true;
+            WarningText.enabled = true;
             isRunning = true;
             await Task.Run(WarningTimer);
-            MyPanel.sprintNotEnogthPoints.enabled = false;
-        }
-
-        public static async Task DisplayJumpUpgradeWarning()
-        {
-            if (isRunning) { return; }
-            MyPanel.jumpNotEnogthPoints.enabled = true;
-            isRunning = true;
-            await Task.Run(WarningTimer);
-            MyPanel.jumpNotEnogthPoints.enabled = false;
-        }
-
-        public static async Task DisplaySwimUpgradeWarning()
-        {
-            if (isRunning) { return; }
-            MyPanel.swimNotEnogthPoints.enabled = true;
-            isRunning = true;
-            await Task.Run(WarningTimer);
-            MyPanel.swimNotEnogthPoints.enabled = false;
-        }
-        public static async Task DisplayChainsawUpgradeWarning()
-        {
-            if (isRunning) { return; }
-            MyPanel.chainSawNotEnogthPoints.enabled = true;
-            isRunning = true;
-            await Task.Run(WarningTimer);
-            MyPanel.chainSawNotEnogthPoints.enabled = false;
-        }
-        public static async Task DisplayKnightVUpgradeWarning()
-        {
-            if (isRunning) { return; }
-            MyPanel.knightVNotEnogthPoints.enabled = true;
-            isRunning = true;
-            await Task.Run(WarningTimer);
-            MyPanel.knightVNotEnogthPoints.enabled = false;
-        }
-        public static async Task DisplayBowUpgradeWarning()
-        {
-            if (isRunning) { return; }
-            MyPanel.bowNotEnogthPoints.enabled = true;
-            isRunning = true;
-            await Task.Run(WarningTimer);
-            MyPanel.bowNotEnogthPoints.enabled = false;
+            WarningText.enabled = false;
         }
     }
 }
