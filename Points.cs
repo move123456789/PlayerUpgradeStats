@@ -75,7 +75,72 @@ namespace PlayerUpgradeStats
                     MaxLevelWarning = MyPanel.sprintMaxLevel
                 }
             },
-            // Add other upgrades here
+            {
+                nameof(currentJumpHeightLevel),
+                new Upgrade
+                {
+                    Name = "Jump Height",
+                    GetLevel = () => currentJumpHeightLevel,
+                    SetLevel = (value) => currentJumpHeightLevel = value,
+                    SpeedIncreaseText = MyPanel.jumpHeightIncrease,
+                    SpeedCostText = MyPanel.jumpHeightCost,
+                    NotEnoughPointsWarning = MyPanel.jumpNotEnogthPoints,
+                    MaxLevelWarning = MyPanel.jumpMaxLevel
+                }
+            },
+            {
+                nameof(currentSwimSpeedLevel),
+                new Upgrade
+                {
+                    Name = "Swim Speed",
+                    GetLevel = () => currentSwimSpeedLevel,
+                    SetLevel = (value) => currentSwimSpeedLevel = value,
+                    SpeedIncreaseText = MyPanel.swimSpeedIncrease,
+                    SpeedCostText = MyPanel.swimSpeedCost,
+                    NotEnoughPointsWarning = MyPanel.swimNotEnogthPoints,
+                    MaxLevelWarning = MyPanel.swimMaxLevel
+                }
+            },
+            {
+                nameof(currentChainsawSpeedLevel),
+                new Upgrade
+                {
+                    Name = "Chainsaw Speed",
+                    GetLevel = () => currentChainsawSpeedLevel,
+                    SetLevel = (value) => currentChainsawSpeedLevel = value,
+                    SpeedIncreaseText = MyPanel.chainSawSpeedIncrease,
+                    SpeedCostText = MyPanel.chainSawSpeedCost,
+                    NotEnoughPointsWarning = MyPanel.chainSawNotEnogthPoints,
+                    MaxLevelWarning = MyPanel.chainSawMaxLevel
+                }
+            },
+            {
+                nameof(currentKnightVSpeedLevel),
+                new Upgrade
+                {
+                    Name = "KnightV Speed",
+                    GetLevel = () => currentKnightVSpeedLevel,
+                    SetLevel = (value) => currentKnightVSpeedLevel = value,
+                    SpeedIncreaseText = MyPanel.knightVSpeedIncrease,
+                    SpeedCostText = MyPanel.knightVSpeedCost,
+                    NotEnoughPointsWarning = MyPanel.knightVNotEnogthPoints,
+                    MaxLevelWarning = MyPanel.knightVMaxLevel
+                }
+            },
+            {
+                nameof(currentBowDamageLevel),
+                new Upgrade
+                {
+                    Name = "Bow Damage",
+                    GetLevel = () => currentBowDamageLevel,
+                    SetLevel = (value) => currentBowDamageLevel = value,
+                    SpeedIncreaseText = MyPanel.bowDamageIncrease,
+                    SpeedCostText = MyPanel.bowDamageCost,
+                    NotEnoughPointsWarning = MyPanel.bowNotEnogthPoints,
+                    MaxLevelWarning = MyPanel.bowMaxLevel
+                }
+            },
+
         };
 
         public async static void BuyUpgrade(string upgradeName)
@@ -520,5 +585,5 @@ namespace PlayerUpgradeStats
         //        await Task.Run(WarningTimer);
         //        WarningText.enabled = false;
         //    }
-        //}
+        }
     }
