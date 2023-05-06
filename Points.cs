@@ -35,7 +35,7 @@ namespace PlayerUpgradeStats
             WalkSpeed,
             SprintSpeed,
             JumpHeight,
-            SwinSpeed,
+            SwimSpeed,
             ChainSawSpeed,
             KnightVSpeed,
             BowDamage,
@@ -87,19 +87,19 @@ namespace PlayerUpgradeStats
             switch (upgradeType)
             {
                 case UpgradeType.WalkSpeed:
-                    return MyPanel.walkNotEnogthPoints;
+                    return MyPanel.walkNotEnoughPoints;
                 case UpgradeType.SprintSpeed:
-                    return MyPanel.sprintNotEnogthPoints;
+                    return MyPanel.sprintNotEnoughPoints;
                 case UpgradeType.JumpHeight:
-                    return MyPanel.jumpNotEnogthPoints;
-                case UpgradeType.SwinSpeed:
-                    return MyPanel.swimNotEnogthPoints;
+                    return MyPanel.jumpNotEnoughPoints;
+                case UpgradeType.SwimSpeed:
+                    return MyPanel.swimNotEnoughPoints;
                 case UpgradeType.ChainSawSpeed:
-                    return MyPanel.chainSawNotEnogthPoints;
+                    return MyPanel.chainSawNotEnoughPoints;
                 case UpgradeType.KnightVSpeed:
-                    return MyPanel.knightVNotEnogthPoints;
+                    return MyPanel.knightVNotEnoughPoints;
                 case UpgradeType.BowDamage:
-                    return MyPanel.bowNotEnogthPoints;
+                    return MyPanel.bowNotEnoughPoints;
                 default:
                     throw new ArgumentException("Invalid upgrade type");
             }
@@ -115,7 +115,7 @@ namespace PlayerUpgradeStats
                     return MyPanel.sprintMaxLevel;
                 case UpgradeType.JumpHeight:
                     return MyPanel.jumpMaxLevel;
-                case UpgradeType.SwinSpeed:
+                case UpgradeType.SwimSpeed:
                     return MyPanel.swimMaxLevel;
                 case UpgradeType.ChainSawSpeed:
                     return MyPanel.chainSawMaxLevel;
@@ -139,7 +139,7 @@ namespace PlayerUpgradeStats
                     return currentSprintSpeedLevel;
                 case UpgradeType.JumpHeight:
                     return currentJumpHeightLevel;
-                case UpgradeType.SwinSpeed:
+                case UpgradeType.SwimSpeed:
                     return currentSwimSpeedLevel;
                 case UpgradeType.ChainSawSpeed:
                     return currentChainsawSpeedLevel;
@@ -165,7 +165,7 @@ namespace PlayerUpgradeStats
                 case UpgradeType.JumpHeight:
                     currentJumpHeightLevel = newLevel;
                     break;
-                case UpgradeType.SwinSpeed:
+                case UpgradeType.SwimSpeed:
                     currentSwimSpeedLevel = newLevel;
                     break;
                 case UpgradeType.ChainSawSpeed:
@@ -205,7 +205,7 @@ namespace PlayerUpgradeStats
                 MyPanel.jumpHeightCost.text = costInfo;
                 MyPanel.jumpHeightIncrease.text = levelInfo;
             }
-            else if (upgradeType == UpgradeType.SwinSpeed)
+            else if (upgradeType == UpgradeType.SwimSpeed)
             {
                 MyPanel.swimSpeedCost.text = costInfo;
                 MyPanel.swimSpeedIncrease.text = levelInfo;

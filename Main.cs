@@ -83,8 +83,8 @@ namespace PlayerUpgradeStats
 
                 // Walk Speed
                 Text walkSpeedHeader = UIFactory.CreateLabel(ContentRoot, "walkSpeedHeader", "Walk Speed");
-                walkNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "walkNotEnogthPoints", "You don't have enogth points!");
-                walkNotEnogthPoints.enabled = false;
+                walkNotEnoughPoints = UIFactory.CreateLabel(ContentRoot, "walkNotEnoughPoints", "You don't have Enough points!");
+                walkNotEnoughPoints.enabled = false;
                 walkMaxLevel = UIFactory.CreateLabel(ContentRoot, "walkMaxLevel", "You have reached the max level!");
                 walkMaxLevel.enabled = false;
                 GameObject walkSpeedGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "WalkSpeedHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
@@ -101,12 +101,12 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(walkSpeedIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(walkSpeedCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(upgradeWalkSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
-                UIFactory.SetLayoutElement(walkNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+                UIFactory.SetLayoutElement(walkNotEnoughPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // Sprint Speed
                 Text sprintSpeedHeader = UIFactory.CreateLabel(ContentRoot, "sprintSpeedHeader", "Sprint Speed");
-                sprintNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "sprintNotEnogthPoints", "You don't have enogth points!");
-                sprintNotEnogthPoints.enabled = false;
+                sprintNotEnoughPoints = UIFactory.CreateLabel(ContentRoot, "sprintNotEnoughPoints", "You don't have Enough points!");
+                sprintNotEnoughPoints.enabled = false;
                 sprintMaxLevel = UIFactory.CreateLabel(ContentRoot, "sprintMaxLevel", "You have reached the max level!");
                 sprintMaxLevel.enabled = false;
                 GameObject sprintSpeedGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "sprintSpeedHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
@@ -123,12 +123,12 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(sprintSpeedIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(sprintSpeedCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(upgradeSprintSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
-                UIFactory.SetLayoutElement(sprintNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+                UIFactory.SetLayoutElement(sprintNotEnoughPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // Jump Height
                 Text jumpHeightHeader = UIFactory.CreateLabel(ContentRoot, "jumpHeightHeader", "Jump Height");
-                jumpNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "jumpNotEnogthPoints", "You don't have enogth points!");
-                jumpNotEnogthPoints.enabled = false;
+                jumpNotEnoughPoints = UIFactory.CreateLabel(ContentRoot, "jumpNotEnoughPoints", "You don't have Enough points!");
+                jumpNotEnoughPoints.enabled = false;
                 jumpMaxLevel = UIFactory.CreateLabel(ContentRoot, "jumpMaxLevel", "You have reached the max level!");
                 jumpMaxLevel.enabled = false;
                 GameObject jumpHeightGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "jumpHeightHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
@@ -145,19 +145,19 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(jumpHeightIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(jumpHeightCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(upgradeJumpHeight.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
-                UIFactory.SetLayoutElement(jumpNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+                UIFactory.SetLayoutElement(jumpNotEnoughPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // Swim Speed
                 Text swimSpeedHeader = UIFactory.CreateLabel(ContentRoot, "swimSpeedHeader", "Swim Speed");
-                swimNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "swimNotEnogthPoints", "You don't have enogth points!");
-                swimNotEnogthPoints.enabled = false;
+                swimNotEnoughPoints = UIFactory.CreateLabel(ContentRoot, "swimNotEnoughPoints", "You don't have Enough points!");
+                swimNotEnoughPoints.enabled = false;
                 swimMaxLevel = UIFactory.CreateLabel(ContentRoot, "swimMaxLevel", "You have reached the max level!");
                 swimMaxLevel.enabled = false;
                 GameObject swimSpeedGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "swimSpeedHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
                 ButtonRef upgradeSwimSpeed = UIFactory.CreateButton(swimSpeedGroup, "upgradeSwimSpeed", "+20% Swim Speed", btnColor);
                 upgradeSwimSpeed.OnClick += () =>
                 {
-                    BuyUpgrade(UpgradeType.SwinSpeed);
+                    BuyUpgrade(UpgradeType.SwimSpeed);
                 };
                 swimSpeedIncrease = UIFactory.CreateLabel(swimSpeedGroup, "swimSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentSwimSpeedLevel}/5");
                 swimSpeedCost = UIFactory.CreateLabel(swimSpeedGroup, "swimSpeedCost", "Cost: 2");
@@ -167,12 +167,12 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(swimSpeedIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(swimSpeedCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(upgradeSwimSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
-                UIFactory.SetLayoutElement(swimNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+                UIFactory.SetLayoutElement(swimNotEnoughPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // Chainsaw Speed
                 Text chainSawSpeedHeader = UIFactory.CreateLabel(ContentRoot, "chanSawSpeedHeader", "Chainsaw Speed");
-                chainSawNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "chainSawNotEnogthPoints", "You don't have enogth points!");
-                chainSawNotEnogthPoints.enabled = false;
+                chainSawNotEnoughPoints = UIFactory.CreateLabel(ContentRoot, "chainSawNotEnoughPoints", "You don't have Enough points!");
+                chainSawNotEnoughPoints.enabled = false;
                 chainSawMaxLevel = UIFactory.CreateLabel(ContentRoot, "chainSawMaxLevel", "You have reached the max level!");
                 chainSawMaxLevel.enabled = false;
                 GameObject chainSawSpeedGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "chainSawSpeedHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
@@ -189,12 +189,12 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(chainSawSpeedIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(chainSawSpeedCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(upgradeChainsawSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
-                UIFactory.SetLayoutElement(chainSawNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+                UIFactory.SetLayoutElement(chainSawNotEnoughPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // KnightV Speed
                 Text knightVSpeedHeader = UIFactory.CreateLabel(ContentRoot, "knightVSpeedHeader", "KnightV Speed");
-                knightVNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "knightVNotEnogthPoints", "You don't have enogth points!");
-                knightVNotEnogthPoints.enabled = false;
+                knightVNotEnoughPoints = UIFactory.CreateLabel(ContentRoot, "knightVNotEnoughPoints", "You don't have Enough points!");
+                knightVNotEnoughPoints.enabled = false;
                 knightVMaxLevel = UIFactory.CreateLabel(ContentRoot, "knightVMaxLevel", "You have reached the max level!");
                 knightVMaxLevel.enabled = false;
                 GameObject knightVSpeedGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "knightVSpeedHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
@@ -211,12 +211,12 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(knightVSpeedIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(knightVSpeedCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(upgradeKnightVSpeed.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
-                UIFactory.SetLayoutElement(knightVNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+                UIFactory.SetLayoutElement(knightVNotEnoughPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // Bow Damage
                 Text bowDamageHeader = UIFactory.CreateLabel(ContentRoot, "bowDamageHeader", "Crafted Bow Damage");
-                bowNotEnogthPoints = UIFactory.CreateLabel(ContentRoot, "bowNotEnogthPoints", "You don't have enogth points!");
-                bowNotEnogthPoints.enabled = false;
+                bowNotEnoughPoints = UIFactory.CreateLabel(ContentRoot, "bowNotEnoughPoints", "You don't have Enough points!");
+                bowNotEnoughPoints.enabled = false;
                 bowMaxLevel = UIFactory.CreateLabel(ContentRoot, "bowMaxLevel", "You have reached the max level!");
                 bowMaxLevel.enabled = false;
                 GameObject bowDamageGroup = UIFactory.CreateHorizontalGroup(ContentRoot, "bowDamageHor", false, false, true, true, 4, new Vector4(3, 5, 3, 3));
@@ -233,49 +233,49 @@ namespace PlayerUpgradeStats
                 UIFactory.SetLayoutElement(bowDamageIncrease.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(bowDamageCost.gameObject, flexibleWidth: 50, minHeight: 30, flexibleHeight: 0);
                 UIFactory.SetLayoutElement(upgradeBowDamage.Component.gameObject, minHeight: 30, flexibleHeight: 0, minWidth: 250, preferredWidth: 250);
-                UIFactory.SetLayoutElement(bowNotEnogthPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
+                UIFactory.SetLayoutElement(bowNotEnoughPoints.gameObject, flexibleWidth: 20, minHeight: 0, flexibleHeight: 0, minWidth: 20);
 
                 // Ui Loaded
                 isUiLoaded = true;
         }
             // For Walk Speed
-            public static Text walkNotEnogthPoints;
+            public static Text walkNotEnoughPoints;
             public static Text walkMaxLevel;
             public static Text walkSpeedIncrease;
             public static Text walkSpeedCost;
 
             // For Sprint Speed
-            public static Text sprintNotEnogthPoints;
+            public static Text sprintNotEnoughPoints;
             public static Text sprintMaxLevel;
             public static Text sprintSpeedCost;
             public static Text sprintSpeedIncrease;
 
             // For Jump Height
-            public static Text jumpNotEnogthPoints;
+            public static Text jumpNotEnoughPoints;
             public static Text jumpMaxLevel;
             public static Text jumpHeightCost;
             public static Text jumpHeightIncrease;
 
             // For Swin Speed
-            public static Text swimNotEnogthPoints;
+            public static Text swimNotEnoughPoints;
             public static Text swimMaxLevel;
             public static Text swimSpeedCost;
             public static Text swimSpeedIncrease;
 
             // For Chainsaw Speed
-            public static Text chainSawNotEnogthPoints;
+            public static Text chainSawNotEnoughPoints;
             public static Text chainSawMaxLevel;
             public static Text chainSawSpeedCost;
             public static Text chainSawSpeedIncrease;
 
             // For KnightV Speed
-            public static Text knightVNotEnogthPoints;
+            public static Text knightVNotEnoughPoints;
             public static Text knightVMaxLevel;
             public static Text knightVSpeedCost;
             public static Text knightVSpeedIncrease;
 
             // For Bow Damage
-            public static Text bowNotEnogthPoints;
+            public static Text bowNotEnoughPoints;
             public static Text bowMaxLevel;
             public static Text bowDamageCost;
             public static Text bowDamageIncrease;
