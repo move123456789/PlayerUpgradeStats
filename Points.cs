@@ -29,109 +29,251 @@ namespace PlayerUpgradeStats
         internal const string pointPriceText2 = "2";
         internal const string pointPriceText4 = "4";
 
-        public async static void BuyWalkSpeed()
+        // FOR TESTING
+        private const int MaxUpgradeLevel = 5;
+
+        // Upgrade types
+        public enum UpgradeType
+        {
+            WalkSpeed,
+            SprintSpeed,
+            // other types...
+        }
+
+        // Prices
+        internal const int BasePrice = 2;
+        internal const int HigherPrice = 4;
+
+        public async static void BuyUpgrade(UpgradeType upgradeType)
         {
             Plugin.LoadStats();
 
-            if (Plugin.currentPoints > 0 || currentWalkSpeedLevel == maxWalkSpeedLevel)
+            float currentLevel = GetCurrentUpgradeLevel(upgradeType);
+
+            if (Plugin.currentPoints > 0 || currentLevel == MaxUpgradeLevel)
             {
-                if (currentWalkSpeedLevel < maxWalkSpeedLevel)
+                if (currentLevel < MaxUpgradeLevel)
                 {
-                    currentWalkSpeedLevel++;
-                    if (currentWalkSpeedLevel < 2)
+                    float newLevel = currentLevel + 1;
+                    int cost = newLevel > 2 ? HigherPrice : BasePrice;
+
+                    if (currentPoints < cost)
                     {
-                        if (currentPoints < 2) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
-                        currentPoints -= 2;
-                        pointsUsed += 2;
+                        await DisplayWarning(GetNotEnoughPointsWarning(upgradeType));
+                        return;
                     }
-                    if (currentWalkSpeedLevel == 2)
-                    {
-                        if (currentPoints < 2) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
-                        currentPoints -= 2;
-                        pointsUsed += 2;
-                        MyPanel.walkSpeedCost.text = $"Cost: {pointPriceText4}";
-                    }
-                    if (currentWalkSpeedLevel > 2)
-                    {
-                        if (currentPoints < 4) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
-                        currentPoints -= 4;
-                        pointsUsed += 4;
-                        MyPanel.walkSpeedCost.text = $"Cost: {pointPriceText4}";
-                    }
-                    doUpdateSpeeds = true;
-                    PostLogsToConsole("currentWalkSpeedLevel = " + currentWalkSpeedLevel);
-                    PostLogsToConsole("currentPoints = " + Plugin.currentPoints);
-                    PostLogsToConsole("pointsUsed = " + pointsUsed);
-                    float totalwalkSpeedIncrease = currentWalkSpeedLevel * 20;
-                    MyPanel.walkSpeedIncrease.text = $"Speed: +{totalwalkSpeedIncrease}%" + $"  Level {currentWalkSpeedLevel}/5";
-                    MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
+
+                    currentPoints -= cost;
+                    pointsUsed += cost;
+                    SetUpgradeLevel(upgradeType, newLevel);
+                    UpdateUI(upgradeType);
                     DataHandler.SaveData();
-
-
                 }
-                else if (currentWalkSpeedLevel == maxWalkSpeedLevel)
+                else
                 {
-                    await DisplayWarning(MyPanel.walkMaxLevel);
+                    await DisplayWarning(GetMaxLevelWarning(upgradeType));
                 }
-
             }
             else
             {
-                await DisplayWarning(MyPanel.walkNotEnogthPoints);
+                await DisplayWarning(GetNotEnoughPointsWarning(upgradeType));
             }
         }
 
-        public async static void BuySprintSpeed()
+        private static Text GetNotEnoughPointsWarning(UpgradeType upgradeType)
         {
-            Plugin.LoadStats();
-
-            if (Plugin.currentPoints > 0 || currentSprintSpeedLevel == maxWalkSpeedLevel)
+            switch (upgradeType)
             {
-                if (currentSprintSpeedLevel < maxWalkSpeedLevel)
-                {
-                    currentSprintSpeedLevel++;
-                    if (currentSprintSpeedLevel < 2)
-                    {
-                        if (currentPoints < 2) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
-                        currentPoints -= 2;
-                        pointsUsed += 2;
-                    }
-                    if (currentSprintSpeedLevel == 2)
-                    {
-                        if (currentPoints < 2) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
-                        currentPoints -= 2;
-                        pointsUsed += 2;
-                        MyPanel.sprintSpeedCost.text = $"Cost: {pointPriceText4}";
-                    }
-                    if (currentSprintSpeedLevel > 2)
-                    {
-                        if (currentPoints < 4) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
-                        currentPoints -= 4;
-                        pointsUsed += 4;
-                        MyPanel.sprintSpeedCost.text = $"Cost: {pointPriceText4}";
-                    }
-                    doUpdateSpeeds = true;
-                    PostLogsToConsole("currentSprintSpeedLevel = " + currentSprintSpeedLevel);
-                    PostLogsToConsole("currentPoints = " + Plugin.currentPoints);
-                    PostLogsToConsole("pointsUsed = " + pointsUsed);
-                    float totalSprintSpeedIncrease = currentSprintSpeedLevel * 20;
-                    MyPanel.sprintSpeedIncrease.text = $"Speed: +{totalSprintSpeedIncrease}%" + $"  Level {currentSprintSpeedLevel}/5";
-                    MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
-                    DataHandler.SaveData();
-
-
-                }
-                else if (currentSprintSpeedLevel == maxWalkSpeedLevel)
-                {
-                    await DisplayWarning(MyPanel.sprintMaxLevel);
-                }
-
-            }
-            else
-            {
-                await DisplayWarning(MyPanel.sprintNotEnogthPoints);
+                case UpgradeType.WalkSpeed:
+                    return MyPanel.walkNotEnogthPoints;
+                case UpgradeType.SprintSpeed:
+                    return MyPanel.sprintNotEnogthPoints;
+                // other cases...
+                default:
+                    throw new ArgumentException("Invalid upgrade type");
             }
         }
+
+        private static Text GetMaxLevelWarning(UpgradeType upgradeType)
+        {
+            switch (upgradeType)
+            {
+                case UpgradeType.WalkSpeed:
+                    return MyPanel.walkMaxLevel;
+                case UpgradeType.SprintSpeed:
+                    return MyPanel.sprintMaxLevel;
+                // other cases...
+                default:
+                    throw new ArgumentException("Invalid upgrade type");
+            }
+        }
+
+
+        private static float GetCurrentUpgradeLevel(UpgradeType upgradeType)
+        {
+            switch (upgradeType)
+            {
+                case UpgradeType.WalkSpeed:
+                    return currentWalkSpeedLevel;
+                case UpgradeType.SprintSpeed:
+                    return currentSprintSpeedLevel;
+                // other cases...
+                default:
+                    throw new ArgumentException("Invalid upgrade type");
+            }
+        }
+
+        private static void SetUpgradeLevel(UpgradeType upgradeType, float newLevel)
+        {
+            switch (upgradeType)
+            {
+                case UpgradeType.WalkSpeed:
+                    currentWalkSpeedLevel = newLevel;
+                    break;
+                case UpgradeType.SprintSpeed:
+                    currentSprintSpeedLevel = newLevel;
+                    break;
+                // other cases...
+                default:
+                    throw new ArgumentException("Invalid upgrade type");
+            }
+        }
+        private static void UpdateUI(UpgradeType upgradeType)
+        {
+            float currentLevel = GetCurrentUpgradeLevel(upgradeType);
+            int cost = currentLevel > 1 ? HigherPrice : BasePrice;
+            float totalSpeedIncrease = currentLevel * 20;
+            string levelInfo = $"Speed: +{totalSpeedIncrease}%  Level {currentLevel}/5";
+            string costInfo = $"Cost: {cost}";
+
+            if (upgradeType == UpgradeType.WalkSpeed)
+            {
+                MyPanel.walkSpeedCost.text = costInfo;
+                MyPanel.walkSpeedIncrease.text = levelInfo;
+            }
+            else if (upgradeType == UpgradeType.SprintSpeed)
+            {
+                MyPanel.sprintSpeedCost.text = costInfo;
+                MyPanel.sprintSpeedIncrease.text = levelInfo;
+            }
+            // Add other cases for other upgrade types
+
+            MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
+        }
+
+
+        // FOR TESTING
+
+
+
+
+
+
+
+
+        //public async static void BuyWalkSpeed()
+        //{
+        //    Plugin.LoadStats();
+
+        //    if (Plugin.currentPoints > 0 || currentWalkSpeedLevel == maxWalkSpeedLevel)
+        //    {
+        //        if (currentWalkSpeedLevel < maxWalkSpeedLevel)
+        //        {
+        //            currentWalkSpeedLevel++;
+        //            if (currentWalkSpeedLevel < 2)
+        //            {
+        //                if (currentPoints < 2) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
+        //                currentPoints -= 2;
+        //                pointsUsed += 2;
+        //            }
+        //            if (currentWalkSpeedLevel == 2)
+        //            {
+        //                if (currentPoints < 2) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
+        //                currentPoints -= 2;
+        //                pointsUsed += 2;
+        //                MyPanel.walkSpeedCost.text = $"Cost: {pointPriceText4}";
+        //            }
+        //            if (currentWalkSpeedLevel > 2)
+        //            {
+        //                if (currentPoints < 4) { await DisplayWarning(MyPanel.walkNotEnogthPoints); return; }
+        //                currentPoints -= 4;
+        //                pointsUsed += 4;
+        //                MyPanel.walkSpeedCost.text = $"Cost: {pointPriceText4}";
+        //            }
+        //            doUpdateSpeeds = true;
+        //            PostLogsToConsole("currentWalkSpeedLevel = " + currentWalkSpeedLevel);
+        //            PostLogsToConsole("currentPoints = " + Plugin.currentPoints);
+        //            PostLogsToConsole("pointsUsed = " + pointsUsed);
+        //            float totalwalkSpeedIncrease = currentWalkSpeedLevel * 20;
+        //            MyPanel.walkSpeedIncrease.text = $"Speed: +{totalwalkSpeedIncrease}%" + $"  Level {currentWalkSpeedLevel}/5";
+        //            MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
+        //            DataHandler.SaveData();
+
+
+        //        }
+        //        else if (currentWalkSpeedLevel == maxWalkSpeedLevel)
+        //        {
+        //            await DisplayWarning(MyPanel.walkMaxLevel);
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        await DisplayWarning(MyPanel.walkNotEnogthPoints);
+        //    }
+        //}
+
+        //public async static void BuySprintSpeed()
+        //{
+        //    Plugin.LoadStats();
+
+        //    if (Plugin.currentPoints > 0 || currentSprintSpeedLevel == maxWalkSpeedLevel)
+        //    {
+        //        if (currentSprintSpeedLevel < maxWalkSpeedLevel)
+        //        {
+        //            currentSprintSpeedLevel++;
+        //            if (currentSprintSpeedLevel < 2)
+        //            {
+        //                if (currentPoints < 2) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
+        //                currentPoints -= 2;
+        //                pointsUsed += 2;
+        //            }
+        //            if (currentSprintSpeedLevel == 2)
+        //            {
+        //                if (currentPoints < 2) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
+        //                currentPoints -= 2;
+        //                pointsUsed += 2;
+        //                MyPanel.sprintSpeedCost.text = $"Cost: {pointPriceText4}";
+        //            }
+        //            if (currentSprintSpeedLevel > 2)
+        //            {
+        //                if (currentPoints < 4) { await DisplayWarning(MyPanel.sprintNotEnogthPoints); return; }
+        //                currentPoints -= 4;
+        //                pointsUsed += 4;
+        //                MyPanel.sprintSpeedCost.text = $"Cost: {pointPriceText4}";
+        //            }
+        //            doUpdateSpeeds = true;
+        //            PostLogsToConsole("currentSprintSpeedLevel = " + currentSprintSpeedLevel);
+        //            PostLogsToConsole("currentPoints = " + Plugin.currentPoints);
+        //            PostLogsToConsole("pointsUsed = " + pointsUsed);
+        //            float totalSprintSpeedIncrease = currentSprintSpeedLevel * 20;
+        //            MyPanel.sprintSpeedIncrease.text = $"Speed: +{totalSprintSpeedIncrease}%" + $"  Level {currentSprintSpeedLevel}/5";
+        //            MyPanel.curPoints.text = $"Upgrade Points Left: {currentPoints}";
+        //            DataHandler.SaveData();
+
+
+        //        }
+        //        else if (currentSprintSpeedLevel == maxWalkSpeedLevel)
+        //        {
+        //            await DisplayWarning(MyPanel.sprintMaxLevel);
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        await DisplayWarning(MyPanel.sprintNotEnogthPoints);
+        //    }
+        //}
 
         public async static void BuyJumpHeight()
         {

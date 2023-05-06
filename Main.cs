@@ -14,6 +14,7 @@ using TheForest.Utils;
 using Sons.Weapon;
 using System.Xml.Linq;
 using Sons.Gameplay;
+using static PlayerUpgradeStats.BuyUpgrades;
 
 namespace PlayerUpgradeStats
 {
@@ -90,7 +91,8 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeWalkSpeed = UIFactory.CreateButton(walkSpeedGroup, "upgradeWalkSpeed", "+20% Walk Speed", btnColor);
                 upgradeWalkSpeed.OnClick += () =>
                 {
-                    BuyUpgrades.BuyWalkSpeed();
+                    //BuyUpgrades.BuyWalkSpeed();
+                    BuyUpgrade(UpgradeType.WalkSpeed);
                 };
                 walkSpeedIncrease = UIFactory.CreateLabel(walkSpeedGroup, "walkSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentWalkSpeedLevel}/5");
                 walkSpeedCost = UIFactory.CreateLabel(walkSpeedGroup, "walkSpeedCost", "Cost: 2");
@@ -112,7 +114,8 @@ namespace PlayerUpgradeStats
                 ButtonRef upgradeSprintSpeed = UIFactory.CreateButton(sprintSpeedGroup, "upgradeSprintSpeed", "+20% Sprint Speed", btnColor);
                 upgradeSprintSpeed.OnClick += () =>
                 {
-                    BuyUpgrades.BuySprintSpeed();
+                    //BuyUpgrades.BuySprintSpeed();
+                    BuyUpgrade(UpgradeType.SprintSpeed);
                 };
                 sprintSpeedIncrease = UIFactory.CreateLabel(sprintSpeedGroup, "sprintSpeedIncrease", "Speed: +0%" + $"  Level {BuyUpgrades.currentSprintSpeedLevel}/5");
                 sprintSpeedCost = UIFactory.CreateLabel(sprintSpeedGroup, "sprintSpeedCost", "Cost: 2");
