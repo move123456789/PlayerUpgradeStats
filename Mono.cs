@@ -38,17 +38,6 @@ namespace PlayerUpgradeStats
             private void Update()
             {
                 if (smokyaceDeactivate.Value || !LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
-                if (Input.GetKeyDown(KeyCode.Keypad9))
-                {
-                    if (LocalPlayer.Inventory.RightHandItem != null && LocalPlayer.Inventory.RightHandItem.ItemObject != null && LocalPlayer.Inventory.RightHandItem.ItemObject.name == "TacticalChainsawHeld")
-                    {
-                        PostLogsToConsole("ChainSaw In Hand");
-                    }
-                    else
-                    {
-                        PostLogsToConsole("Handled NullError");
-                    }
-                }
                 if (Input.GetKeyDown(smokyaceMenurKey.Value))
                 {
                     if (PlayerStatsPatcher.myUIBase == null) { return; }
