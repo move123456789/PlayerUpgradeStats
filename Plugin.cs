@@ -28,7 +28,7 @@ public partial class Plugin : BasePlugin
 {
     public const string PLUGIN_GUID = "Smokyace.PlayerUpgradeStats";
     public const string PLUGIN_NAME = "PlayerUpgradeStats";
-    public const string PLUGIN_VERSION = "1.0.5";
+    public const string PLUGIN_VERSION = "1.0.6";
     private const string author = "SmokyAce";
 
     public static ConfigFile configFile = new ConfigFile(Path.Combine(Paths.ConfigPath, "PlayerUpgradeStats.cfg"), true);

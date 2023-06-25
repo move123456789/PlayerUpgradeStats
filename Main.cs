@@ -300,35 +300,41 @@ namespace PlayerUpgradeStats
         internal class ChainSawModifications
         {
             private static float defaultChainsawHitFrequency = 0.25f;
+
             internal static ChainsawWeaponController GetChainSawComponent()
             {
-
-                if (!LocalPlayer.IsInWorld) { PostLogsToConsole("GetChainSawComponent, Player Not In World"); return null; }
-                if (LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PostLogsToConsole("Chanisaw name != TacticalChainsawHeld, so chainsaw is not in hand from GetChainSawComponent"); return null; }
-                ChainsawWeaponController ComponentChainsawWeaponController = GameObject.Find("TacticalChainsawHeld").GetComponent<ChainsawWeaponController>();
-                if (ComponentChainsawWeaponController == null) { PostErrorToConsole("In GetChainSawComponent, Found Object == null"); return null; } else { PostErrorToConsole("Found ComponentChainsawWeaponController"); }
-                return ComponentChainsawWeaponController;
-
+                try
+                {
+                    if (!LocalPlayer.IsInWorld) { PostLogsToConsole("GetChainSawComponent, Player Not In World"); return null; }
+                    if (LocalPlayer.Inventory.RightHandItem == null || LocalPlayer.Inventory.RightHandItem.ItemObject == null || LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PostLogsToConsole("Chainsaw name != TacticalChainsawHeld, so chainsaw is not in hand from GetChainSawComponent"); return null; }
+                    GameObject chainsawObject = GameObject.Find("TacticalChainsawHeld");
+                    if (chainsawObject == null) { PostErrorToConsole("In GetChainSawComponent, Could not find 'TacticalChainsawHeld' object"); return null; }
+                    ChainsawWeaponController ComponentChainsawWeaponController = chainsawObject.GetComponent<ChainsawWeaponController>();
+                    if (ComponentChainsawWeaponController == null) { PostErrorToConsole("In GetChainSawComponent, Found Object == null"); return null; } else { PostErrorToConsole("Found ComponentChainsawWeaponController"); }
+                    return ComponentChainsawWeaponController;
+                }
+                catch (Exception e) { PostErrorToConsole("Could not run GetChainSawComponent Error: " + e); return null; }
             }
+
             internal static float ChainSawHitFrequency
             {
                 get
                 {
-                    if (GetChainSawComponent == null) { PostLogsToConsole("In Get ChainSawHitFrequency, GetChainSawComponent == null"); return ChainSawHitFrequency = 0; }
+                    if (GetChainSawComponent() == null) { PostLogsToConsole("In Get ChainSawHitFrequency, GetChainSawComponent == null"); return ChainSawHitFrequency = 0; }
                     return GetChainSawComponent()._treeHitFrequency;
                 }
                 set
                 {
-                    if (GetChainSawComponent == null) { PostLogsToConsole("In Set ChainSawHitFrequency, GetChainSawComponent == null"); return; }
+                    if (GetChainSawComponent() == null) { PostLogsToConsole("In Set ChainSawHitFrequency, GetChainSawComponent == null"); return; }
                     try
                     {
                         PostLogsToConsole("Setting _treeHitFrequency = value");
                         GetChainSawComponent()._treeHitFrequency = value;
                     }
                     catch (Exception e) { PostErrorToConsole("Could not set _treeHitFrequency Error: " + e); }
-
                 }
             }
+
             internal static void UpgradeChainsawHitFrequency(float currentChainsawSpeedLevel)
             {
                 PostLogsToConsole("In UpgradeChainsawHitFrequency");
@@ -336,15 +342,12 @@ namespace PlayerUpgradeStats
                 {
                     if (currentChainsawSpeedLevel == 0) { PostLogsToConsole("No Need To UpgradeChainsawHitFrequency, currentChainsawSpeedLevel == 0"); return; }
                     if (!LocalPlayer.IsInWorld) { PostLogsToConsole("GetChainSawComponent, Player Not In World"); return; }
-                    if (LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PostLogsToConsole("Chanisaw name != TacticalChainsawHeld, so chainsaw is not in hand, from UpgradeChainsawHitFrequency"); return; }
+                    if (LocalPlayer.Inventory.RightHandItem != null && LocalPlayer.Inventory.RightHandItem.ItemObject != null && LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PostLogsToConsole("Chainsaw name != TacticalChainsawHeld, so chainsaw is not in hand, from UpgradeChainsawHitFrequency"); return; }
                     ChainSawHitFrequency = defaultChainsawHitFrequency * (1 - currentChainsawSpeedLevel * 19 / 100);
                 }
                 catch (Exception e) { PostErrorToConsole("Something went wrong in UpgradeChainsawHitFrequency, Error: " + e); }
-
                 PostLogsToConsole("Current Chainsaw Speed = " + ChainSawHitFrequency);
             }
-            
         }
-
     }
 }

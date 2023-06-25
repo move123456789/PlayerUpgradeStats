@@ -63,6 +63,9 @@
     <Reference Include="Sons.Gui.Multiplayer">
       <HintPath>NewLibs\Sons.Gui.Multiplayer.dll</HintPath>
     </Reference>
+    <Reference Include="Sons.Gui.Multiplayer.Notifications">
+      <HintPath>NewLibs\Sons.Gui.Multiplayer.Notifications.dll</HintPath>
+    </Reference>
     <Reference Include="Sons.Item">
       <HintPath>NewLibs\Sons.Item.dll</HintPath>
     </Reference>
