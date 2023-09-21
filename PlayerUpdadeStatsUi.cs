@@ -59,21 +59,6 @@ public class PlayerUpdadeStatsUi
     internal static SUiElement<SLabelOptions> BowDamageLvl;
     internal static SUiElement<SLabelOptions> BowDamageCost;
 
-
-
-    internal static void Test()
-    {
-        PlayerStatsFunctions.PostMessage("CLICK");
-        WalkSpeedBonus.Text("+ 50%");
-    }
-
-    internal static void UiBuyUpgradeClick(BuyUpgrades.UpgradeType upgradeType)
-    {
-        PlayerStatsFunctions.PostMessage($"Trying To Buy Upgrade");
-        BuyUpgrades.BuyUpgrade(upgradeType);
-    }
-
-
     public static void Create()
     {
         var panel = RegisterNewPanel(MOD_LIST_ID)
@@ -171,7 +156,7 @@ public class PlayerUpdadeStatsUi
         SprintSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         SprintSpeedCost.SetParent(SprintSpeedRowContainer);
 
-        var SprintSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        var SprintSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         SprintSpeedBtn.OnClick(() =>
         {
             BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.SprintSpeed);
@@ -198,7 +183,7 @@ public class PlayerUpdadeStatsUi
         SwimSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         SwimSpeedCost.SetParent(SwimSpeedRowContainer);
 
-        var SwimSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        var SwimSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         SwimSpeedBtn.OnClick(() =>
         {
             BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.SwimSpeed);
@@ -226,7 +211,7 @@ public class PlayerUpdadeStatsUi
         ChainSawSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         ChainSawSpeedCost.SetParent(ChainSawSpeedRowContainer);
 
-        var ChainSawSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        var ChainSawSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         ChainSawSpeedBtn.OnClick(() =>
         {
             BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.ChainSawSpeed);
@@ -253,7 +238,7 @@ public class PlayerUpdadeStatsUi
         KnightVSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         KnightVSpeedCost.SetParent(KnightVSpeedRowContainer);
 
-        var KnightVSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        var KnightVSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         KnightVSpeedBtn.OnClick(() =>
         {
             BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.KnightVSpeed);
@@ -280,7 +265,7 @@ public class PlayerUpdadeStatsUi
         BowDamageCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         BowDamageCost.SetParent(BowDamageRowContainer);
 
-        var BowDamageBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        var BowDamageBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         BowDamageBtn.OnClick(() =>
         {
             BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.BowDamage);
@@ -306,7 +291,7 @@ public class PlayerUpdadeStatsUi
         JumpHeighCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         JumpHeighCost.SetParent(JumpHeightRowContainer);
 
-        var JumpHeightBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        var JumpHeightBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         JumpHeightBtn.OnClick(() =>
         {
             BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.JumpHeight);
