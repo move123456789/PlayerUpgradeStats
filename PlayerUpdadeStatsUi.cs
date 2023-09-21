@@ -75,17 +75,18 @@ public class PlayerUpdadeStatsUi
 
         Close();
 
-        //var mainContainer = SContainer
-        //    .Dock(EDockType.Fill)
-        //    .Background(MainBgBlack).RectPadding(200);
-        //panel.Add(mainContainer);
-
-        var mainContainer = SScrollContainer
+        var mainContainer = SContainer
             .Dock(EDockType.Fill)
-            .Background(MainBgBlack).Margin(200)
-            .As<SScrollContainerOptions>();
-        mainContainer.ContainerObject.Spacing(4);
+            .Background(MainBgBlack).Margin(200);
         panel.Add(mainContainer);
+
+        // TESTING SCROLL TO MAIN CONTAINER
+        //var mainContainer = SScrollContainer
+        //    .Dock(EDockType.Fill)
+        //    .Background(MainBgBlack).Margin(200)
+        //    .As<SScrollContainerOptions>();
+        //mainContainer.ContainerObject.Spacing(4);
+        //panel.Add(mainContainer);
 
 
         var title = SLabel.Text("PlayerUpgradeStats")
@@ -117,17 +118,18 @@ public class PlayerUpdadeStatsUi
         exitButton.SetParent(mainContainer);
 
         // Colum Container
-        var CoulumContainer = SContainer
-            .Dock(EDockType.Fill)
-                           .Vertical(10, "EX").Padding(56, 56, 200, 80);
-        CoulumContainer.SetParent(mainContainer);
-
-        //var CoulumContainer = SScrollContainer
+        //var CoulumContainer = SContainer
         //    .Dock(EDockType.Fill)
-        //    .Vertical(10, "EX")
-        //    .As<SScrollContainerOptions>();
-        //CoulumContainer.ContainerObject.Spacing(4);
+        //                   .Vertical(10, "EX").Padding(56, 56, 200, 80);
         //CoulumContainer.SetParent(mainContainer);
+
+        var CoulumContainer = SScrollContainer
+            .Dock(EDockType.Fill)
+            .Vertical(10, "EX")
+            .Padding(56, 56, 200, 80)
+            .As<SScrollContainerOptions>();
+        CoulumContainer.ContainerObject.Spacing(4);
+        CoulumContainer.SetParent(mainContainer);
 
         // WALK SPEED
 
@@ -155,7 +157,7 @@ public class PlayerUpdadeStatsUi
         // Sprint SPEED
         var SprintSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack);
+                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
 
         SprintSpeedRowContainer.SetParent(CoulumContainer);
 
@@ -175,14 +177,12 @@ public class PlayerUpdadeStatsUi
         SprintSpeedBtn.SetParent(SprintSpeedRowContainer);
 
         // Swim SPEED
-        var SwimSpeedContainer = SContainer.Background(ComponentBlack).Height(100).Horizontal();
-        SwimSpeedContainer.SetParent(CoulumContainer);
 
         var SwimSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200);
+                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
 
-        SwimSpeedRowContainer.SetParent(SwimSpeedContainer);
+        SwimSpeedRowContainer.SetParent(CoulumContainer);
 
         var SwimSpeedText = SLabel.Text("Swim Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         SwimSpeedText.SetParent(SwimSpeedRowContainer);
@@ -201,14 +201,12 @@ public class PlayerUpdadeStatsUi
 
 
         // ChainSaw SPEED
-        var ChainSawSpeedContainer = SContainer.Background(ComponentBlack).Height(100).Horizontal();
-        ChainSawSpeedContainer.SetParent(CoulumContainer);
 
         var ChainSawSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200);
+                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
 
-        ChainSawSpeedRowContainer.SetParent(ChainSawSpeedContainer);
+        ChainSawSpeedRowContainer.SetParent(CoulumContainer);
 
         var ChainSawSpeedText = SLabel.Text("ChainSaw Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         ChainSawSpeedText.SetParent(ChainSawSpeedRowContainer);
@@ -227,14 +225,11 @@ public class PlayerUpdadeStatsUi
 
 
         // KnightV SPEED
-        var KnightVSpeedContainer = SContainer.Background(ComponentBlack).Height(100).Horizontal();
-        KnightVSpeedContainer.SetParent(CoulumContainer);
-
         var KnightVSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200);
+                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
 
-        KnightVSpeedRowContainer.SetParent(KnightVSpeedContainer);
+        KnightVSpeedRowContainer.SetParent(CoulumContainer);
 
         var KnightVSpeedText = SLabel.Text("KnightV Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         KnightVSpeedText.SetParent(KnightVSpeedRowContainer);
@@ -253,14 +248,11 @@ public class PlayerUpdadeStatsUi
 
 
         // BowDamage Damage
-        var BowDamageContainer = SContainer.Background(ComponentBlack).Height(100).Horizontal();
-        BowDamageContainer.SetParent(CoulumContainer);
-
         var BowDamageRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200);
+                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
 
-        BowDamageRowContainer.SetParent(BowDamageContainer);
+        BowDamageRowContainer.SetParent(CoulumContainer);
 
         var BowDamageText = SLabel.Text("Bow Damage").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         BowDamageText.SetParent(BowDamageRowContainer);
@@ -278,14 +270,11 @@ public class PlayerUpdadeStatsUi
         BowDamageBtn.SetParent(BowDamageRowContainer);
 
         // JumpHeight Damage
-        var JumpHeightContainer = SContainer.Background(ComponentBlack).Height(100).Horizontal();
-        JumpHeightContainer.SetParent(CoulumContainer);
-
         var JumpHeightRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200);
+                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
 
-        JumpHeightRowContainer.SetParent(JumpHeightContainer);
+        JumpHeightRowContainer.SetParent(CoulumContainer);
 
         var JumpHeightText = SLabel.Text("Jump Height").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         JumpHeightText.SetParent(JumpHeightRowContainer);
