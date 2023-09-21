@@ -67,6 +67,12 @@ public class PlayerUpdadeStatsUi
         WalkSpeedBonus.Text("+ 50%");
     }
 
+    internal static void UiBuyUpgradeClick(BuyUpgrades.UpgradeType upgradeType)
+    {
+        PlayerStatsFunctions.PostMessage($"Trying To Buy Upgrade");
+        BuyUpgrades.BuyUpgrade(upgradeType);
+    }
+
 
     public static void Create()
     {
@@ -79,15 +85,6 @@ public class PlayerUpdadeStatsUi
             .Dock(EDockType.Fill)
             .Background(MainBgBlack).Margin(200);
         panel.Add(mainContainer);
-
-        // TESTING SCROLL TO MAIN CONTAINER
-        //var mainContainer = SScrollContainer
-        //    .Dock(EDockType.Fill)
-        //    .Background(MainBgBlack).Margin(200)
-        //    .As<SScrollContainerOptions>();
-        //mainContainer.ContainerObject.Spacing(4);
-        //panel.Add(mainContainer);
-
 
         var title = SLabel.Text("PlayerUpgradeStats")
             .FontColor("#444").Font(EFont.RobotoRegular)
@@ -117,11 +114,6 @@ public class PlayerUpdadeStatsUi
             .Size(60, 60).Ppu(1.7f).Notify(Close);
         exitButton.SetParent(mainContainer);
 
-        // Colum Container
-        //var CoulumContainer = SContainer
-        //    .Dock(EDockType.Fill)
-        //                   .Vertical(10, "EX").Padding(56, 56, 200, 80);
-        //CoulumContainer.SetParent(mainContainer);
 
         var CoulumContainer = SScrollContainer
             .Dock(EDockType.Fill)
@@ -135,68 +127,82 @@ public class PlayerUpdadeStatsUi
 
         var WalkSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
+                           .Horizontal(0, "EE").Background(ComponentBlack).Height(50);
 
         WalkSpeedRowContainer.SetParent(CoulumContainer);
 
-        var WalkSpeedText = SLabel.Text("Walk Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        var WalkSpeedText = SLabel.Text("Walk Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50);
         WalkSpeedText.SetParent(WalkSpeedRowContainer);
 
         WalkSpeedLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         WalkSpeedLvl.SetParent(WalkSpeedRowContainer);
 
-        WalkSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        WalkSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         WalkSpeedBonus.SetParent(WalkSpeedRowContainer);
 
         WalkSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         WalkSpeedCost.SetParent(WalkSpeedRowContainer);
 
-        var WalkSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test);
+        var WalkSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        WalkSpeedBtn.OnClick(() =>
+        {
+            BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.WalkSpeed);
+        });
+
+
         WalkSpeedBtn.SetParent(WalkSpeedRowContainer);
 
         // Sprint SPEED
         var SprintSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
+                           .Horizontal(0, "EE").Background(ComponentBlack).Height(50);
 
         SprintSpeedRowContainer.SetParent(CoulumContainer);
 
-        var SprintSpeedText = SLabel.Text("Sprint Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        var SprintSpeedText = SLabel.Text("Sprint Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50);
         SprintSpeedText.SetParent(SprintSpeedRowContainer);
 
         SprintSpeedLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         SprintSpeedLvl.SetParent(SprintSpeedRowContainer);
 
-        SprintSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        SprintSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         SprintSpeedBonus.SetParent(SprintSpeedRowContainer);
 
         SprintSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         SprintSpeedCost.SetParent(SprintSpeedRowContainer);
 
-        var SprintSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test);
+        var SprintSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        SprintSpeedBtn.OnClick(() =>
+        {
+            BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.SprintSpeed);
+        });
         SprintSpeedBtn.SetParent(SprintSpeedRowContainer);
 
         // Swim SPEED
 
         var SwimSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
+                           .Horizontal(0, "EE").Background(ComponentBlack).Height(50);
 
         SwimSpeedRowContainer.SetParent(CoulumContainer);
 
-        var SwimSpeedText = SLabel.Text("Swim Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        var SwimSpeedText = SLabel.Text("Swim Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50);
         SwimSpeedText.SetParent(SwimSpeedRowContainer);
 
         SwimSpeedLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         SwimSpeedLvl.SetParent(SwimSpeedRowContainer);
 
-        SwimSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        SwimSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         SwimSpeedBonus.SetParent(SwimSpeedRowContainer);
 
         SwimSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         SwimSpeedCost.SetParent(SwimSpeedRowContainer);
 
-        var SwimSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test);
+        var SwimSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        SwimSpeedBtn.OnClick(() =>
+        {
+            BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.SwimSpeed);
+        });
         SwimSpeedBtn.SetParent(SwimSpeedRowContainer);
 
 
@@ -204,91 +210,107 @@ public class PlayerUpdadeStatsUi
 
         var ChainSawSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
+                           .Horizontal(0, "EE").Background(ComponentBlack).Height(50);
 
         ChainSawSpeedRowContainer.SetParent(CoulumContainer);
 
-        var ChainSawSpeedText = SLabel.Text("ChainSaw Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        var ChainSawSpeedText = SLabel.Text("ChainSaw Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50);
         ChainSawSpeedText.SetParent(ChainSawSpeedRowContainer);
 
         ChainSawSpeedLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         ChainSawSpeedLvl.SetParent(ChainSawSpeedRowContainer);
 
-        ChainSawSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        ChainSawSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         ChainSawSpeedBonus.SetParent(ChainSawSpeedRowContainer);
 
         ChainSawSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         ChainSawSpeedCost.SetParent(ChainSawSpeedRowContainer);
 
-        var ChainSawSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test);
+        var ChainSawSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        ChainSawSpeedBtn.OnClick(() =>
+        {
+            BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.ChainSawSpeed);
+        });
         ChainSawSpeedBtn.SetParent(ChainSawSpeedRowContainer);
 
 
         // KnightV SPEED
         var KnightVSpeedRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
+                           .Horizontal(0, "EE").Background(ComponentBlack).Height(50);
 
         KnightVSpeedRowContainer.SetParent(CoulumContainer);
 
-        var KnightVSpeedText = SLabel.Text("KnightV Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        var KnightVSpeedText = SLabel.Text("KnightV Speed").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50);
         KnightVSpeedText.SetParent(KnightVSpeedRowContainer);
 
         KnightVSpeedLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         KnightVSpeedLvl.SetParent(KnightVSpeedRowContainer);
 
-        KnightVSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        KnightVSpeedBonus = SLabel.Text("Current Speed: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         KnightVSpeedBonus.SetParent(KnightVSpeedRowContainer);
 
         KnightVSpeedCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         KnightVSpeedCost.SetParent(KnightVSpeedRowContainer);
 
-        var KnightVSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test);
+        var KnightVSpeedBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        KnightVSpeedBtn.OnClick(() =>
+        {
+            BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.KnightVSpeed);
+        });
         KnightVSpeedBtn.SetParent(KnightVSpeedRowContainer);
 
 
         // BowDamage Damage
         var BowDamageRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
+                           .Horizontal(0, "EE").Background(ComponentBlack).Height(50);
 
         BowDamageRowContainer.SetParent(CoulumContainer);
 
-        var BowDamageText = SLabel.Text("Bow Damage").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        var BowDamageText = SLabel.Text("Bow Damage").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50);
         BowDamageText.SetParent(BowDamageRowContainer);
 
         BowDamageLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         BowDamageLvl.SetParent(BowDamageRowContainer);
 
-        BowDamageBonus = SLabel.Text("Current : + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        BowDamageBonus = SLabel.Text("Current : + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         BowDamageBonus.SetParent(BowDamageRowContainer);
 
         BowDamageCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         BowDamageCost.SetParent(BowDamageRowContainer);
 
-        var BowDamageBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test);
+        var BowDamageBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        BowDamageBtn.OnClick(() =>
+        {
+            BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.BowDamage);
+        });
         BowDamageBtn.SetParent(BowDamageRowContainer);
 
         // JumpHeight Damage
         var JumpHeightRowContainer = SContainer
             .Dock(EDockType.Fill)
-                           .Horizontal(0, "EE").Padding(0, 0, 50, 200).Background(ComponentBlack).Height(70);
+                           .Horizontal(0, "EE").Background(ComponentBlack).Height(50);
 
         JumpHeightRowContainer.SetParent(CoulumContainer);
 
-        var JumpHeightText = SLabel.Text("Jump Height").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        var JumpHeightText = SLabel.Text("Jump Height").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50);
         JumpHeightText.SetParent(JumpHeightRowContainer);
 
         JumpHeighLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         JumpHeighLvl.SetParent(JumpHeightRowContainer);
 
-        JumpHeightBonus = SLabel.Text("Current : + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        JumpHeightBonus = SLabel.Text("Current : + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         JumpHeightBonus.SetParent(JumpHeightRowContainer);
 
         JumpHeighCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         JumpHeighCost.SetParent(JumpHeightRowContainer);
 
-        var JumpHeightBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test);
+        var JumpHeightBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).OnClick(Test).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        JumpHeightBtn.OnClick(() =>
+        {
+            BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.JumpHeight);
+        });
         JumpHeightBtn.SetParent(JumpHeightRowContainer);
 
 
@@ -297,12 +319,6 @@ public class PlayerUpdadeStatsUi
         //var WalkSpeedBtn = SBgButton.Background(EBackground.None).Text("Upgrade").FontColor(Color.white).FontSize(32).PHeight(50)
         //    .Notify(Test);
         //WalkSpeedBtn.SetParent(WalkSpeedRowContainer);
-
-        // TEST CONTAINERS
-        //var WalkSpeedContainer2 = SContainer.Background(ComponentBlack).Height(100).Horizontal();
-        //WalkSpeedContainer2.SetParent(CoulumContainer);
-        //var WalkSpeedContainer3 = SContainer.Background(ComponentBlack).Height(100).Horizontal();
-        //WalkSpeedContainer3.SetParent(CoulumContainer);
     }
 
     internal static void Close()
