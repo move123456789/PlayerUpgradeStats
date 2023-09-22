@@ -12,6 +12,7 @@ public class PlayerUpdadeStats : SonsMod
     {
         // Don't register any update callbacks here. Manually register them instead.
         // Removing this will call OnUpdate, OnFixedUpdate etc. even if you don't use them.
+        HarmonyPatchAll = true;
     }
 
     protected override void OnInitializeMod()

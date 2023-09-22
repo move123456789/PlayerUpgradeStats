@@ -40,6 +40,14 @@ namespace PlayerUpdadeStats
 
         }
 
+        [HarmonyPatch(typeof(Vitals), "GainStrength", new Type[] { typeof(float) })]
+        [HarmonyPostfix]
+        public static void PostfixGainStrengthCheck(Vitals __instance)
+        {
+            PlayerStatsFunctions.PostMessage("Postfix PostfixGainStrengthCheck Loaded");
+            DataHandler.GetStrengthLevelVitals();
+        }
+
         [HarmonyPatch(typeof(GenericMeleeWeaponController), "OnEnable")]
         [HarmonyPostfix]
         public static void PostfixGenericMeleeWeaponController(ref GenericMeleeWeaponController __instance)

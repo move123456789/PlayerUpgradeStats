@@ -33,6 +33,15 @@
       <Reference Include="Sons">
         <HintPath>$(GameDir)\_RedLoader\Game\Sons.dll</HintPath>
       </Reference>
+      <Reference Include="Sons.Atmosphere">
+        <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.Atmosphere.dll</HintPath>
+      </Reference>
+      <Reference Include="Sons.Attributes">
+        <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.Attributes.dll</HintPath>
+      </Reference>
+      <Reference Include="Sons.Dlss">
+        <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.Dlss.dll</HintPath>
+      </Reference>
       <Reference Include="Sons.GameApplication">
         <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.GameApplication.dll</HintPath>
       </Reference>
@@ -57,8 +66,20 @@
       <Reference Include="Sons.Gui.Options">
         <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.Gui.Options.dll</HintPath>
       </Reference>
+      <Reference Include="Sons.Input">
+        <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.Input.dll</HintPath>
+      </Reference>
       <Reference Include="Sons.Item">
         <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.Item.dll</HintPath>
+      </Reference>
+      <Reference Include="Sons.Loading">
+        <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.Loading.dll</HintPath>
+      </Reference>
+      <Reference Include="Sons.StatSystem">
+        <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.StatSystem.dll</HintPath>
+      </Reference>
+      <Reference Include="Sons.Weapon">
+        <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Sons Of The Forest\_RedLoader\Game\Sons.Weapon.dll</HintPath>
       </Reference>
       <Reference Include="SonsSdk">
         <HintPath>$(GameDir)\_RedLoader\net6\SonsSdk.dll</HintPath>
