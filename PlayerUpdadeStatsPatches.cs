@@ -9,6 +9,8 @@ using Sons.Gameplay.GameSetup;
 using Sons.Weapon;
 using Sons.Gameplay;
 using TheForest.Utils;
+using AssemblyCSharp;
+using Sons.Gameplay.GPS;
 
 namespace PlayerUpdadeStats
 {
@@ -141,6 +143,15 @@ namespace PlayerUpdadeStats
                 else { PlayerStatsFunctions.PostMessage("CraftedBowHeld - item == null"); }
             }
         }
+
+        [HarmonyPatch(typeof(GPSTrackerSystem), "OnEnable")]
+        [HarmonyPostfix]
+        public static void OnEnablePostfix(ref GPSTrackerSystem __instance)
+        {
+            PlayerStatsFunctions.PostMessage("GPS TRACKER");
+            DataHandler.GetStrengthLevelVitals();
+        }
+
         public static async Task BowProjectileUpdate()
         {
             await Task.Delay(300);

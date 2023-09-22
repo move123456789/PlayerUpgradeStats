@@ -259,7 +259,7 @@ public class PlayerUpdadeStatsUi
         BowDamageLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         BowDamageLvl.SetParent(BowDamageRowContainer);
 
-        BowDamageBonus = SLabel.Text("Current : + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
+        BowDamageBonus = SLabel.Text("Current DMG : + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         BowDamageBonus.SetParent(BowDamageRowContainer);
 
         BowDamageCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
@@ -285,7 +285,7 @@ public class PlayerUpdadeStatsUi
         JumpHeighLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         JumpHeighLvl.SetParent(JumpHeightRowContainer);
 
-        JumpHeightBonus = SLabel.Text("Current : + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
+        JumpHeightBonus = SLabel.Text("Current JumpH: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         JumpHeightBonus.SetParent(JumpHeightRowContainer);
 
         JumpHeighCost = SLabel.Text("Cost: 2").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
@@ -304,6 +304,18 @@ public class PlayerUpdadeStatsUi
         //var WalkSpeedBtn = SBgButton.Background(EBackground.None).Text("Upgrade").FontColor(Color.white).FontSize(32).PHeight(50)
         //    .Notify(Test);
         //WalkSpeedBtn.SetParent(WalkSpeedRowContainer);
+
+        //if (PlayerStatsFunctions.currentPoints == 0)
+        //{
+        //    WalkSpeedBtn.FontColor("#f74639");
+        //    SwimSpeedBtn.FontColor("#f74639");
+        //    SprintSpeedBtn.FontColor("#f74639");
+        //    JumpHeightBtn.FontColor("#f74639");
+        //    KnightVSpeedBtn.FontColor("#f74639");
+        //    ChainSawSpeedBtn.FontColor("#f74639");
+        //    BowDamageBtn.FontColor("#f74639");
+        //}
+
     }
 
     internal static void Close()
