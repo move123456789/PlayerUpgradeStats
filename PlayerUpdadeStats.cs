@@ -3,6 +3,7 @@ using RedLoader;
 using TheForest.Utils;
 using Sons.Gui;
 using UnityEngine;
+using SUI;
 
 namespace PlayerUpdadeStats;
 
@@ -34,6 +35,9 @@ public class PlayerUpdadeStats : SonsMod
         {
             Directory.CreateDirectory(dir);
         }
+
+        // Adding Ingame CFG
+        SettingsRegistry.CreateSettings(this, null, typeof(Config));
     }
 
     protected override void OnGameStart()
