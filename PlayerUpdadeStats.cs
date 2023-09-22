@@ -83,9 +83,12 @@ public class PlayerUpdadeStats : SonsMod
     {
         if (Input.GetKeyDown(KeyCode.Keypad3))
         {
-            PlayerUpdadeStatsUi.Close(); // THIS TOGGELS ALSO
-            if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
-            if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
+            if (Config.UiTesting.Value == true)
+            {
+                PlayerUpdadeStatsUi.Close(); // THIS TOGGELS ALSO
+            }
+            if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; PlayerUpdadeStatsUi.Close(); }
+                if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
             {
                 PauseMenu._instance.Open();
             }

@@ -17,6 +17,7 @@ namespace PlayerUpdadeStats
 
         internal static void PostMessage(string message)
         {
+            if (Config.DebugLogging.Value != true) { return; }
             RLog.Msg($"[Player Upgrade Stats] {message}");
         }
         internal static void PostError(string message)
