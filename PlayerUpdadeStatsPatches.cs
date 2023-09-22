@@ -99,6 +99,8 @@ namespace PlayerUpdadeStats
             }
         }
         private static float defaultBowDamage = 20f;
+
+
         [HarmonyPatch(typeof(RangedWeapon), "CycleAmmoType")]
         [HarmonyPostfix]
         public static async void PostfixBowDamageChangeAmmo(RangedWeapon __instance)
@@ -142,14 +144,6 @@ namespace PlayerUpdadeStats
                 }
                 else { PlayerStatsFunctions.PostMessage("CraftedBowHeld - item == null"); }
             }
-        }
-
-        [HarmonyPatch(typeof(GPSTrackerSystem), "OnEnable")]
-        [HarmonyPostfix]
-        public static void OnEnablePostfix(ref GPSTrackerSystem __instance)
-        {
-            PlayerStatsFunctions.PostMessage("GPS TRACKER");
-            DataHandler.GetStrengthLevelVitals();
         }
 
         public static async Task BowProjectileUpdate()
