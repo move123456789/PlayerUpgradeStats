@@ -14,6 +14,7 @@ public class PlayerUpdadeStats : SonsMod
         // Don't register any update callbacks here. Manually register them instead.
         // Removing this will call OnUpdate, OnFixedUpdate etc. even if you don't use them.
         HarmonyPatchAll = true;
+        OnUpdateCallback = OnUpdate;
     }
 
     protected override void OnInitializeMod()
@@ -79,18 +80,20 @@ public class PlayerUpdadeStats : SonsMod
     }
 
     // This is called every frame.
-    protected override void OnUpdate()
+    protected void OnUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKeyDown(Config.ToggleMenuKey.Value))
         {
             if (Config.UiTesting.Value == true)
             {
                 PlayerUpdadeStatsUi.Close(); // THIS TOGGELS ALSO
             }
             if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; PlayerUpdadeStatsUi.Close(); }
-                if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
+
+            if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
             {
                 PauseMenu._instance.Open();
+                PlayerUpdadeStatsUi.Close();
             }
         }
         
