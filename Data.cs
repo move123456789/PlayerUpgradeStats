@@ -95,7 +95,6 @@ namespace PlayerUpdadeStats
         }
         public static void UpdateDisplayedData()
         {
-            PlayerUpdadeStats.doUpdateSpeeds = true;
             PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
             float totalwalkSpeedIncrease = BuyUpgrades.currentWalkSpeedLevel * 20;
             PlayerUpdadeStatsUi.WalkSpeedBonus.Text($"Speed: +{totalwalkSpeedIncrease}%");

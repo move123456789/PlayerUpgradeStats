@@ -62,7 +62,7 @@ namespace PlayerUpdadeStats
 
                     PlayerStatsFunctions.currentPoints -= cost;
                     PlayerStatsFunctions.pointsUsed += cost;
-                    PlayerUpdadeStats.doUpdateSpeeds = true;
+                    PlayerStatsFunctions.UpdateSpeed();
                     SetUpgradeLevel(upgradeType, newLevel);
                     UpdateUI(upgradeType);
                     DataHandler.SaveData();

@@ -45,6 +45,23 @@ namespace PlayerUpdadeStats
         {
             return pointsUsed;
         }
+
+        public static void UpdateSpeed()
+        {
+            PlayerStatsFunctions.PostMessage("Updating Speeds");
+            // For Walk Speed
+            LocalPlayer._FpCharacter_k__BackingField._walkSpeed = PlayerUpdadeStats.originalWalkSpeed * (BuyUpgrades.currentWalkSpeedLevel * 20 / 100 + 1);
+            PlayerStatsFunctions.PostMessage("Current Walk Speed = " + LocalPlayer._FpCharacter_k__BackingField._walkSpeed);
+            // For Sprint Speed
+            LocalPlayer._FpCharacter_k__BackingField._runSpeed = PlayerUpdadeStats.originalSprintSpeed * (BuyUpgrades.currentSprintSpeedLevel * 20 / 100 + 1);
+            PlayerStatsFunctions.PostMessage("Current Sprint Speed = " + LocalPlayer._FpCharacter_k__BackingField._runSpeed);
+            // For Jump Height
+            LocalPlayer._FpCharacter_k__BackingField._jumpHeight = PlayerUpdadeStats.originalJumpHeight * (BuyUpgrades.currentJumpHeightLevel * 20 / 100 + 1);
+            PlayerStatsFunctions.PostMessage("Current Jump Height = " + LocalPlayer._FpCharacter_k__BackingField._jumpHeight);
+            // For Swin Speed
+            LocalPlayer._FpCharacter_k__BackingField._swimSpeed = PlayerUpdadeStats.originalSwimSpeed * (BuyUpgrades.currentSwimSpeedLevel * 20 / 100 + 1);
+            PlayerStatsFunctions.PostMessage("Current Swim Speed = " + LocalPlayer._FpCharacter_k__BackingField._swimSpeed);
+        }
     }
 
     internal class ChainSawModifications

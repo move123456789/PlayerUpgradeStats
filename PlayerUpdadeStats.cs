@@ -45,30 +45,13 @@ public class PlayerUpdadeStats : SonsMod
     {
         // This is called once the player spawns in the world and gains control.
         DataHandler.GetStrengthLevelVitals();
-        if (doUpdateSpeeds)
+        if (!hasGottenOriginalValues)
         {
-            if (!hasGottenOriginalValues)
-            {
-                hasGottenOriginalValues = true;
-                originalWalkSpeed = LocalPlayer._FpCharacter_k__BackingField._walkSpeed;
-                originalSprintSpeed = LocalPlayer._FpCharacter_k__BackingField._runSpeed;
-                originalJumpHeight = LocalPlayer._FpCharacter_k__BackingField._jumpHeight;
-                originalSwimSpeed = LocalPlayer._FpCharacter_k__BackingField._swimSpeed;
-            }
-            PlayerStatsFunctions.PostMessage("Updating Speeds");
-            doUpdateSpeeds = false;
-            // For Walk Speed
-            LocalPlayer._FpCharacter_k__BackingField._walkSpeed = originalWalkSpeed * (BuyUpgrades.currentWalkSpeedLevel * 20 / 100 + 1);
-            PlayerStatsFunctions.PostMessage("Current Walk Speed = " + LocalPlayer._FpCharacter_k__BackingField._walkSpeed);
-            // For Sprint Speed
-            LocalPlayer._FpCharacter_k__BackingField._runSpeed = originalSprintSpeed * (BuyUpgrades.currentSprintSpeedLevel * 20 / 100 + 1);
-            PlayerStatsFunctions.PostMessage("Current Sprint Speed = " + LocalPlayer._FpCharacter_k__BackingField._runSpeed);
-            // For Jump Height
-            LocalPlayer._FpCharacter_k__BackingField._jumpHeight = originalJumpHeight * (BuyUpgrades.currentJumpHeightLevel * 20 / 100 + 1);
-            PlayerStatsFunctions.PostMessage("Current Jump Height = " + LocalPlayer._FpCharacter_k__BackingField._jumpHeight);
-            // For Swin Speed
-            LocalPlayer._FpCharacter_k__BackingField._swimSpeed = originalSwimSpeed * (BuyUpgrades.currentSwimSpeedLevel * 20 / 100 + 1);
-            PlayerStatsFunctions.PostMessage("Current Swim Speed = " + LocalPlayer._FpCharacter_k__BackingField._swimSpeed);
+            hasGottenOriginalValues = true;
+            originalWalkSpeed = LocalPlayer._FpCharacter_k__BackingField._walkSpeed;
+            originalSprintSpeed = LocalPlayer._FpCharacter_k__BackingField._runSpeed;
+            originalJumpHeight = LocalPlayer._FpCharacter_k__BackingField._jumpHeight;
+            originalSwimSpeed = LocalPlayer._FpCharacter_k__BackingField._swimSpeed;
         }
         if (!isQuitEventAdded)
         {
@@ -102,12 +85,12 @@ public class PlayerUpdadeStats : SonsMod
     internal static bool showMenu = false;
     internal static float MaxVelocity = 50;
     private bool hasGottenOriginalValues = false;
-    private float originalWalkSpeed;
-    private float originalSprintSpeed;
-    private float originalJumpHeight;
-    private float originalSwimSpeed;
+    internal static float originalWalkSpeed;
+    internal static float originalSprintSpeed;
+    internal static float originalJumpHeight;
+    internal static float originalSwimSpeed;
     private bool isQuitEventAdded;
-    internal static bool doUpdateSpeeds;
+
 
 
     private void Quitting()
