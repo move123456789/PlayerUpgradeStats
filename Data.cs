@@ -32,13 +32,16 @@ namespace PlayerUpdadeStats
                     ["WorldID"] = PlayerUpdadeStatsPatches.postfixSaveID,
                     ["pointsUsed"] = PlayerStatsFunctions.pointsUsed,
                     ["currentPoints"] = PlayerStatsFunctions.currentPoints,
+                    ["pointsUsedMega"] = PlayerStatsFunctions.pointsUsedMega,
+                    ["currentPointsMega"] = PlayerStatsFunctions.currentPointsMega,
                     ["currentWalkSpeedLevel"] = BuyUpgrades.currentWalkSpeedLevel,
                     ["currentSprintSpeedLevel"] = BuyUpgrades.currentSprintSpeedLevel,
                     ["currentJumpHeightLevel"] = BuyUpgrades.currentJumpHeightLevel,
                     ["currentSwimSpeedLevel"] = BuyUpgrades.currentSwimSpeedLevel,
                     ["currentChainsawSpeedLevel"] = BuyUpgrades.currentChainsawSpeedLevel,
                     ["currentKnightVSpeedLevel"] = BuyUpgrades.currentKnightVSpeedLevel,
-                    ["currentBowDamageLevel"] = BuyUpgrades.currentBowDamageLevel
+                    ["currentBowDamageLevel"] = BuyUpgrades.currentBowDamageLevel,
+                    ["currentMeleeStaminaLevel"] = BuyUpgrades.currentMeleeStaminaLevel
                 };
                 DataHandler.WriteDynamicJsonObject(jsonObj, fileName);
             }
@@ -61,6 +64,8 @@ namespace PlayerUpdadeStats
                             if (saveInfo.currentPoints > 50) { PlayerStatsFunctions.PostError("CurrentPoints can't be over 50"); return; }
                             PlayerStatsFunctions.pointsUsed = saveInfo.pointsUsed;
                             PlayerStatsFunctions.currentPoints = saveInfo.currentPoints;
+                            PlayerStatsFunctions.pointsUsedMega = saveInfo.pointsUsedMega;
+                            PlayerStatsFunctions.currentPointsMega = saveInfo.currentPointsMega;
                             BuyUpgrades.currentWalkSpeedLevel = saveInfo.currentWalkSpeedLevel;
                             BuyUpgrades.currentSprintSpeedLevel = saveInfo.currentSprintSpeedLevel;
                             BuyUpgrades.currentJumpHeightLevel = saveInfo.currentJumpHeightLevel;
@@ -68,6 +73,7 @@ namespace PlayerUpdadeStats
                             BuyUpgrades.currentChainsawSpeedLevel = saveInfo.currentChainsawSpeedLevel;
                             BuyUpgrades.currentKnightVSpeedLevel = saveInfo.currentKnightVSpeedLevel;
                             BuyUpgrades.currentBowDamageLevel = saveInfo.currentBowDamageLevel;
+                            BuyUpgrades.currentMeleeStaminaLevel = saveInfo.currentMeleeStaminaLevel;
                             UpdateDisplayedData();
                             UpdateDisplayedCost();
                         }
@@ -84,6 +90,8 @@ namespace PlayerUpdadeStats
             public uint WorldID { get; set; }
             public int pointsUsed { get; set; }
             public int currentPoints { get; set; }
+            public int pointsUsedMega { get; set; }
+            public int currentPointsMega { get; set; }
             public float currentWalkSpeedLevel { get; set; }
             public float currentSprintSpeedLevel { get; set; }
             public float currentJumpHeightLevel { get; set; }
@@ -91,6 +99,7 @@ namespace PlayerUpdadeStats
             public float currentChainsawSpeedLevel { get; set; }
             public float currentKnightVSpeedLevel { get; set; }
             public float currentBowDamageLevel { get; set; }
+            public float currentMeleeStaminaLevel { get; set; }
 
         }
         public static void UpdateDisplayedData()

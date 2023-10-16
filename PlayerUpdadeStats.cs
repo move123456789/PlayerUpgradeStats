@@ -4,6 +4,7 @@ using TheForest.Utils;
 using Sons.Gui;
 using UnityEngine;
 using SUI;
+using Sons.Items.Core;
 
 namespace PlayerUpdadeStats;
 
@@ -69,17 +70,30 @@ public class PlayerUpdadeStats : SonsMod
         {
             if (Config.UiTesting.Value == true)
             {
-                PlayerUpdadeStatsUi.Close(); // THIS TOGGELS ALSO
+                PlayerUpdadeStatsUi.ToggleMainPanel(); // THIS TOGGELS ALSO
+                PlayerUpdadeStatsUi.OpenMegaPointsButton.Visible(true);  // Makes The Button Visible Still When You Are Under Lvl 10
             }
-            if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; PlayerUpdadeStatsUi.Close(); }
+            if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
 
             if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
             {
                 PauseMenu._instance.Open();
-                PlayerUpdadeStatsUi.Close();
+                PlayerUpdadeStatsUi.ToggleMainPanel();
             }
         }
-        
+        if (Input.GetKeyDown(KeyCode.KeypadMultiply))
+        {
+            PlayerStatsFunctions.PostMessage("KeypadMultiply Clicked");
+            
+
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (PlayerUpdadeStatsUi.IsMainPanelActive) { PlayerUpdadeStatsUi.CloseMainPanel(); }
+            else if (PlayerUpdadeStatsUi.IsMegaPanelActive) { PlayerUpdadeStatsUi.CloseMegaPanel(); }
+        }
+
+
     }
 
     internal static bool showMenu = false;

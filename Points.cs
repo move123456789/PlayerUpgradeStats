@@ -21,6 +21,7 @@ namespace PlayerUpdadeStats
         public static float currentChainsawSpeedLevel;
         public static float currentKnightVSpeedLevel;
         public static float currentBowDamageLevel;
+        public static float currentMeleeStaminaLevel;
         // Price of Upgrades for UI
         internal const string pointPriceText2 = "2";
         internal const string pointPriceText4 = "4";
@@ -35,6 +36,7 @@ namespace PlayerUpdadeStats
             ChainSawSpeed,
             KnightVSpeed,
             BowDamage,
+            AttackStamina,
         }
 
         // Prices

@@ -15,6 +15,10 @@ namespace PlayerUpdadeStats
         public static int currentPoints;
         public static int pointsUsed;
 
+        // Level 10 Points
+        public static int currentPointsMega;
+        public static int pointsUsedMega;
+
         internal static void PostMessage(string message)
         {
             if (Config.DebugLogging.Value != true) { return; }
@@ -28,7 +32,9 @@ namespace PlayerUpdadeStats
         public static void LoadStats()
         {
             PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
+            PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Points: {PlayerStatsFunctions.currentPointsMega}");
             GetCurrentPoints(PlayerUpdadeStatsPatches.currentStrengthLevel, pointsUsed);
+            GetCurrentMegaPoints(PlayerUpdadeStatsPatches.currentStrengthLevel, pointsUsedMega);
         }
 
         public static int GetCurrentPoints(int currentStrengthLevel, int pointsUsed)
@@ -45,6 +51,25 @@ namespace PlayerUpdadeStats
         {
             return pointsUsed;
         }
+
+        // Level 10 Points
+        public static int GetCurrentMegaPoints(int currentStrengthLevel, int pointsUsedMega)
+        {
+            if (currentStrengthLevel < 10)
+            {
+                return currentPointsMega = 0;
+            }
+
+            int earnedPoints = currentStrengthLevel / 10;
+            currentPointsMega = earnedPoints - pointsUsedMega;
+            return currentPointsMega;
+        }
+
+        public static int GetMegaPointsUsed()
+        {
+            return pointsUsedMega;
+        }
+
 
         public static void UpdateSpeed()
         {
