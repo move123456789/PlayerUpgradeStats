@@ -310,8 +310,8 @@ public class PlayerUpdadeStatsUi
         });
         JumpHeightBtn.SetParent(JumpHeightRowContainer);
 
-        // Button For Opening Special Points Menu
 
+        // Button For Opening Special Points Menu
         OpenMegaPointsButton = SBgButton
             .Text("Special Points").Background(GetBackgroundSprite(EBackground.Sons), Image.Type.Tiled).Color(ColorFromString("#FF234B"))
             .Pivot(1, 1).Anchor(AnchorType.BottomCenter).Width(250)
@@ -356,7 +356,7 @@ public class PlayerUpdadeStatsUi
             .PHeight(100).FontSize(32)
             .HFill().Position(null, -95)
             .FontSpacing(10);
-        title.SetParent(mainContainer_megaPanel);
+        title_megaPanel.SetParent(mainContainer_megaPanel);
 
         DisplayedPoints_megaPanel = SLabel.Text("Special Points: 0")
             .FontColor(Color.white).Font(EFont.RobotoRegular)

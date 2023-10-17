@@ -1,9 +1,11 @@
 ﻿using Sons.Items.Core;
+using Sons.Weapon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace PlayerUpdadeStats
 {
@@ -40,6 +42,19 @@ namespace PlayerUpdadeStats
         {
             ItemData item = ItemDatabaseManager.ItemById(itemId);
             item.MeleeWeaponData.StaminaCost = defaultStamina - (1.20f * currentMeleeStaminaLevel);
+        }
+
+        public static void SetTreeSwingStamina(float currentMeleeStaminaLevel = 0)
+        {
+            if (currentMeleeStaminaLevel == 0) { PlayerStatsFunctions.PostMessage("SetSetTreeSwingStamina Returned: currentMeleeStaminaLevel == 0"); return; }
+
+
+        }
+
+        private static void SetTreeSwingStaminaCost<T>(int itemId, float defaultStamina, float currentMeleeStaminaLevel) where T : MonoBehaviour
+        {
+            ItemData item = ItemDatabaseManager.ItemById(itemId);
+            item.HeldPrefab.gameObject.GetComponent<ModernAxeWeaponController>()._treeSwingStaminaCost = defaultStamina - (1.20f * currentMeleeStaminaLevel);
         }
     }
 }
