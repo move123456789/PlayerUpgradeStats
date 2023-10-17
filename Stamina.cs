@@ -1,13 +1,9 @@
 ﻿using Sons.Items.Core;
 using Sons.Weapon;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Il2CppSystem.Reflection;
 using TheForest.Utils;
 using UnityEngine;
+using System.Reflection;
 
 namespace PlayerUpdadeStats
 {
@@ -84,12 +80,10 @@ namespace PlayerUpdadeStats
                 PlayerStatsFunctions.PostError($"Controller of type {typeof(T).Name} not found for item with ID {itemId}!");
                 return;
             }
-            else
-            {
-                PlayerStatsFunctions.PostMessage($"Controller of type {typeof(T).Name} found for item with ID {itemId}!");
-            }
 
-            var fieldInfo = typeof(T).GetField("_treeSwingStaminaCost", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+            var il2cppType = Il2CppSystem.Type.GetType(typeof(T).FullName);
+            var fieldInfo = GetFieldFromHierarchy(il2cppType, "_treeSwingStaminaCost");
+
             if (fieldInfo == null)
             {
                 PlayerStatsFunctions.PostError($"Field '_treeSwingStaminaCost' not found in type {typeof(T).Name}!");
@@ -106,6 +100,17 @@ namespace PlayerUpdadeStats
             }
         }
 
+        private static Il2CppSystem.Reflection.FieldInfo GetFieldFromHierarchy(Il2CppSystem.Type type, string fieldName)
+        {
+            Il2CppSystem.Reflection.FieldInfo field = null;
+            while (type != null && field == null)
+            {
+                field = type.GetField(fieldName, Il2CppSystem.Reflection.BindingFlags.NonPublic | Il2CppSystem.Reflection.BindingFlags.Instance);
+                type = type.BaseType;
+            }
+            return field;
+        }
+
 
         public static void SetPlayerStamina(float currentLevel = 0)
         {
@@ -114,6 +119,9 @@ namespace PlayerUpdadeStats
             // Default Value == 10
             LocalPlayer.Stats._staminaRecoverRate = (float)(10 * Math.Pow(Config.StaminaBarRecoverRate, currentLevel));
 
+            // Default Value == 2.5f
+            LocalPlayer.Stats._jumpStaminaCost = (float)(2.5f * Math.Pow(Config.JumpStaminaCost, currentLevel));
+
             // Default Value == 1.5f
             // Reduce _runStaminaCostPerSec by X% for each level
             LocalPlayer.FpCharacter._runStaminaCostPerSec = (float)(1.5f * Math.Pow(Config.RunStaminaCostPerSec, currentLevel));
@@ -121,6 +129,8 @@ namespace PlayerUpdadeStats
             // Default Value == 0.4f
             // Reduce timeToRecoverFromRun by X% for each level
             LocalPlayer.FpCharacter.timeToRecoverFromRun = (float)(0.4f * Math.Pow(Config.TimeToRecoverFromRun, currentLevel));
+
+
         }
     }
 }
