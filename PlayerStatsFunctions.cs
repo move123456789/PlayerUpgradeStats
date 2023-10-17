@@ -32,7 +32,7 @@ namespace PlayerUpdadeStats
         public static void LoadStats()
         {
             PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
-            PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Points: {PlayerStatsFunctions.currentPointsMega}");
+            PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
             GetCurrentPoints(PlayerUpdadeStatsPatches.currentStrengthLevel, pointsUsed);
             GetCurrentMegaPoints(PlayerUpdadeStatsPatches.currentStrengthLevel, pointsUsedMega);
         }

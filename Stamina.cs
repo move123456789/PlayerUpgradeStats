@@ -69,7 +69,7 @@ namespace PlayerUpdadeStats
             }
         }
 
-        public void SetPlayerStamina(float currentLevel = 0)
+        public static void SetPlayerStamina(float currentLevel = 0)
         {
             if (!LocalPlayer.IsInWorld) { PlayerStatsFunctions.PostMessage("SetPlayerStamina returned, player not in world"); return; }
             if (currentLevel == 0) { PlayerStatsFunctions.PostMessage("SetPlayerStamina Returned: currentLevel == 0"); return; }

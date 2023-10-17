@@ -420,7 +420,7 @@ public class PlayerUpdadeStatsUi
             ;
         CoulumContainer_megaPanel.Add(weapon_stamina_Container);
 
-        var weapon_stamina_Text = SLabel.Text("TEST").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50).AutoSizeContainer(true);
+        var weapon_stamina_Text = SLabel.Text("ToolStamina").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50).AutoSizeContainer(true);
         weapon_stamina_Container.Add(weapon_stamina_Text);
 
         MeleeAndTreeHitStaminaLvl = SLabel.Text("Lvl: 0/1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
@@ -435,6 +435,7 @@ public class PlayerUpdadeStatsUi
         var weapon_stamina_Btn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         weapon_stamina_Btn.OnClick(() =>
         {
+            MegaPoints.BuyMegaUpgrade(MegaPoints.MegaUpgradeType.ToolStamina);
         });
         weapon_stamina_Container.Add(weapon_stamina_Btn);
 
@@ -450,13 +451,13 @@ public class PlayerUpdadeStatsUi
             ;
         CoulumContainer_megaPanel.Add(player_stamina_Container);
 
-        var player_stamina_Text = SLabel.Text("TEST").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50).AutoSizeContainer(true);
+        var player_stamina_Text = SLabel.Text("PlayerStamina").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50).AutoSizeContainer(true);
         player_stamina_Container.Add(player_stamina_Text);
 
         MeleeAndTreeHitStaminaLvl = SLabel.Text("Lvl: 0/1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         player_stamina_Container.Add(MeleeAndTreeHitStaminaLvl);
 
-        MeleeAndTreeHitStaminaBonus = SLabel.Text("Current TEST: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
+        MeleeAndTreeHitStaminaBonus = SLabel.Text("Current Bonus: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         player_stamina_Container.Add(MeleeAndTreeHitStaminaBonus);
 
         MeleeAndTreeHitStaminaCost = SLabel.Text("Cost: 1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
@@ -465,6 +466,7 @@ public class PlayerUpdadeStatsUi
         var player_stamina_Btn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         player_stamina_Btn.OnClick(() =>
         {
+            MegaPoints.BuyMegaUpgrade(MegaPoints.MegaUpgradeType.PlayerStamina);
         });
         player_stamina_Container.Add(player_stamina_Btn);
     }
@@ -497,6 +499,11 @@ public class PlayerUpdadeStatsUi
     internal static void OpenMegaPanel()
     {
         TogglePanel(MegaUpgradesPanel, true);
+    }
+
+    internal static void CustomPanels(string panelName, bool show)
+    {
+        TogglePanel(panelName, show);
     }
 
     internal static bool IsMainPanelActive

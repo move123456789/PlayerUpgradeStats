@@ -41,7 +41,8 @@ namespace PlayerUpdadeStats
                     ["currentChainsawSpeedLevel"] = BuyUpgrades.currentChainsawSpeedLevel,
                     ["currentKnightVSpeedLevel"] = BuyUpgrades.currentKnightVSpeedLevel,
                     ["currentBowDamageLevel"] = BuyUpgrades.currentBowDamageLevel,
-                    //["currentMeleeStaminaLevel"] = BuyUpgrades.currentMeleeStaminaLevel
+                    ["currentMeleeAndTreeHitStaminaLevel"] = MegaPoints.currentMeleeAndTreeHitStaminaLevel,
+                    ["currentPlayerStaminaLevel"] = MegaPoints.currentPlayerStaminaLevel
                 };
                 DataHandler.WriteDynamicJsonObject(jsonObj, fileName);
             }
@@ -73,7 +74,9 @@ namespace PlayerUpdadeStats
                             BuyUpgrades.currentChainsawSpeedLevel = saveInfo.currentChainsawSpeedLevel;
                             BuyUpgrades.currentKnightVSpeedLevel = saveInfo.currentKnightVSpeedLevel;
                             BuyUpgrades.currentBowDamageLevel = saveInfo.currentBowDamageLevel;
-                            //BuyUpgrades.currentMeleeStaminaLevel = saveInfo.currentMeleeStaminaLevel;
+                            MegaPoints.currentMeleeAndTreeHitStaminaLevel = saveInfo.currentMeleeAndTreeHitStaminaLevel;
+                            MegaPoints.currentPlayerStaminaLevel = saveInfo.currentPlayerStaminaLevel;
+
                             UpdateDisplayedData();
                             UpdateDisplayedCost();
                         }
@@ -99,7 +102,8 @@ namespace PlayerUpdadeStats
             public float currentChainsawSpeedLevel { get; set; }
             public float currentKnightVSpeedLevel { get; set; }
             public float currentBowDamageLevel { get; set; }
-            public float currentMeleeStaminaLevel { get; set; }
+            public float currentMeleeAndTreeHitStaminaLevel { get; set; }
+            public float currentPlayerStaminaLevel { get; set; }
 
         }
         public static void UpdateDisplayedData()
@@ -133,6 +137,16 @@ namespace PlayerUpdadeStats
             float totalBowDamageIncrease = BuyUpgrades.currentBowDamageLevel * 20;
             PlayerUpdadeStatsUi.BowDamageBonus.Text($"Speed: +{totalBowDamageIncrease}%");
             PlayerUpdadeStatsUi.BowDamageLvl.Text($"Lvl {BuyUpgrades.currentBowDamageLevel}/5");
+
+            float totalPlayerStaminaIncrease = MegaPoints.currentPlayerStaminaLevel * Config.UpdateMegaUIIncreace;
+            PlayerUpdadeStatsUi.PlayerStaminaBonus.Text($"Bonus: +{totalPlayerStaminaIncrease}%");
+            PlayerUpdadeStatsUi.PlayerStaminaLvl.Text($"Lvl: {MegaPoints.currentPlayerStaminaLevel}/1");
+
+            float totalToolStaminaIncrease = MegaPoints.currentMeleeAndTreeHitStaminaLevel * Config.UpdateMegaUIIncreace;
+            PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaBonus.Text($"Bonus: +{totalToolStaminaIncrease}%");
+            PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaLvl.Text($"Lvl {MegaPoints.currentMeleeAndTreeHitStaminaLevel}/1");
+
+            
         }
         public static void UpdateDisplayedCost()
         {
@@ -159,6 +173,7 @@ namespace PlayerUpdadeStats
                     PlayerUpdadeStatsPatches.currentStrengthLevel = LocalPlayer.Vitals.CurrentStrengthLevel;
                     //MyPanel.curStrengthLvl.text = $"Your Strength Level: {PlayerUpdadeStatsPatches.currentStrengthLevel}";
                     PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
+                    PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
                     PlayerStatsFunctions.LoadStats();
                     break;
                 }
