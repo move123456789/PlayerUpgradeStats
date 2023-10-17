@@ -41,7 +41,7 @@ namespace PlayerUpdadeStats
                     ["currentChainsawSpeedLevel"] = BuyUpgrades.currentChainsawSpeedLevel,
                     ["currentKnightVSpeedLevel"] = BuyUpgrades.currentKnightVSpeedLevel,
                     ["currentBowDamageLevel"] = BuyUpgrades.currentBowDamageLevel,
-                    ["currentMeleeStaminaLevel"] = BuyUpgrades.currentMeleeStaminaLevel
+                    //["currentMeleeStaminaLevel"] = BuyUpgrades.currentMeleeStaminaLevel
                 };
                 DataHandler.WriteDynamicJsonObject(jsonObj, fileName);
             }
@@ -73,7 +73,7 @@ namespace PlayerUpdadeStats
                             BuyUpgrades.currentChainsawSpeedLevel = saveInfo.currentChainsawSpeedLevel;
                             BuyUpgrades.currentKnightVSpeedLevel = saveInfo.currentKnightVSpeedLevel;
                             BuyUpgrades.currentBowDamageLevel = saveInfo.currentBowDamageLevel;
-                            BuyUpgrades.currentMeleeStaminaLevel = saveInfo.currentMeleeStaminaLevel;
+                            //BuyUpgrades.currentMeleeStaminaLevel = saveInfo.currentMeleeStaminaLevel;
                             UpdateDisplayedData();
                             UpdateDisplayedCost();
                         }
