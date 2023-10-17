@@ -14,6 +14,7 @@ public class PlayerUpdadeStatsUi
 
     public const string MOD_LIST_ID = "PlayerUpgradeStats";
     public const string MegaUpgradesPanel = "MegaUpgrades";
+    public const string ErrorPanel = "errorUpgradesPanel"; 
 
     private static readonly Color MainBgBlack = new(0, 0, 0, 0.8f);
     private static readonly Color PanelBg = ColorFromString("#111111");
@@ -80,6 +81,10 @@ public class PlayerUpdadeStatsUi
     internal static SUiElement<SLabelOptions> PlayerStaminaBonus;
     internal static SUiElement<SLabelOptions> PlayerStaminaLvl;
     internal static SUiElement<SLabelOptions> PlayerStaminaCost;
+
+    // ERROR PANEL
+    internal static SUiElement<SLabelOptions> displayMessage_errorPanel;
+    
 
     public static void Create()
     {
@@ -324,7 +329,7 @@ public class PlayerUpdadeStatsUi
         // Button For Opening Special Points Menu
         OpenMegaPointsButton = SBgButton
             .Text("Special Points").Background(GetBackgroundSprite(EBackground.Sons), Image.Type.Tiled).Color(ColorFromString("#FF234B"))
-            .Pivot(1, 1).Anchor(AnchorType.BottomCenter).Width(250)
+            .Pivot(1, 1).Anchor(AnchorType.BottomCenter).PWidth(250)
             .Size(100, 60).Ppu(1.7f).Notify(() =>
             {
                 CloseMainPanel();
@@ -469,6 +474,59 @@ public class PlayerUpdadeStatsUi
             MegaPoints.BuyMegaUpgrade(MegaPoints.MegaUpgradeType.PlayerStamina);
         });
         player_stamina_Container.Add(player_stamina_Btn);
+
+
+        // ERROR PANEL
+        var error_panel = RegisterNewPanel(ErrorPanel)
+            .Dock(EDockType.Fill).OverrideSorting(100);
+
+        CustomPanelsActions(ErrorPanel, false);
+
+        var mainContainer_errorPanel = SContainer
+            .Dock(EDockType.Fill)
+            .Background(MainBgBlack).Margin(300, 250);
+        error_panel.Add(mainContainer_errorPanel);
+
+        var title_errorPanel = SLabel.Text("PlayerUpgradeStats Load Data Error")
+            .FontColor("#444").Font(EFont.RobotoRegular)
+            .PHeight(100).FontSize(32)
+            .HFill().Position(null, -95)
+            .FontSpacing(10);
+        title_errorPanel.SetParent(mainContainer_errorPanel);
+
+        var exitButton_errorPanel = SBgButton
+            .Text("x").Background(GetBackgroundSprite(EBackground.Round28), Image.Type.Sliced).Color(ColorFromString("#FF234B"))
+            .Pivot(1, 1).Anchor(AnchorType.TopRight).Position(-60, -60)
+            .Size(60, 60).Ppu(1.7f).Notify(() =>
+            {
+                CustomPanelsActions(ErrorPanel, false);
+            });
+        exitButton_errorPanel.SetParent(mainContainer_errorPanel);
+
+        displayMessage_errorPanel = SLabel.Text("")
+            .FontColor(Color.white).Font(EFont.RobotoRegular)
+            .PHeight(100).FontSize(20)
+            .HFill().Position(null, -190)
+            .FontSpacing(10);
+        displayMessage_errorPanel.SetParent(mainContainer_errorPanel);
+
+        var info_errorPanel = SLabel.Text("Press Escape To Use Menu")
+            .FontColor(Color.white).Font(EFont.RobotoRegular)
+            .PHeight(100).FontSize(40)
+            .HFill().Position(null, -220)
+            .FontSpacing(10);
+        info_errorPanel.SetParent(mainContainer_errorPanel);
+
+        var delete_saveData_Btn = SBgButton
+            .Text("DELETE FILES").Background(GetBackgroundSprite(EBackground.Sons), Image.Type.Tiled).Color(ColorFromString("#FF234B"))
+            .Pivot(1, 1).Anchor(AnchorType.TopCenter).Position(100, -250)
+            .Size(250, 60).Ppu(1.7f).Notify(() =>
+            {
+                PlayerStatsFunctions.DeleteSavedPointsData();
+                CustomPanelsActions(ErrorPanel, false);
+            });
+        mainContainer_errorPanel.Add(delete_saveData_Btn);
+
     }
 
     internal static void CloseMainPanel()
@@ -501,11 +559,7 @@ public class PlayerUpdadeStatsUi
         TogglePanel(MegaUpgradesPanel, true);
     }
 
-    internal static void CustomPanels(string panelName, bool show)
-    {
-        TogglePanel(panelName, show);
-    }
-
+    
     internal static bool IsMainPanelActive
     {
         get
@@ -520,6 +574,16 @@ public class PlayerUpdadeStatsUi
         {
             return GetPanel(MegaUpgradesPanel).Root.activeSelf;
         }
+    }
+
+    internal static void CustomPanelsActions(string panelName, bool show)
+    {
+        TogglePanel(panelName, show);
+    }
+
+    internal static bool CustomPanelActive(string panelName)
+    {
+        return GetPanel(panelName).Root.activeSelf;
     }
 
 }

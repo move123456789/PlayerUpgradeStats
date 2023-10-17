@@ -90,6 +90,42 @@ namespace PlayerUpdadeStats
             LocalPlayer._FpCharacter_k__BackingField._swimSpeed = PlayerUpdadeStats.originalSwimSpeed * (BuyUpgrades.currentSwimSpeedLevel * 20 / 100 + 1);
             PlayerStatsFunctions.PostMessage("Current Swim Speed = " + LocalPlayer._FpCharacter_k__BackingField._swimSpeed);
         }
+
+        public static void DeleteSavedPointsData(string fileName = null)
+        {
+            string dir = @"PlayerUpgradeStatsData";
+            if (fileName == null)
+            {
+                // If directory does not exist, create it
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                    PostError("Could not delete file, because directory does not exist");
+                }
+                else
+                {
+                    // If directory exists, delete all files within it
+                    string[] files = Directory.GetFiles(dir, "*.json");
+                    foreach (string file in files)
+                    {
+                        File.Delete(file);
+                        PostError($"Deleted File: {file}");
+                    }
+                }
+            }
+            else
+            {
+                string fileName_And_dir = Path.Combine(dir, fileName);
+                if (Path.GetExtension(fileName_And_dir).ToLower() == ".json")
+                {
+                    File.Delete(fileName_And_dir);
+                }
+                else
+                {
+                    PostError($"File {fileName} is not a .json file and will not be deleted.");
+                }
+            }
+        }
     }
 
     internal class ChainSawModifications

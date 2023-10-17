@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using TheForest.Utils;
 using static PlayerUpdadeStats.DataHandler;
+using Sons.Gui;
 
 namespace PlayerUpdadeStats
 {
@@ -81,13 +82,19 @@ namespace PlayerUpdadeStats
                             UpdateDisplayedCost();
                         }
                     }
-                    catch (System.Exception e) { PlayerStatsFunctions.PostError("Something went wrong trying to load saved data from file. Error: " + e); }
+                    catch (System.Exception e)
+                    {
+                        PlayerStatsFunctions.PostError("Something went wrong trying to load saved data from file. Error: " + e);
+                        PlayerUpdadeStatsUi.displayMessage_errorPanel.Text("Something went wrong trying to load saved data from file, please delete mod save data to fix issue");
+                        PlayerUpdadeStatsUi.CustomPanelsActions(PlayerUpdadeStatsUi.ErrorPanel, true);
+                    }
 
                 }
                 else { PlayerStatsFunctions.PostMessage("File Not Found"); }
             }
         }
 
+        
         public class SavedInfo
         {
             public uint WorldID { get; set; }
