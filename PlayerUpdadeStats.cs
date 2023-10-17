@@ -81,12 +81,6 @@ public class PlayerUpdadeStats : SonsMod
                 PlayerUpdadeStatsUi.ToggleMainPanel();
             }
         }
-        if (Input.GetKeyDown(KeyCode.KeypadMultiply))
-        {
-            PlayerStatsFunctions.PostMessage("KeypadMultiply Clicked");
-            
-
-        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (PlayerUpdadeStatsUi.IsMainPanelActive) { PlayerUpdadeStatsUi.CloseMainPanel(); }
@@ -114,6 +108,9 @@ public class PlayerUpdadeStats : SonsMod
         hasGottenOriginalValues = false;
         isQuitEventAdded = false;
         PlayerStatsFunctions.pointsUsed = 0;
+        PlayerStatsFunctions.currentPoints = 0;
+        PlayerStatsFunctions.pointsUsedMega = 0;
+        PlayerStatsFunctions.currentPointsMega = 0;
         BuyUpgrades.currentWalkSpeedLevel = 0;
         BuyUpgrades.currentSprintSpeedLevel = 0;
         BuyUpgrades.currentJumpHeightLevel = 0;
@@ -121,7 +118,8 @@ public class PlayerUpdadeStats : SonsMod
         BuyUpgrades.currentChainsawSpeedLevel = 0;
         BuyUpgrades.currentKnightVSpeedLevel = 0;
         BuyUpgrades.currentBowDamageLevel = 0;
-        PlayerStatsFunctions.currentPoints = 0;
+        MegaPoints.currentMeleeAndTreeHitStaminaLevel = 0;
+        MegaPoints.currentPlayerStaminaLevel = 0;
         PlayerUpdadeStatsUi.WalkSpeedLvl.Text("Lvl: 0/5");
         PlayerUpdadeStatsUi.WalkSpeedBonus.Text("Speed: +0%");
         PlayerUpdadeStatsUi.SprintSpeedLvl.Text("Lvl: 0/5");
@@ -136,6 +134,10 @@ public class PlayerUpdadeStats : SonsMod
         PlayerUpdadeStatsUi.KnightVSpeedBonus.Text("Speed: +0%");
         PlayerUpdadeStatsUi.BowDamageLvl.Text("Lvl: 0/5");
         PlayerUpdadeStatsUi.BowDamageBonus.Text(": +0%");
+        PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaLvl.Text($"Lvl: 0/{MegaPoints.MaxMegaUpgradeLevel}");
+        PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaBonus.Text(": +0%");
+        PlayerUpdadeStatsUi.PlayerStaminaLvl.Text($"Lvl: 0/{MegaPoints.MaxMegaUpgradeLevel}");
+        PlayerUpdadeStatsUi.PlayerStaminaBonus.Text(": +0%");
         PlayerUpdadeStatsPatches.postfixSaveID = 0;
     }
 

@@ -3,6 +3,7 @@ using Sons.Weapon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TheForest.Utils;
@@ -61,13 +62,50 @@ namespace PlayerUpdadeStats
         private static void SetTreeSwingStaminaCost<T>(int itemId, float defaultStamina, float currentMeleeStaminaLevel) where T : MonoBehaviour
         {
             ItemData item = ItemDatabaseManager.ItemById(itemId);
-            T controller = item.HeldPrefab.gameObject.GetComponent<T>();
-
-            if (controller != null)
+            if (item == null)
             {
-                typeof(T).GetField("_treeSwingStaminaCost").SetValue(controller, defaultStamina * (float)Math.Pow(Config.TreeSwingStaminaPercentageReduction, currentMeleeStaminaLevel));
+                PlayerStatsFunctions.PostError($"Item with ID {itemId} not found in database!");
+                return;
+            }
+            if (item.HeldPrefab == null)
+            {
+                PlayerStatsFunctions.PostError($"Item with ID {itemId} has a null HeldPrefab!");
+                return;
+            }
+            if (item.HeldPrefab.gameObject == null)
+            {
+                PlayerStatsFunctions.PostError($"Item with ID {itemId}'s HeldPrefab does not have a gameObject!");
+                return;
+            }
+
+            T controller = item.HeldPrefab.gameObject.GetComponent<T>();
+            if (controller == null)
+            {
+                PlayerStatsFunctions.PostError($"Controller of type {typeof(T).Name} not found for item with ID {itemId}!");
+                return;
+            }
+            else
+            {
+                PlayerStatsFunctions.PostMessage($"Controller of type {typeof(T).Name} found for item with ID {itemId}!");
+            }
+
+            var fieldInfo = typeof(T).GetField("_treeSwingStaminaCost", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+            if (fieldInfo == null)
+            {
+                PlayerStatsFunctions.PostError($"Field '_treeSwingStaminaCost' not found in type {typeof(T).Name}!");
+                return;
+            }
+
+            try
+            {
+                fieldInfo.SetValue(controller, defaultStamina * (float)Math.Pow(Config.TreeSwingStaminaPercentageReduction, currentMeleeStaminaLevel));
+            }
+            catch (Exception e)
+            {
+                PlayerStatsFunctions.PostError($"Error setting value for field '_treeSwingStaminaCost' in type {typeof(T).Name}. Error: {e}");
             }
         }
+
 
         public static void SetPlayerStamina(float currentLevel = 0)
         {

@@ -14,7 +14,7 @@ namespace PlayerUpdadeStats
 
         // Misc
         private static bool isRunning;
-        private const int MaxMegaUpgradeLevel = 1;
+        internal const int MaxMegaUpgradeLevel = 1;
 
         public enum MegaUpgradeType
         {
@@ -25,6 +25,7 @@ namespace PlayerUpdadeStats
         public async static void BuyMegaUpgrade(MegaUpgradeType megaUpgrade)
         {
             PlayerStatsFunctions.LoadStats();
+            PlayerStatsFunctions.PostMessage($"Trying To Buy Upgrade: {megaUpgrade}");
 
             float currentLevel = GetCurrentMegaUpgradeLevel(megaUpgrade);
 
@@ -43,9 +44,12 @@ namespace PlayerUpdadeStats
 
                     PlayerStatsFunctions.currentPointsMega -= cost;
                     PlayerStatsFunctions.pointsUsedMega += cost;
-                    // DO THE METHODS TO ADD THE UPGRADE
+                    Stamina.SetTreeSwingStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
+                    Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
+                    Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
                     SetMegaUpgradeLevel(megaUpgrade, newLevel);
                     UpdateMegaUI(megaUpgrade);
+                    PlayerStatsFunctions.PostMessage($"Bougth Upgrade: {megaUpgrade}");
                     DataHandler.SaveData();
                 }
                 else

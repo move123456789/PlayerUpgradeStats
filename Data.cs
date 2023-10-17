@@ -171,6 +171,10 @@ namespace PlayerUpdadeStats
                 else
                 {
                     PlayerUpdadeStatsPatches.currentStrengthLevel = LocalPlayer.Vitals.CurrentStrengthLevel;
+                    if (PlayerUpdadeStatsPatches.currentStrengthLevel >= 10)
+                    {
+                        PlayerUpdadeStatsUi.OpenMegaPointsButton.Visible(true);
+                    }
                     //MyPanel.curStrengthLvl.text = $"Your Strength Level: {PlayerUpdadeStatsPatches.currentStrengthLevel}";
                     PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
                     PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");

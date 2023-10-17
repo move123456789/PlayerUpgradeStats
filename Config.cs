@@ -33,11 +33,6 @@ public static class Config
             false,
             "Enable UI Testing",
             "Enables UI to be opened out of the game.");
-        testStamina = PlayerUpdadeStats.CreateEntry(
-            "test_stam",
-            1f,
-            "test_stam",
-            "test_stam");
     }
 
     // Mega Upgrades Multiplyers

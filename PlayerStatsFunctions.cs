@@ -35,6 +35,9 @@ namespace PlayerUpdadeStats
             PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
             GetCurrentPoints(PlayerUpdadeStatsPatches.currentStrengthLevel, pointsUsed);
             GetCurrentMegaPoints(PlayerUpdadeStatsPatches.currentStrengthLevel, pointsUsedMega);
+            Stamina.SetTreeSwingStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
+            Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
+            Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
         }
 
         public static int GetCurrentPoints(int currentStrengthLevel, int pointsUsed)

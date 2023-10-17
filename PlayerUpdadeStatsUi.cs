@@ -426,7 +426,7 @@ public class PlayerUpdadeStatsUi
         MeleeAndTreeHitStaminaLvl = SLabel.Text("Lvl: 0/1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         weapon_stamina_Container.Add(MeleeAndTreeHitStaminaLvl);
 
-        MeleeAndTreeHitStaminaBonus = SLabel.Text("Current TEST: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
+        MeleeAndTreeHitStaminaBonus = SLabel.Text("Bonus: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
         weapon_stamina_Container.Add(MeleeAndTreeHitStaminaBonus);
 
         MeleeAndTreeHitStaminaCost = SLabel.Text("Cost: 1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
@@ -454,14 +454,14 @@ public class PlayerUpdadeStatsUi
         var player_stamina_Text = SLabel.Text("PlayerStamina").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50).AutoSizeContainer(true);
         player_stamina_Container.Add(player_stamina_Text);
 
-        MeleeAndTreeHitStaminaLvl = SLabel.Text("Lvl: 0/1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
-        player_stamina_Container.Add(MeleeAndTreeHitStaminaLvl);
+        PlayerStaminaLvl = SLabel.Text("Lvl: 0/1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        player_stamina_Container.Add(PlayerStaminaLvl);
 
-        MeleeAndTreeHitStaminaBonus = SLabel.Text("Current Bonus: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
-        player_stamina_Container.Add(MeleeAndTreeHitStaminaBonus);
+        PlayerStaminaBonus = SLabel.Text("Bonus: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
+        player_stamina_Container.Add(PlayerStaminaBonus);
 
-        MeleeAndTreeHitStaminaCost = SLabel.Text("Cost: 1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
-        player_stamina_Container.Add(MeleeAndTreeHitStaminaCost);
+        PlayerStaminaCost = SLabel.Text("Cost: 1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        player_stamina_Container.Add(PlayerStaminaCost);
 
         var player_stamina_Btn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
         player_stamina_Btn.OnClick(() =>
