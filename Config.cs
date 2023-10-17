@@ -39,4 +39,10 @@ public static class Config
             "test_stam",
             "test_stam");
     }
+
+    public static float MeleeStaminaPercentageReduction = 0.80f; // 20% Reduction For Each Level
+    public static float TreeSwingStaminaPercentageReduction = 0.80f; // 20% Reduction For Each Level
+    public static float StaminaBarRecoverRate = 1.20f; // 20% Increased Stamina Regen For Each Level
+    public static float RunStaminaCostPerSec = 0.80f; // 20% Reduction For Each Level
+    public static float TimeToRecoverFromRun = 0.80f; // 20% Reduction For Each Level
 }

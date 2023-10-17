@@ -71,6 +71,11 @@ public class PlayerUpdadeStatsUi
     // Open Mega Points Button
     internal static SUiElement<SUI.SBgButtonOptions> OpenMegaPointsButton;
 
+    // Melee Stamina And Tree Hit Stamina
+    internal static SUiElement<SLabelOptions> MeleeAndTreeHitStaminaBonus;
+    internal static SUiElement<SLabelOptions> MeleeAndTreeHitStaminaLvl;
+    internal static SUiElement<SLabelOptions> MeleeAndTreeHitStaminaCost;
+
     public static void Create()
     {
         var panel = RegisterNewPanel(MOD_LIST_ID)
@@ -396,7 +401,32 @@ public class PlayerUpdadeStatsUi
             .Padding(56, 56, 200, 80)
             .As<SScrollContainerOptions>();
         CoulumContainer_megaPanel.ContainerObject.Spacing(4);
-        CoulumContainer_megaPanel.SetParent(mainContainer_megaPanel);
+        mainContainer_megaPanel.Add(CoulumContainer_megaPanel);
+
+        // Melee Stamina And Tree Hit Stamina
+        var weapon_stamina_Container = SContainer
+            .Dock(EDockType.Fill)
+                           .Horizontal(0, "EE").Background(ComponentBlack).Height(50);
+        CoulumContainer_megaPanel.Add(weapon_stamina_Container);
+
+        var weapon_stamina_Text = SLabel.Text("Jump Height").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50);
+        weapon_stamina_Container.Add(weapon_stamina_Text);
+
+        MeleeAndTreeHitStaminaLvl = SLabel.Text("Lvl: 0/5").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        weapon_stamina_Container.Add(MeleeAndTreeHitStaminaLvl);
+
+        MeleeAndTreeHitStaminaBonus = SLabel.Text("Current JumpH: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
+        weapon_stamina_Container.Add(MeleeAndTreeHitStaminaBonus);
+
+        MeleeAndTreeHitStaminaCost = SLabel.Text("Cost: 1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        weapon_stamina_Container.Add(MeleeAndTreeHitStaminaCost);
+
+        var weapon_stamina_Btn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        weapon_stamina_Btn.OnClick(() =>
+        {
+            BuyUpgrades.BuyUpgrade(BuyUpgrades.UpgradeType.JumpHeight);
+        });
+        weapon_stamina_Container.Add(weapon_stamina_Btn);
     }
 
     internal static void CloseMainPanel()
