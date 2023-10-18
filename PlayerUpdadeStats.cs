@@ -59,8 +59,8 @@ public class PlayerUpdadeStats : SonsMod
             PlayerStatsFunctions.PostMessage("Adding Quit Event");
             isQuitEventAdded = true;
             PauseMenu.add_OnQuitEvent((Il2CppSystem.Action)Quitting);
-
         }
+        PlayerStatsFunctions.UpdateSpeed();
     }
 
     // This is called every frame.
