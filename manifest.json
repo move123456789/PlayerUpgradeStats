@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/ToniMacaroni/RedLoader/main/MetadataSchema.json",
   "id": "PlayerUpdadeStats",
   "author": "SmokyAce",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple Mod thats make you upgrade certian things ingame.",
   "gameVersion": "1.0.0",
   "url": "..."
