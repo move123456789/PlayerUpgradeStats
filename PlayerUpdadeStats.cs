@@ -72,6 +72,7 @@ public class PlayerUpdadeStats : SonsMod
             {
                 PlayerUpdadeStatsUi.ToggleMainPanel(); // THIS TOGGELS ALSO
                 PlayerUpdadeStatsUi.OpenMegaPointsButton.Visible(true);  // Makes The Button Visible Still When You Are Under Lvl 10
+                return;
             }
             if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
 
@@ -133,11 +134,11 @@ public class PlayerUpdadeStats : SonsMod
         PlayerUpdadeStatsUi.KnightVSpeedLvl.Text("Lvl: 0/5");
         PlayerUpdadeStatsUi.KnightVSpeedBonus.Text("Speed: +0%");
         PlayerUpdadeStatsUi.BowDamageLvl.Text("Lvl: 0/5");
-        PlayerUpdadeStatsUi.BowDamageBonus.Text(": +0%");
+        PlayerUpdadeStatsUi.BowDamageBonus.Text("+0%");
         PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaLvl.Text($"Lvl: 0/{MegaPoints.MaxMegaUpgradeLevel}");
-        PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaBonus.Text(": +0%");
+        PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaBonus.Text("+0%");
         PlayerUpdadeStatsUi.PlayerStaminaLvl.Text($"Lvl: 0/{MegaPoints.MaxMegaUpgradeLevel}");
-        PlayerUpdadeStatsUi.PlayerStaminaBonus.Text(": +0%");
+        PlayerUpdadeStatsUi.PlayerStaminaBonus.Text("+0%");
         PlayerUpdadeStatsPatches.postfixSaveID = 0;
     }
 

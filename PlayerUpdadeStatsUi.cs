@@ -1,6 +1,7 @@
 using RedLoader;
 using SonsSdk;
 using SUI;
+using TheForest.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -125,6 +126,19 @@ public class PlayerUpdadeStatsUi
             .Pivot(1, 1).Anchor(AnchorType.TopRight).Position(-60, -60)
             .Size(60, 60).Ppu(1.7f).Notify(CloseMainPanel);
         exitButton.SetParent(mainContainer);
+
+        var updateButton = SBgButton
+            .Text("Update Stats").Background(GetBackgroundSprite(EBackground.Sons), Image.Type.Tiled).Color(ColorFromString("#00e600"))
+            .Pivot(1, 1).Anchor(AnchorType.TopLeft).Position(250, -60)
+            .Size(160, 60).Ppu(1.7f).Notify(() =>
+            {
+                if (!LocalPlayer.IsInWorld || PlayerUpdadeStatsPatches.postfixSaveID == 0) { PlayerStatsFunctions.PostMessage("Update Stats Button returned, player not in world or postfixSaveID is not correct"); return; }
+                PlayerStatsFunctions.UpdateSpeed();
+                Stamina.SetTreeSwingStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
+                Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
+                Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
+            });
+        updateButton.SetParent(mainContainer);
 
 
         var CoulumContainer = SScrollContainer
