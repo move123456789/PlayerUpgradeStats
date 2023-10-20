@@ -82,7 +82,7 @@ public class PlayerUpdadeStats : SonsMod
                 PlayerUpdadeStatsUi.ToggleMainPanel();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && Config.UiTesting.Value == false)
         {
             if (PlayerUpdadeStatsUi.IsMainPanelActive) { PlayerUpdadeStatsUi.CloseMainPanel(); }
             else if (PlayerUpdadeStatsUi.IsMegaPanelActive) { PlayerUpdadeStatsUi.CloseMegaPanel(); }
