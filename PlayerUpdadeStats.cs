@@ -66,22 +66,10 @@ public class PlayerUpdadeStats : SonsMod
     // This is called every frame.
     protected void OnUpdate()
     {
-        if (Input.GetKeyDown(Config.ToggleMenuKey.Value))
-        {
-            if (Config.UiTesting.Value == true)
-            {
-                PlayerUpdadeStatsUi.ToggleMainPanel(); // THIS TOGGELS ALSO
-                PlayerUpdadeStatsUi.OpenMegaPointsButton.Visible(true);  // Makes The Button Visible Still When You Are Under Lvl 10
-                return;
-            }
-            if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
-
-            if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
-            {
-                PauseMenu._instance.Open();
-                PlayerUpdadeStatsUi.ToggleMainPanel();
-            }
-        }
+        //if (Input.GetKeyDown(Config.ToggleMenuKey.Value))
+        //{
+            
+        //}
         if (Input.GetKeyDown(KeyCode.Escape) && Config.UiTesting.Value == false)
         {
             if (PlayerUpdadeStatsUi.IsMainPanelActive) { PlayerUpdadeStatsUi.CloseMainPanel(); }
@@ -90,6 +78,7 @@ public class PlayerUpdadeStats : SonsMod
 
 
     }
+    
 
     internal static bool showMenu = false;
     internal static float MaxVelocity = 50;

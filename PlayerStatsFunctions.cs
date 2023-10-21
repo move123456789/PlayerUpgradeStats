@@ -1,4 +1,5 @@
 ﻿using RedLoader;
+using Sons.Gui;
 using Sons.Weapon;
 using System;
 using System.Collections.Generic;
@@ -126,6 +127,27 @@ namespace PlayerUpdadeStats
                 }
             }
         }
+
+
+
+        public static void OnMenuKeyPressed()
+        {
+            if (Config.UiTesting.Value == true)
+            {
+                PlayerUpdadeStatsUi.ToggleMainPanel(); // THIS TOGGELS ALSO
+                PlayerUpdadeStatsUi.OpenMegaPointsButton.Visible(true);  // Makes The Button Visible Still When You Are Under Lvl 10
+                return;
+            }
+            if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
+
+            if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
+            {
+                PauseMenu._instance.Open();
+                PlayerUpdadeStatsUi.ToggleMainPanel();
+            }
+        }
+
+
     }
 
     internal class ChainSawModifications
@@ -180,4 +202,6 @@ namespace PlayerUpdadeStats
             PlayerStatsFunctions.PostMessage("Current Chainsaw Speed = " + ChainSawHitFrequency);
         }
     }
+
+    
 }

@@ -1,4 +1,5 @@
 using RedLoader;
+using SonsSdk;
 using UnityEngine;
 
 namespace PlayerUpdadeStats;
@@ -6,29 +7,34 @@ namespace PlayerUpdadeStats;
 public static class Config
 {
     public static ConfigCategory PlayerUpdadeStats { get; private set; }
-    public static ConfigEntry<KeyCode> ToggleMenuKey { get; private set; }
+    public static ConfigCategory PlayerUpdadeStatsAdvanced { get; private set; }
+    public static KeybindConfigEntry ToggleMenuKey { get; private set; }
     public static ConfigEntry<bool> DebugLogging { get; private set; }
     public static ConfigEntry<bool> UiTesting { get; private set; }
 
-    public static ConfigEntry<float> testStamina { get; private set; }
 
     public static void Init()
     {
         PlayerUpdadeStats = ConfigSystem.CreateCategory("playerUpgradeStats", "PlayerUpdadeStats");
+        PlayerUpdadeStatsAdvanced = ConfigSystem.CreateCategory("Advanced", "PlayerUpdadeStatsAdvanced", true);
 
-        ToggleMenuKey = PlayerUpdadeStats.CreateEntry(
+        ToggleMenuKey = PlayerUpdadeStats.CreateKeybindEntry(
             "menu_key",
-            KeyCode.Keypad3,
+            "numpad3",
             "Toggle Menu Key",
             "The key that toggles the Points Menu.");
+        ToggleMenuKey.Notify(() =>
+        {
+            PlayerStatsFunctions.OnMenuKeyPressed();
+        });
 
-        DebugLogging = PlayerUpdadeStats.CreateEntry(
-            "enable_logging",
+        DebugLogging = PlayerUpdadeStatsAdvanced.CreateEntry(
+            "enable_logging_advanced",
             false,
             "Enable Debug Logs",
             "Enables PlayerUpgradeStats Debug Logs of the game to the console.");
 
-        UiTesting = PlayerUpdadeStats.CreateEntry(
+        UiTesting = PlayerUpdadeStatsAdvanced.CreateEntry(
             "enable_ui_on_main_page",
             false,
             "Enable UI Testing",
@@ -45,4 +51,6 @@ public static class Config
 
     // UI Mega Upgrades Multipiers
     public const int UpdateMegaUIIncreace = 20; // Level x Value.Here = Total Ui % Text
+
+    
 }
