@@ -182,9 +182,9 @@ namespace PlayerUpdadeStats
                     {
                         PlayerUpdadeStatsUi.OpenMegaPointsButton.Visible(true);
                     }
-                    //MyPanel.curStrengthLvl.text = $"Your Strength Level: {PlayerUpdadeStatsPatches.currentStrengthLevel}";
                     PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
                     PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
+                    PlayerUpdadeStatsUi.CurrentStrengthLevel.Text($"Strength Level: {PlayerUpdadeStatsPatches.currentStrengthLevel}");
                     PlayerStatsFunctions.LoadStats();
                     break;
                 }

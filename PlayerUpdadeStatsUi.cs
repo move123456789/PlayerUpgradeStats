@@ -26,6 +26,7 @@ public class PlayerUpdadeStatsUi
 
     // Current Points
     internal static SUiElement<SLabelOptions> DisplayedPoints;
+    internal static SUiElement<SLabelOptions> CurrentStrengthLevel;
 
     // Walk Speed
     internal static SUiElement<SLabelOptions> WalkSpeedBonus;
@@ -102,9 +103,17 @@ public class PlayerUpdadeStatsUi
         var title = SLabel.Text("PlayerUpgradeStats")
             .FontColor("#444").Font(EFont.RobotoRegular)
             .PHeight(100).FontSize(32)
-            .HFill().Position(null, -95)
+            .HFill().Position(null, -80)
             .FontSpacing(10);
         title.SetParent(mainContainer);
+
+        CurrentStrengthLevel = SLabel.Text("Strength Level: 0")
+            .FontColor(Color.white).Font(EFont.RobotoRegular)
+            .PHeight(50).FontSize(26)
+            .Pivot(1, 1)
+            .HFill().Position(null, -70)
+            .FontSpacing(10);
+        CurrentStrengthLevel.SetParent(mainContainer);
 
         DisplayedPoints = SLabel.Text("Points: 0")
             .FontColor(Color.white).Font(EFont.RobotoRegular)
@@ -112,6 +121,7 @@ public class PlayerUpdadeStatsUi
             .HFill().Position(null, -150)
             .FontSpacing(10);
         DisplayedPoints.SetParent(mainContainer);
+
 
         displayMessage = SLabel.Text("")
             .FontColor(Color.white).Font(EFont.RobotoRegular)
