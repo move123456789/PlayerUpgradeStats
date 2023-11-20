@@ -48,22 +48,7 @@ namespace PlayerUpdadeStats
             DataHandler.GetStrengthLevelVitals();
         }
 
-        [HarmonyPatch(typeof(GenericMeleeWeaponController), "OnEnable")]
-        [HarmonyPostfix]
-        public static void PostfixGenericMeleeWeaponController(ref GenericMeleeWeaponController __instance)
-        {
-            PlayerStatsFunctions.PostMessage("OnEnable GenericMeleeWeaponController");
-            string instanceName = __instance.name;
-            if (instanceName == "TacticalChainsawHeld" || instanceName == "TacticalChainsawHeld(Clone)")
-            {
-                PlayerStatsFunctions.PostMessage("__instance.gameObject.name = " + __instance.gameObject.name);
-                PlayerStatsFunctions.PostMessage("Trying to get component ChainsawWeaponController");
-                ChainsawWeaponController chainsawWeaponController = __instance.gameObject.GetComponent<ChainsawWeaponController>();
-                chainsawWeaponController._treeHitFrequency = 0.25f * (1 - BuyUpgrades.currentChainsawSpeedLevel * 19 / 100);
-                PlayerStatsFunctions.PostMessage("_treeHitFrequency updated, new value = " + 0.25f * (1 - BuyUpgrades.currentChainsawSpeedLevel * 19 / 100));
-            }
-
-        }
+        
         [HarmonyPatch(typeof(PlayerKnightVAction), nameof(PlayerKnightVAction.StartRiding))]
         [HarmonyPostfix]
         public static void PostfixKnightV(ref PlayerKnightVAction __instance)

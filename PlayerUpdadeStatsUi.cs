@@ -148,6 +148,7 @@ public class PlayerUpdadeStatsUi
                 Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
                 Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
                 Arrows.SetBowDamage(BuyUpgrades.currentBowDamageLevel);
+                ChainsawMods.SetChainSawSpeed(BuyUpgrades.currentChainsawSpeedLevel);
             });
         updateButton.SetParent(mainContainer);
 

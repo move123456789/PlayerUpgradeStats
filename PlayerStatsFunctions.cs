@@ -40,6 +40,7 @@ namespace PlayerUpdadeStats
             Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
             Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
             Arrows.SetBowDamage(BuyUpgrades.currentBowDamageLevel);
+            ChainsawMods.SetChainSawSpeed(BuyUpgrades.currentChainsawSpeedLevel);
         }
 
         public static int GetCurrentPoints(int currentStrengthLevel, int pointsUsed)
@@ -151,58 +152,4 @@ namespace PlayerUpdadeStats
 
     }
 
-    internal class ChainSawModifications
-    {
-        private static float defaultChainsawHitFrequency = 0.25f;
-
-        internal static ChainsawWeaponController GetChainSawComponent()
-        {
-            try
-            {
-                if (!LocalPlayer.IsInWorld) { PlayerStatsFunctions.PostMessage("GetChainSawComponent, Player Not In World"); return null; }
-                if (LocalPlayer.Inventory.RightHandItem == null || LocalPlayer.Inventory.RightHandItem.ItemObject == null || LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PlayerStatsFunctions.PostMessage("Chainsaw name != TacticalChainsawHeld, so chainsaw is not in hand from GetChainSawComponent"); return null; }
-                GameObject chainsawObject = GameObject.Find("TacticalChainsawHeld");
-                if (chainsawObject == null) { PlayerStatsFunctions.PostError("In GetChainSawComponent, Could not find 'TacticalChainsawHeld' object"); return null; }
-                ChainsawWeaponController ComponentChainsawWeaponController = chainsawObject.GetComponent<ChainsawWeaponController>();
-                if (ComponentChainsawWeaponController == null) { PlayerStatsFunctions.PostError("In GetChainSawComponent, Found Object == null"); return null; } else { PlayerStatsFunctions.PostError("Found ComponentChainsawWeaponController"); }
-                return ComponentChainsawWeaponController;
-            }
-            catch (Exception e) { PlayerStatsFunctions.PostError("Could not run GetChainSawComponent Error: " + e); return null; }
-        }
-
-        internal static float ChainSawHitFrequency
-        {
-            get
-            {
-                if (GetChainSawComponent() == null) { PlayerStatsFunctions.PostMessage("In Get ChainSawHitFrequency, GetChainSawComponent == null"); return ChainSawHitFrequency = 0; }
-                return GetChainSawComponent()._treeHitFrequency;
-            }
-            set
-            {
-                if (GetChainSawComponent() == null) { PlayerStatsFunctions.PostMessage("In Set ChainSawHitFrequency, GetChainSawComponent == null"); return; }
-                try
-                {
-                    PlayerStatsFunctions.PostMessage("Setting _treeHitFrequency = value");
-                    GetChainSawComponent()._treeHitFrequency = value;
-                }
-                catch (Exception e) { PlayerStatsFunctions.PostError("Could not set _treeHitFrequency Error: " + e); }
-            }
-        }
-
-        internal static void UpgradeChainsawHitFrequency(float currentChainsawSpeedLevel)
-        {
-            PlayerStatsFunctions.PostMessage("In UpgradeChainsawHitFrequency");
-            try
-            {
-                if (currentChainsawSpeedLevel == 0) { PlayerStatsFunctions.PostMessage("No Need To UpgradeChainsawHitFrequency, currentChainsawSpeedLevel == 0"); return; }
-                if (!LocalPlayer.IsInWorld) { PlayerStatsFunctions.PostMessage("GetChainSawComponent, Player Not In World"); return; }
-                if (LocalPlayer.Inventory.RightHandItem != null && LocalPlayer.Inventory.RightHandItem.ItemObject != null && LocalPlayer.Inventory.RightHandItem.ItemObject.name != "TacticalChainsawHeld") { PlayerStatsFunctions.PostMessage("Chainsaw name != TacticalChainsawHeld, so chainsaw is not in hand, from UpgradeChainsawHitFrequency"); return; }
-                ChainSawHitFrequency = defaultChainsawHitFrequency * (1 - currentChainsawSpeedLevel * 19 / 100);
-            }
-            catch (Exception e) { PlayerStatsFunctions.PostError("Something went wrong in UpgradeChainsawHitFrequency, Error: " + e); }
-            PlayerStatsFunctions.PostMessage("Current Chainsaw Speed = " + ChainSawHitFrequency);
-        }
-    }
-
-    
 }

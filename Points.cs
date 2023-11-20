@@ -119,14 +119,13 @@ namespace PlayerUpdadeStats
                     break;
                 case UpgradeType.ChainSawSpeed:
                     currentChainsawSpeedLevel = newLevel;
-                    ChainSawModifications.UpgradeChainsawHitFrequency(currentChainsawSpeedLevel);
+                    ChainsawMods.SetChainSawSpeed(newLevel);
                     break;
                 case UpgradeType.KnightVSpeed:
                     currentKnightVSpeedLevel = newLevel;
                     break;
                 case UpgradeType.BowDamage:
                     currentBowDamageLevel = newLevel;
-                    // Upgrade BowDamage
                     Arrows.SetBowDamage(newLevel);
                     break;
                 default:
