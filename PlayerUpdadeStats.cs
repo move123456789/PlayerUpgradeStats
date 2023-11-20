@@ -28,7 +28,7 @@ public class PlayerUpdadeStats : SonsMod
     {
         // Do your mod initialization which involves game or sdk references here
         // This is for stuff like UI creation, event registration etc.
-        RLog.Msg("PlayerUpdadeStats Loaded");
+        PlayerStatsFunctions.PostMessage("PlayerUpdadeStats Loaded");
         PlayerUpdadeStatsUi.Create();
         // Data Folder
         string dir = @"PlayerUpgradeStatsData";

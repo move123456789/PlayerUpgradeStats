@@ -84,24 +84,31 @@ namespace PlayerUpdadeStats
         private static float defaultMaxVelocity = 20f;
 
 
+        private static bool isBowDamageUpgraded;
         [HarmonyPatch(typeof(RangedWeapon), "Start")]
         [HarmonyPostfix]
         public static void PostfixBowDamage(ref RangedWeapon __instance)
         {
-            PlayerStatsFunctions.PostMessage("Awake RangedWeapon");
+            if (BuyUpgrades.currentBowDamageLevel == 0) { PlayerStatsFunctions.PostMessage("No Need for Updating, currentBowDamageLevel = 0"); return; }
+            PlayerStatsFunctions.PostMessage("Start RangedWeapon - PostfixBowDamage");
             if (__instance.name == "CraftedBowHeld" || __instance.name == "CraftedBowHeld(Clone)")
             {
+
+                ProjectileInfo current_ammo_info = __instance.GetAmmo()?.GetProperties()?.ProjectileInfo;
+                current_ammo_info.muzzleDamage = current_ammo_info.muzzleDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
+                isBowDamageUpgraded = true;
+
                 PlayerStatsFunctions.PostMessage("Bow Now In Hand");
-                if (BuyUpgrades.currentBowDamageLevel == 0) { PlayerStatsFunctions.PostMessage("No Need for Updating, currentBowDamageLevel = 0"); return; }
+                
                 var item = LocalPlayer.Inventory.RightHandItem;
                 if (item != null)
                 {
                     PlayerStatsFunctions.PostMessage("CraftedBowHeld - Item != null");
                     var ranged = item.ItemObject.GetComponentInChildren<RangedWeapon>();
                     ranged._simulatedBulletInfo = ranged.GetAmmo()?._properties?.ProjectileInfo;
-                    PlayerStatsFunctions.PostMessage($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
+                    PlayerStatsFunctions.PostMessage($"Current MuzzleDamage: {ranged._simulatedBulletInfo.muzzleDamage}");
                     ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                    PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                    PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update: {ranged._simulatedBulletInfo.muzzleDamage}");
                 }
                 else { PlayerStatsFunctions.PostMessage("CraftedBowHeld - item == null"); }
             }
@@ -109,9 +116,26 @@ namespace PlayerUpdadeStats
         private static float defaultBowDamage = 20f;
 
 
+        [HarmonyPatch(typeof(BowWeaponController), "CycleAmmoType")]
+        [HarmonyPostfix]
+        public static void PostfixBowDamageChangeAmmo(BowWeaponController __instance)
+        {
+            isBowDamageUpgraded = false;
+            RangedWeapon ref_from_BowWeaponController = __instance.GetRangedWeapon();
+            if (ref_from_BowWeaponController != null)
+            {
+                ProjectileInfo current_ammo_info = ref_from_BowWeaponController.GetAmmo()?.GetProperties()?.ProjectileInfo;
+                current_ammo_info.muzzleDamage = current_ammo_info.muzzleDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
+                isBowDamageUpgraded = true;
+            }
+        }
+
+
+
+        // OLD PATCH
         [HarmonyPatch(typeof(RangedWeapon), "CycleAmmoType")]
         [HarmonyPostfix]
-        public static async void PostfixBowDamageChangeAmmo(RangedWeapon __instance)
+        public static async void fixBowDamageChangeAmmo(RangedWeapon __instance)
         {
             PlayerStatsFunctions.PostMessage("Awake RangedWeapon");
             if (__instance.name == "CraftedBowHeld" || __instance.name == "CraftedBowHeld(Clone)")
@@ -134,19 +158,19 @@ namespace PlayerUpdadeStats
                             // Crafted Arrow
                             PlayerStatsFunctions.PostMessage($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
                             ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update: {ranged._simulatedBulletInfo.muzzleDamage}");
                             break;
                         case "3dPrintedArrowProjectile":
                             // 3dPrinted Arrow
                             PlayerStatsFunctions.PostMessage($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
                             ranged._simulatedBulletInfo.muzzleDamage = 30f * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update: {ranged._simulatedBulletInfo.muzzleDamage}");
                             break;
                         case "TacticalBowAmmoProjectile":
                             // Found Arrow
                             PlayerStatsFunctions.PostMessage($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
                             ranged._simulatedBulletInfo.muzzleDamage = 35f * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update= {ranged._simulatedBulletInfo.muzzleDamage}");
+                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update: {ranged._simulatedBulletInfo.muzzleDamage}");
                             break;
                     }
                 }
