@@ -32,10 +32,10 @@ namespace PlayerUpdadeStats
 
         public static void LoadStats()
         {
-            PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
-            PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
-            GetCurrentPoints(PlayerUpdadeStatsPatches.currentStrengthLevel, pointsUsed);
-            GetCurrentMegaPoints(PlayerUpdadeStatsPatches.currentStrengthLevel, pointsUsedMega);
+            PlayerUpgradeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
+            PlayerUpgradeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
+            GetCurrentPoints(PlayerUpgradeStatsPatches.currentStrengthLevel, pointsUsed);
+            GetCurrentMegaPoints(PlayerUpgradeStatsPatches.currentStrengthLevel, pointsUsedMega);
             Stamina.SetTreeSwingStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
             Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
             Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
@@ -81,16 +81,16 @@ namespace PlayerUpdadeStats
         {
             PlayerStatsFunctions.PostMessage("Updating Speeds");
             // For Walk Speed
-            LocalPlayer._FpCharacter_k__BackingField._walkSpeed = PlayerUpdadeStats.originalWalkSpeed * (BuyUpgrades.currentWalkSpeedLevel * 20 / 100 + 1);
+            LocalPlayer._FpCharacter_k__BackingField._walkSpeed = PlayerUpgradeStats.originalWalkSpeed * (BuyUpgrades.currentWalkSpeedLevel * 20 / 100 + 1);
             PlayerStatsFunctions.PostMessage("Current Walk Speed = " + LocalPlayer._FpCharacter_k__BackingField._walkSpeed);
             // For Sprint Speed
-            LocalPlayer._FpCharacter_k__BackingField._runSpeed = PlayerUpdadeStats.originalSprintSpeed * (BuyUpgrades.currentSprintSpeedLevel * 20 / 100 + 1);
+            LocalPlayer._FpCharacter_k__BackingField._runSpeed = PlayerUpgradeStats.originalSprintSpeed * (BuyUpgrades.currentSprintSpeedLevel * 20 / 100 + 1);
             PlayerStatsFunctions.PostMessage("Current Sprint Speed = " + LocalPlayer._FpCharacter_k__BackingField._runSpeed);
             // For Jump Height
-            LocalPlayer._FpCharacter_k__BackingField._jumpHeight = PlayerUpdadeStats.originalJumpHeight * (BuyUpgrades.currentJumpHeightLevel * 20 / 100 + 1);
+            LocalPlayer._FpCharacter_k__BackingField._jumpHeight = PlayerUpgradeStats.originalJumpHeight * (BuyUpgrades.currentJumpHeightLevel * 20 / 100 + 1);
             PlayerStatsFunctions.PostMessage("Current Jump Height = " + LocalPlayer._FpCharacter_k__BackingField._jumpHeight);
             // For Swin Speed
-            LocalPlayer._FpCharacter_k__BackingField._swimSpeed = PlayerUpdadeStats.originalSwimSpeed * (BuyUpgrades.currentSwimSpeedLevel * 20 / 100 + 1);
+            LocalPlayer._FpCharacter_k__BackingField._swimSpeed = PlayerUpgradeStats.originalSwimSpeed * (BuyUpgrades.currentSwimSpeedLevel * 20 / 100 + 1);
             PlayerStatsFunctions.PostMessage("Current Swim Speed = " + LocalPlayer._FpCharacter_k__BackingField._swimSpeed);
         }
 
@@ -136,8 +136,8 @@ namespace PlayerUpdadeStats
         {
             if (Config.UiTesting.Value == true)
             {
-                PlayerUpdadeStatsUi.ToggleMainPanel(); // THIS TOGGELS ALSO
-                PlayerUpdadeStatsUi.OpenMegaPointsButton.Visible(true);  // Makes The Button Visible Still When You Are Under Lvl 10
+                PlayerUpgradeStatsUi.ToggleMainPanel(); // THIS TOGGELS ALSO
+                PlayerUpgradeStatsUi.OpenMegaPointsButton.Visible(true);  // Makes The Button Visible Still When You Are Under Lvl 10
                 return;
             }
             if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
@@ -145,7 +145,7 @@ namespace PlayerUpdadeStats
             if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
             {
                 PauseMenu._instance.Open();
-                PlayerUpdadeStatsUi.ToggleMainPanel();
+                PlayerUpgradeStatsUi.ToggleMainPanel();
             }
         }
 

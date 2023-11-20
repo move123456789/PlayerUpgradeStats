@@ -15,7 +15,7 @@ using Sons.Gameplay.GPS;
 namespace PlayerUpdadeStats
 {
     [HarmonyPatch]
-    public class PlayerUpdadeStatsPatches
+    public class PlayerUpgradeStatsPatches
     {
         public static uint postfixSaveID;
         public static int currentStrengthLevel;

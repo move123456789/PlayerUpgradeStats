@@ -10,7 +10,7 @@ namespace PlayerUpdadeStats;
 
 using static SUI.SUI;
 
-public class PlayerUpdadeStatsUi
+public class PlayerUpgradeStatsUi
 {
 
     public const string MOD_LIST_ID = "PlayerUpgradeStats";
@@ -142,7 +142,7 @@ public class PlayerUpdadeStatsUi
             .Pivot(1, 1).Anchor(AnchorType.TopLeft).Position(250, -60)
             .Size(160, 60).Ppu(1.7f).Notify(() =>
             {
-                if (!LocalPlayer.IsInWorld || PlayerUpdadeStatsPatches.postfixSaveID == 0) { PlayerStatsFunctions.PostMessage("Update Stats Button returned, player not in world or postfixSaveID is not correct"); return; }
+                if (!LocalPlayer.IsInWorld || PlayerUpgradeStatsPatches.postfixSaveID == 0) { PlayerStatsFunctions.PostMessage("Update Stats Button returned, player not in world or postfixSaveID is not correct"); return; }
                 PlayerStatsFunctions.UpdateSpeed();
                 Stamina.SetTreeSwingStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
                 Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);

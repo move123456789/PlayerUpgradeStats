@@ -104,18 +104,18 @@ namespace PlayerUpdadeStats
 
             if (megaUpgradeType == MegaUpgradeType.PlayerStamina)
             {
-                PlayerUpdadeStatsUi.PlayerStaminaCost.Text(costInfo);
-                PlayerUpdadeStatsUi.PlayerStaminaBonus.Text(speedInfo);
-                PlayerUpdadeStatsUi.PlayerStaminaLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.PlayerStaminaCost.Text(costInfo);
+                PlayerUpgradeStatsUi.PlayerStaminaBonus.Text(speedInfo);
+                PlayerUpgradeStatsUi.PlayerStaminaLvl.Text(lvlInfo);
             }
             else if (megaUpgradeType == MegaUpgradeType.ToolStamina)
             {
-                PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaCost.Text(costInfo);
-                PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaBonus.Text(speedInfo);
-                PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaCost.Text(costInfo);
+                PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaBonus.Text(speedInfo);
+                PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaLvl.Text(lvlInfo);
             }
 
-            PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
+            PlayerUpgradeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
         }
 
         // A Little Async Function that adds a interval time when the UI Text will show
@@ -129,18 +129,18 @@ namespace PlayerUpdadeStats
         private static async Task DisplayMegaWarning(bool maxORpoints)
         {
             if (isRunning) { return; }
-            PlayerUpdadeStatsUi.displayMessage_megaPanel.Visible(true);
+            PlayerUpgradeStatsUi.displayMessage_megaPanel.Visible(true);
             if (maxORpoints)
             {
-                PlayerUpdadeStatsUi.displayMessage_megaPanel.Text("You Have Maximim Lvl");
+                PlayerUpgradeStatsUi.displayMessage_megaPanel.Text("You Have Maximim Lvl");
             }
             else
             {
-                PlayerUpdadeStatsUi.displayMessage_megaPanel.Text("You Do Not Have Enogth Points");
+                PlayerUpgradeStatsUi.displayMessage_megaPanel.Text("You Do Not Have Enogth Points");
             }
             isRunning = true;
             await Task.Run(WarningTimer);
-            PlayerUpdadeStatsUi.displayMessage_megaPanel.Visible(false);
+            PlayerUpgradeStatsUi.displayMessage_megaPanel.Visible(false);
         }
     }
 }

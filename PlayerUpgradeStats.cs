@@ -8,9 +8,9 @@ using Sons.Items.Core;
 
 namespace PlayerUpdadeStats;
 
-public class PlayerUpdadeStats : SonsMod
+public class PlayerUpgradeStats : SonsMod
 {
-    public PlayerUpdadeStats()
+    public PlayerUpgradeStats()
     {
         // Don't register any update callbacks here. Manually register them instead.
         // Removing this will call OnUpdate, OnFixedUpdate etc. even if you don't use them.
@@ -29,7 +29,7 @@ public class PlayerUpdadeStats : SonsMod
         // Do your mod initialization which involves game or sdk references here
         // This is for stuff like UI creation, event registration etc.
         PlayerStatsFunctions.PostMessage("PlayerUpdadeStats Loaded");
-        PlayerUpdadeStatsUi.Create();
+        PlayerUpgradeStatsUi.Create();
         // Data Folder
         string dir = @"PlayerUpgradeStatsData";
         // If directory does not exist, create it
@@ -72,8 +72,8 @@ public class PlayerUpdadeStats : SonsMod
         //}
         if (Input.GetKeyDown(KeyCode.Escape) && Config.UiTesting.Value == false)
         {
-            if (PlayerUpdadeStatsUi.IsMainPanelActive) { PlayerUpdadeStatsUi.CloseMainPanel(); }
-            else if (PlayerUpdadeStatsUi.IsMegaPanelActive) { PlayerUpdadeStatsUi.CloseMegaPanel(); }
+            if (PlayerUpgradeStatsUi.IsMainPanelActive) { PlayerUpgradeStatsUi.CloseMainPanel(); }
+            else if (PlayerUpgradeStatsUi.IsMegaPanelActive) { PlayerUpgradeStatsUi.CloseMegaPanel(); }
         }
 
 
@@ -110,25 +110,25 @@ public class PlayerUpdadeStats : SonsMod
         BuyUpgrades.currentBowDamageLevel = 0;
         MegaPoints.currentMeleeAndTreeHitStaminaLevel = 0;
         MegaPoints.currentPlayerStaminaLevel = 0;
-        PlayerUpdadeStatsUi.WalkSpeedLvl.Text("Lvl: 0/5");
-        PlayerUpdadeStatsUi.WalkSpeedBonus.Text("Speed: +0%");
-        PlayerUpdadeStatsUi.SprintSpeedLvl.Text("Lvl: 0/5");
-        PlayerUpdadeStatsUi.SprintSpeedBonus.Text("Speed: +0%");
-        PlayerUpdadeStatsUi.SwimSpeedLvl.Text("Lvl: 0/5");
-        PlayerUpdadeStatsUi.SwimSpeedBonus.Text("Speed: +0%");
-        PlayerUpdadeStatsUi.JumpHeighLvl.Text("Lvl: 0/5");
-        PlayerUpdadeStatsUi.JumpHeightBonus.Text(": +0%");
-        PlayerUpdadeStatsUi.ChainSawSpeedLvl.Text("Lvl: 0/5");
-        PlayerUpdadeStatsUi.ChainSawSpeedBonus.Text("Speed: +0%");
-        PlayerUpdadeStatsUi.KnightVSpeedLvl.Text("Lvl: 0/5");
-        PlayerUpdadeStatsUi.KnightVSpeedBonus.Text("Speed: +0%");
-        PlayerUpdadeStatsUi.BowDamageLvl.Text("Lvl: 0/5");
-        PlayerUpdadeStatsUi.BowDamageBonus.Text("+0%");
-        PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaLvl.Text($"Lvl: 0/{MegaPoints.MaxMegaUpgradeLevel}");
-        PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaBonus.Text("+0%");
-        PlayerUpdadeStatsUi.PlayerStaminaLvl.Text($"Lvl: 0/{MegaPoints.MaxMegaUpgradeLevel}");
-        PlayerUpdadeStatsUi.PlayerStaminaBonus.Text("+0%");
-        PlayerUpdadeStatsPatches.postfixSaveID = 0;
+        PlayerUpgradeStatsUi.WalkSpeedLvl.Text("Lvl: 0/5");
+        PlayerUpgradeStatsUi.WalkSpeedBonus.Text("Speed: +0%");
+        PlayerUpgradeStatsUi.SprintSpeedLvl.Text("Lvl: 0/5");
+        PlayerUpgradeStatsUi.SprintSpeedBonus.Text("Speed: +0%");
+        PlayerUpgradeStatsUi.SwimSpeedLvl.Text("Lvl: 0/5");
+        PlayerUpgradeStatsUi.SwimSpeedBonus.Text("Speed: +0%");
+        PlayerUpgradeStatsUi.JumpHeighLvl.Text("Lvl: 0/5");
+        PlayerUpgradeStatsUi.JumpHeightBonus.Text(": +0%");
+        PlayerUpgradeStatsUi.ChainSawSpeedLvl.Text("Lvl: 0/5");
+        PlayerUpgradeStatsUi.ChainSawSpeedBonus.Text("Speed: +0%");
+        PlayerUpgradeStatsUi.KnightVSpeedLvl.Text("Lvl: 0/5");
+        PlayerUpgradeStatsUi.KnightVSpeedBonus.Text("Speed: +0%");
+        PlayerUpgradeStatsUi.BowDamageLvl.Text("Lvl: 0/5");
+        PlayerUpgradeStatsUi.BowDamageBonus.Text("+0%");
+        PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaLvl.Text($"Lvl: 0/{MegaPoints.MaxMegaUpgradeLevel}");
+        PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaBonus.Text("+0%");
+        PlayerUpgradeStatsUi.PlayerStaminaLvl.Text($"Lvl: 0/{MegaPoints.MaxMegaUpgradeLevel}");
+        PlayerUpgradeStatsUi.PlayerStaminaBonus.Text("+0%");
+        PlayerUpgradeStatsPatches.postfixSaveID = 0;
     }
 
 }

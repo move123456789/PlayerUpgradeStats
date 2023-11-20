@@ -23,14 +23,14 @@ namespace PlayerUpdadeStats
         public static void SaveData()
         {
             PlayerStatsFunctions.PostMessage("Trying To Save");
-            if (PlayerUpdadeStatsPatches.postfixSaveID != 0 && PlayerStatsFunctions.currentPoints >= 0)
+            if (PlayerUpgradeStatsPatches.postfixSaveID != 0 && PlayerStatsFunctions.currentPoints >= 0)
             {
                 PlayerStatsFunctions.PostMessage("Saving");
                 if (PlayerStatsFunctions.currentPoints > 50) { PlayerStatsFunctions.PostError("From Savedata() CurrentPoints can't be over 50"); return; }
-                var fileName = $"{PlayerUpdadeStatsPatches.postfixSaveID}.json";
+                var fileName = $"{PlayerUpgradeStatsPatches.postfixSaveID}.json";
                 var jsonObj = new JsonObject
                 {
-                    ["WorldID"] = PlayerUpdadeStatsPatches.postfixSaveID,
+                    ["WorldID"] = PlayerUpgradeStatsPatches.postfixSaveID,
                     ["pointsUsed"] = PlayerStatsFunctions.pointsUsed,
                     ["currentPoints"] = PlayerStatsFunctions.currentPoints,
                     ["pointsUsedMega"] = PlayerStatsFunctions.pointsUsedMega,
@@ -50,18 +50,18 @@ namespace PlayerUpdadeStats
         }
         internal static void GetData()
         {
-            if (PlayerUpdadeStatsPatches.postfixSaveID != 0)
+            if (PlayerUpgradeStatsPatches.postfixSaveID != 0)
             {
-                if (File.Exists("PlayerUpgradeStatsData/" + $"{PlayerUpdadeStatsPatches.postfixSaveID}.json"))
+                if (File.Exists("PlayerUpgradeStatsData/" + $"{PlayerUpgradeStatsPatches.postfixSaveID}.json"))
                 {
                     PlayerStatsFunctions.PostMessage("Save File For World Found");
                     try
                     {
-                        string text = File.ReadAllText($"PlayerUpgradeStatsData/{PlayerUpdadeStatsPatches.postfixSaveID}.json");
+                        string text = File.ReadAllText($"PlayerUpgradeStatsData/{PlayerUpgradeStatsPatches.postfixSaveID}.json");
                         var saveInfo = JsonSerializer.Deserialize<SavedInfo>(text);
                         PlayerStatsFunctions.PostMessage("Updating Values");
-                        PlayerStatsFunctions.PostMessage("postfixSaveID = " + PlayerUpdadeStatsPatches.postfixSaveID + "  FromFileWorldID = " + saveInfo.WorldID);
-                        if (PlayerUpdadeStatsPatches.postfixSaveID == saveInfo.WorldID)
+                        PlayerStatsFunctions.PostMessage("postfixSaveID = " + PlayerUpgradeStatsPatches.postfixSaveID + "  FromFileWorldID = " + saveInfo.WorldID);
+                        if (PlayerUpgradeStatsPatches.postfixSaveID == saveInfo.WorldID)
                         {
                             if (saveInfo.currentPoints > 50) { PlayerStatsFunctions.PostError("CurrentPoints can't be over 50"); return; }
                             PlayerStatsFunctions.pointsUsed = saveInfo.pointsUsed;
@@ -85,8 +85,8 @@ namespace PlayerUpdadeStats
                     catch (System.Exception e)
                     {
                         PlayerStatsFunctions.PostError("Something went wrong trying to load saved data from file. Error: " + e);
-                        PlayerUpdadeStatsUi.displayMessage_errorPanel.Text("Something went wrong trying to load saved data from file, please delete mod save data to fix issue");
-                        PlayerUpdadeStatsUi.CustomPanelsActions(PlayerUpdadeStatsUi.ErrorPanel, true);
+                        PlayerUpgradeStatsUi.displayMessage_errorPanel.Text("Something went wrong trying to load saved data from file, please delete mod save data to fix issue");
+                        PlayerUpgradeStatsUi.CustomPanelsActions(PlayerUpgradeStatsUi.ErrorPanel, true);
                     }
 
                 }
@@ -115,55 +115,55 @@ namespace PlayerUpdadeStats
         }
         public static void UpdateDisplayedData()
         {
-            PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
+            PlayerUpgradeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
             float totalwalkSpeedIncrease = BuyUpgrades.currentWalkSpeedLevel * 20;
-            PlayerUpdadeStatsUi.WalkSpeedBonus.Text($"Speed: +{totalwalkSpeedIncrease}%");
-            PlayerUpdadeStatsUi.WalkSpeedLvl.Text($"Lvl {BuyUpgrades.currentWalkSpeedLevel}/5");
+            PlayerUpgradeStatsUi.WalkSpeedBonus.Text($"Speed: +{totalwalkSpeedIncrease}%");
+            PlayerUpgradeStatsUi.WalkSpeedLvl.Text($"Lvl {BuyUpgrades.currentWalkSpeedLevel}/5");
 
             float totalSprintSpeedIncrease = BuyUpgrades.currentSprintSpeedLevel * 20;
-            PlayerUpdadeStatsUi.SprintSpeedBonus.Text($"Speed: +{totalSprintSpeedIncrease}%");
-            PlayerUpdadeStatsUi.SprintSpeedLvl.Text($"Lvl {BuyUpgrades.currentSprintSpeedLevel}/5");
+            PlayerUpgradeStatsUi.SprintSpeedBonus.Text($"Speed: +{totalSprintSpeedIncrease}%");
+            PlayerUpgradeStatsUi.SprintSpeedLvl.Text($"Lvl {BuyUpgrades.currentSprintSpeedLevel}/5");
 
 
             float totalJumpHeightIncrease = BuyUpgrades.currentJumpHeightLevel * 20;
-            PlayerUpdadeStatsUi.JumpHeightBonus.Text($"Speed: +{totalJumpHeightIncrease}%");
-            PlayerUpdadeStatsUi.JumpHeighLvl.Text($"Lvl {BuyUpgrades.currentJumpHeightLevel}/5");
+            PlayerUpgradeStatsUi.JumpHeightBonus.Text($"Speed: +{totalJumpHeightIncrease}%");
+            PlayerUpgradeStatsUi.JumpHeighLvl.Text($"Lvl {BuyUpgrades.currentJumpHeightLevel}/5");
 
             float totalSwimSpeedIncrease = BuyUpgrades.currentSwimSpeedLevel * 20;
-            PlayerUpdadeStatsUi.SwimSpeedBonus.Text($"Speed: +{totalSwimSpeedIncrease}%");
-            PlayerUpdadeStatsUi.SwimSpeedLvl.Text($"Lvl {BuyUpgrades.currentSwimSpeedLevel}/5");
+            PlayerUpgradeStatsUi.SwimSpeedBonus.Text($"Speed: +{totalSwimSpeedIncrease}%");
+            PlayerUpgradeStatsUi.SwimSpeedLvl.Text($"Lvl {BuyUpgrades.currentSwimSpeedLevel}/5");
 
             float totalChainsawSpeedIncrease = BuyUpgrades.currentChainsawSpeedLevel * 20;
-            PlayerUpdadeStatsUi.ChainSawSpeedBonus.Text($"Speed: +{totalChainsawSpeedIncrease}%");
-            PlayerUpdadeStatsUi.ChainSawSpeedLvl.Text($"Lvl {BuyUpgrades.currentChainsawSpeedLevel}/5");
+            PlayerUpgradeStatsUi.ChainSawSpeedBonus.Text($"Speed: +{totalChainsawSpeedIncrease}%");
+            PlayerUpgradeStatsUi.ChainSawSpeedLvl.Text($"Lvl {BuyUpgrades.currentChainsawSpeedLevel}/5");
 
             float totalKnightVSpeedIncrease = BuyUpgrades.currentKnightVSpeedLevel * 20;
-            PlayerUpdadeStatsUi.KnightVSpeedBonus.Text($"Speed: +{totalKnightVSpeedIncrease}%");
-            PlayerUpdadeStatsUi.KnightVSpeedLvl.Text($"Lvl {BuyUpgrades.currentKnightVSpeedLevel}/5");
+            PlayerUpgradeStatsUi.KnightVSpeedBonus.Text($"Speed: +{totalKnightVSpeedIncrease}%");
+            PlayerUpgradeStatsUi.KnightVSpeedLvl.Text($"Lvl {BuyUpgrades.currentKnightVSpeedLevel}/5");
 
             float totalBowDamageIncrease = BuyUpgrades.currentBowDamageLevel * 20;
-            PlayerUpdadeStatsUi.BowDamageBonus.Text($"Speed: +{totalBowDamageIncrease}%");
-            PlayerUpdadeStatsUi.BowDamageLvl.Text($"Lvl {BuyUpgrades.currentBowDamageLevel}/5");
+            PlayerUpgradeStatsUi.BowDamageBonus.Text($"Speed: +{totalBowDamageIncrease}%");
+            PlayerUpgradeStatsUi.BowDamageLvl.Text($"Lvl {BuyUpgrades.currentBowDamageLevel}/5");
 
             float totalPlayerStaminaIncrease = MegaPoints.currentPlayerStaminaLevel * Config.UpdateMegaUIIncreace;
-            PlayerUpdadeStatsUi.PlayerStaminaBonus.Text($"Bonus: +{totalPlayerStaminaIncrease}%");
-            PlayerUpdadeStatsUi.PlayerStaminaLvl.Text($"Lvl: {MegaPoints.currentPlayerStaminaLevel}/1");
+            PlayerUpgradeStatsUi.PlayerStaminaBonus.Text($"Bonus: +{totalPlayerStaminaIncrease}%");
+            PlayerUpgradeStatsUi.PlayerStaminaLvl.Text($"Lvl: {MegaPoints.currentPlayerStaminaLevel}/1");
 
             float totalToolStaminaIncrease = MegaPoints.currentMeleeAndTreeHitStaminaLevel * Config.UpdateMegaUIIncreace;
-            PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaBonus.Text($"Bonus: +{totalToolStaminaIncrease}%");
-            PlayerUpdadeStatsUi.MeleeAndTreeHitStaminaLvl.Text($"Lvl {MegaPoints.currentMeleeAndTreeHitStaminaLevel}/1");
+            PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaBonus.Text($"Bonus: +{totalToolStaminaIncrease}%");
+            PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaLvl.Text($"Lvl {MegaPoints.currentMeleeAndTreeHitStaminaLevel}/1");
 
             
         }
         public static void UpdateDisplayedCost()
         {
-            if (BuyUpgrades.currentWalkSpeedLevel >= 2) { PlayerUpdadeStatsUi.WalkSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
-            if (BuyUpgrades.currentSprintSpeedLevel >= 2) { PlayerUpdadeStatsUi.SprintSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
-            if (BuyUpgrades.currentJumpHeightLevel >= 2) { PlayerUpdadeStatsUi.JumpHeighCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
-            if (BuyUpgrades.currentSwimSpeedLevel >= 2) { PlayerUpdadeStatsUi.SwimSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
-            if (BuyUpgrades.currentChainsawSpeedLevel >= 2) { PlayerUpdadeStatsUi.ChainSawSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
-            if (BuyUpgrades.currentKnightVSpeedLevel >= 2) { PlayerUpdadeStatsUi.KnightVSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
-            if (BuyUpgrades.currentBowDamageLevel >= 2) { PlayerUpdadeStatsUi.BowDamageCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
+            if (BuyUpgrades.currentWalkSpeedLevel >= 2) { PlayerUpgradeStatsUi.WalkSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
+            if (BuyUpgrades.currentSprintSpeedLevel >= 2) { PlayerUpgradeStatsUi.SprintSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
+            if (BuyUpgrades.currentJumpHeightLevel >= 2) { PlayerUpgradeStatsUi.JumpHeighCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
+            if (BuyUpgrades.currentSwimSpeedLevel >= 2) { PlayerUpgradeStatsUi.SwimSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
+            if (BuyUpgrades.currentChainsawSpeedLevel >= 2) { PlayerUpgradeStatsUi.ChainSawSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
+            if (BuyUpgrades.currentKnightVSpeedLevel >= 2) { PlayerUpgradeStatsUi.KnightVSpeedCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
+            if (BuyUpgrades.currentBowDamageLevel >= 2) { PlayerUpgradeStatsUi.BowDamageCost.Text($"Cost: {BuyUpgrades.pointPriceText4}"); }
         }
 
         public static async void GetStrengthLevelVitals()
@@ -177,14 +177,14 @@ namespace PlayerUpdadeStats
                 }
                 else
                 {
-                    PlayerUpdadeStatsPatches.currentStrengthLevel = LocalPlayer.Vitals.CurrentStrengthLevel;
-                    if (PlayerUpdadeStatsPatches.currentStrengthLevel >= 10)
+                    PlayerUpgradeStatsPatches.currentStrengthLevel = LocalPlayer.Vitals.CurrentStrengthLevel;
+                    if (PlayerUpgradeStatsPatches.currentStrengthLevel >= 10)
                     {
-                        PlayerUpdadeStatsUi.OpenMegaPointsButton.Visible(true);
+                        PlayerUpgradeStatsUi.OpenMegaPointsButton.Visible(true);
                     }
-                    PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
-                    PlayerUpdadeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
-                    PlayerUpdadeStatsUi.CurrentStrengthLevel.Text($"Strength Level: {PlayerUpdadeStatsPatches.currentStrengthLevel}");
+                    PlayerUpgradeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
+                    PlayerUpgradeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");
+                    PlayerUpgradeStatsUi.CurrentStrengthLevel.Text($"Strength Level: {PlayerUpgradeStatsPatches.currentStrengthLevel}");
                     PlayerStatsFunctions.LoadStats();
                     break;
                 }

@@ -144,48 +144,48 @@ namespace PlayerUpdadeStats
 
             if (upgradeType == UpgradeType.WalkSpeed)
             {
-                PlayerUpdadeStatsUi.WalkSpeedCost.Text(costInfo);
-                PlayerUpdadeStatsUi.WalkSpeedBonus.Text(speedInfo);
-                PlayerUpdadeStatsUi.WalkSpeedLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.WalkSpeedCost.Text(costInfo);
+                PlayerUpgradeStatsUi.WalkSpeedBonus.Text(speedInfo);
+                PlayerUpgradeStatsUi.WalkSpeedLvl.Text(lvlInfo);
             }
             else if (upgradeType == UpgradeType.SprintSpeed)
             {
-                PlayerUpdadeStatsUi.SprintSpeedCost.Text(costInfo);
-                PlayerUpdadeStatsUi.SprintSpeedBonus.Text(speedInfo);
-                PlayerUpdadeStatsUi.SprintSpeedLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.SprintSpeedCost.Text(costInfo);
+                PlayerUpgradeStatsUi.SprintSpeedBonus.Text(speedInfo);
+                PlayerUpgradeStatsUi.SprintSpeedLvl.Text(lvlInfo);
             }
             else if (upgradeType == UpgradeType.JumpHeight)
             {
-                PlayerUpdadeStatsUi.JumpHeighCost.Text(costInfo);
-                PlayerUpdadeStatsUi.JumpHeightBonus.Text(speedInfo);
-                PlayerUpdadeStatsUi.JumpHeighLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.JumpHeighCost.Text(costInfo);
+                PlayerUpgradeStatsUi.JumpHeightBonus.Text(speedInfo);
+                PlayerUpgradeStatsUi.JumpHeighLvl.Text(lvlInfo);
             }
             else if (upgradeType == UpgradeType.SwimSpeed)
             {
-                PlayerUpdadeStatsUi.SwimSpeedCost.Text(costInfo);
-                PlayerUpdadeStatsUi.SwimSpeedBonus.Text(speedInfo);
-                PlayerUpdadeStatsUi.SwimSpeedLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.SwimSpeedCost.Text(costInfo);
+                PlayerUpgradeStatsUi.SwimSpeedBonus.Text(speedInfo);
+                PlayerUpgradeStatsUi.SwimSpeedLvl.Text(lvlInfo);
             }
             else if (upgradeType == UpgradeType.ChainSawSpeed)
             {
-                PlayerUpdadeStatsUi.ChainSawSpeedCost.Text(costInfo);
-                PlayerUpdadeStatsUi.ChainSawSpeedBonus.Text(speedInfo);
-                PlayerUpdadeStatsUi.ChainSawSpeedLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.ChainSawSpeedCost.Text(costInfo);
+                PlayerUpgradeStatsUi.ChainSawSpeedBonus.Text(speedInfo);
+                PlayerUpgradeStatsUi.ChainSawSpeedLvl.Text(lvlInfo);
             }
             else if (upgradeType == UpgradeType.KnightVSpeed)
             {
-                PlayerUpdadeStatsUi.KnightVSpeedCost.Text(costInfo);
-                PlayerUpdadeStatsUi.KnightVSpeedBonus.Text(speedInfo);
-                PlayerUpdadeStatsUi.KnightVSpeedLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.KnightVSpeedCost.Text(costInfo);
+                PlayerUpgradeStatsUi.KnightVSpeedBonus.Text(speedInfo);
+                PlayerUpgradeStatsUi.KnightVSpeedLvl.Text(lvlInfo);
             }
             else if (upgradeType == UpgradeType.BowDamage)
             {
-                PlayerUpdadeStatsUi.BowDamageCost.Text(costInfo);
-                PlayerUpdadeStatsUi.BowDamageBonus.Text($"Damage: +{totalSpeedIncrease}%");
-                PlayerUpdadeStatsUi.BowDamageLvl.Text(lvlInfo);
+                PlayerUpgradeStatsUi.BowDamageCost.Text(costInfo);
+                PlayerUpgradeStatsUi.BowDamageBonus.Text($"Damage: +{totalSpeedIncrease}%");
+                PlayerUpgradeStatsUi.BowDamageLvl.Text(lvlInfo);
             }
 
-            PlayerUpdadeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
+            PlayerUpgradeStatsUi.DisplayedPoints.Text($"Points: {PlayerStatsFunctions.currentPoints}");
         }
 
         // A Little Async Function that adds a interval time when the UI Text will show
@@ -199,18 +199,18 @@ namespace PlayerUpdadeStats
         public static async Task DisplayWarning(bool maxORpoints)
         {
             if (isRunning) { return; }
-            PlayerUpdadeStatsUi.displayMessage.Visible(true);
+            PlayerUpgradeStatsUi.displayMessage.Visible(true);
             if (maxORpoints)
             {
-                PlayerUpdadeStatsUi.displayMessage.Text("You Have Maximim Lvl");
+                PlayerUpgradeStatsUi.displayMessage.Text("You Have Maximim Lvl");
             }
             else
             {
-                PlayerUpdadeStatsUi.displayMessage.Text("You Do Not Have Enogth Points");
+                PlayerUpgradeStatsUi.displayMessage.Text("You Do Not Have Enogth Points");
             }
             isRunning = true;
             await Task.Run(WarningTimer);
-            PlayerUpdadeStatsUi.displayMessage.Visible(false);
+            PlayerUpgradeStatsUi.displayMessage.Visible(false);
         }
     }
 }
