@@ -23,7 +23,7 @@ namespace PlayerUpdadeStats
         internal static void PostMessage(string message)
         {
             if (Config.DebugLogging.Value != true) { return; }
-            RLog.Msg($"[Player Upgrade Stats] {message}");
+            RLog.Msg(message);
         }
         internal static void PostError(string message)
         {
@@ -39,6 +39,7 @@ namespace PlayerUpdadeStats
             Stamina.SetTreeSwingStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
             Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
             Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
+            Arrows.SetBowDamage(BuyUpgrades.currentBowDamageLevel);
         }
 
         public static int GetCurrentPoints(int currentStrengthLevel, int pointsUsed)

@@ -10,19 +10,21 @@ namespace PlayerUpdadeStats
 {
     public class Arrows
     {
-        public static void SetSetMeleeStamina(float currentBowDamageLevel = 0)
+        public static void SetBowDamage(float currentBowDamageLevel = 0)
         {
-            if (!LocalPlayer.IsInWorld) { PlayerStatsFunctions.PostMessage("SetSetMeleeStamina returned, player not in world"); return; }
-            if (currentBowDamageLevel == 0) { PlayerStatsFunctions.PostMessage("SetSetMeleeStamina Returned: currentMeleeStaminaLevel == 0"); return; }
+            if (!LocalPlayer.IsInWorld) { PlayerStatsFunctions.PostMessage("SetBowDamage returned, player not in world"); return; }
+            if (currentBowDamageLevel == 0) { PlayerStatsFunctions.PostMessage("SetBowDamage Returned: currentBowDamageLevel == 0"); return; }
 
-            SetArrowDamage(618, 12, currentBowDamageLevel); // 3dPrintedArrow
+            SetArrowDamage(618, 30, currentBowDamageLevel); // 3dPrintedArrow
+            SetArrowDamage(373, 35, currentBowDamageLevel); // TacticalBowAmmo
+            SetArrowDamage(507, 20, currentBowDamageLevel); // CraftedArrow
 
         }
 
         private static void SetArrowDamage(int itemId, float defaultDamage, float currentBowDamageLevel)
         {
             ItemData item = ItemDatabaseManager.ItemById(itemId);
-            item.Ammo.ProjectileInfo.muzzleDamage = defaultDamage * (float)Math.Pow(Config.MeleeStaminaPercentageReduction, currentBowDamageLevel);
+            item.Ammo.ProjectileInfo.muzzleDamage = defaultDamage * (currentBowDamageLevel * 20 / 100 + 1);
         }
     }
 }

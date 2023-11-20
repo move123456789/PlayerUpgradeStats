@@ -126,6 +126,8 @@ namespace PlayerUpdadeStats
                     break;
                 case UpgradeType.BowDamage:
                     currentBowDamageLevel = newLevel;
+                    // Upgrade BowDamage
+                    Arrows.SetBowDamage(newLevel);
                     break;
                 default:
                     throw new ArgumentException("Invalid upgrade type");

@@ -147,6 +147,7 @@ public class PlayerUpdadeStatsUi
                 Stamina.SetTreeSwingStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
                 Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
                 Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
+                Arrows.SetBowDamage(BuyUpgrades.currentBowDamageLevel);
             });
         updateButton.SetParent(mainContainer);
 
