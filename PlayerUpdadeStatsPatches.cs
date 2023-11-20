@@ -83,37 +83,5 @@ namespace PlayerUpdadeStats
         }
         private static float defaultMaxVelocity = 20f;
 
-
-        [HarmonyPatch(typeof(RangedWeapon), "Start")]
-        [HarmonyPostfix]
-        public static void PostfixBowDamage(ref RangedWeapon __instance)
-        {
-            if (BuyUpgrades.currentBowDamageLevel == 0) { PlayerStatsFunctions.PostMessage("No Need for Updating, currentBowDamageLevel = 0"); return; }
-            PlayerStatsFunctions.PostMessage("Start RangedWeapon - PostfixBowDamage");
-            if (__instance.name == "CraftedBowHeld" || __instance.name == "CraftedBowHeld(Clone)")
-            {
-                ProjectileInfo current_ammo_info = __instance.GetAmmo()?.GetProperties()?.ProjectileInfo;
-                current_ammo_info.muzzleDamage = current_ammo_info.muzzleDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-            }
-        }
-
-
-        [HarmonyPatch(typeof(BowWeaponController), "CycleAmmoType")]
-        [HarmonyPostfix]
-        public static void PostfixBowDamageChangeAmmo(BowWeaponController __instance)
-        {
-            PlayerStatsFunctions.PostMessage("BowWeaponController - CycleAmmoType");
-            RangedWeapon ref_from_BowWeaponController = __instance.GetRangedWeapon();
-            if (ref_from_BowWeaponController != null)
-            {
-                ProjectileInfo current_ammo_info = ref_from_BowWeaponController.GetAmmo()?.GetProperties()?.ProjectileInfo;
-                current_ammo_info.muzzleDamage = current_ammo_info.muzzleDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                PlayerStatsFunctions.PostMessage($"Updated Damage to {current_ammo_info.muzzleDamage}");
-            }
-            else
-            {
-                PlayerStatsFunctions.PostMessage("ref_from_BowWeaponController == NULL");
-            }
-        }
     }
 }
