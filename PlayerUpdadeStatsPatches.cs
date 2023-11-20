@@ -84,7 +84,6 @@ namespace PlayerUpdadeStats
         private static float defaultMaxVelocity = 20f;
 
 
-        private static bool isBowDamageUpgraded;
         [HarmonyPatch(typeof(RangedWeapon), "Start")]
         [HarmonyPostfix]
         public static void PostfixBowDamage(ref RangedWeapon __instance)
@@ -93,95 +92,28 @@ namespace PlayerUpdadeStats
             PlayerStatsFunctions.PostMessage("Start RangedWeapon - PostfixBowDamage");
             if (__instance.name == "CraftedBowHeld" || __instance.name == "CraftedBowHeld(Clone)")
             {
-
                 ProjectileInfo current_ammo_info = __instance.GetAmmo()?.GetProperties()?.ProjectileInfo;
                 current_ammo_info.muzzleDamage = current_ammo_info.muzzleDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                isBowDamageUpgraded = true;
-
-                PlayerStatsFunctions.PostMessage("Bow Now In Hand");
-                
-                var item = LocalPlayer.Inventory.RightHandItem;
-                if (item != null)
-                {
-                    PlayerStatsFunctions.PostMessage("CraftedBowHeld - Item != null");
-                    var ranged = item.ItemObject.GetComponentInChildren<RangedWeapon>();
-                    ranged._simulatedBulletInfo = ranged.GetAmmo()?._properties?.ProjectileInfo;
-                    PlayerStatsFunctions.PostMessage($"Current MuzzleDamage: {ranged._simulatedBulletInfo.muzzleDamage}");
-                    ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                    PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update: {ranged._simulatedBulletInfo.muzzleDamage}");
-                }
-                else { PlayerStatsFunctions.PostMessage("CraftedBowHeld - item == null"); }
             }
         }
-        private static float defaultBowDamage = 20f;
 
 
         [HarmonyPatch(typeof(BowWeaponController), "CycleAmmoType")]
         [HarmonyPostfix]
         public static void PostfixBowDamageChangeAmmo(BowWeaponController __instance)
         {
-            isBowDamageUpgraded = false;
+            PlayerStatsFunctions.PostMessage("BowWeaponController - CycleAmmoType");
             RangedWeapon ref_from_BowWeaponController = __instance.GetRangedWeapon();
             if (ref_from_BowWeaponController != null)
             {
                 ProjectileInfo current_ammo_info = ref_from_BowWeaponController.GetAmmo()?.GetProperties()?.ProjectileInfo;
                 current_ammo_info.muzzleDamage = current_ammo_info.muzzleDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                isBowDamageUpgraded = true;
+                PlayerStatsFunctions.PostMessage($"Updated Damage to {current_ammo_info.muzzleDamage}");
             }
-        }
-
-
-
-        // OLD PATCH
-        [HarmonyPatch(typeof(RangedWeapon), "CycleAmmoType")]
-        [HarmonyPostfix]
-        public static async void fixBowDamageChangeAmmo(RangedWeapon __instance)
-        {
-            PlayerStatsFunctions.PostMessage("Awake RangedWeapon");
-            if (__instance.name == "CraftedBowHeld" || __instance.name == "CraftedBowHeld(Clone)")
+            else
             {
-                PlayerStatsFunctions.PostMessage("Bow Now In Hand");
-                if (BuyUpgrades.currentBowDamageLevel == 0) { PlayerStatsFunctions.PostMessage("No Need for Updating, currentBowDamageLevel = 0"); return; }
-                var item = LocalPlayer.Inventory.RightHandItem;
-                if (item != null)
-                {
-                    PlayerStatsFunctions.PostMessage("CraftedBowHeld - Item != null");
-                    var ranged = item.ItemObject.GetComponentInChildren<RangedWeapon>();
-                    ranged._simulatedBulletInfo = ranged.GetAmmo()?._properties?.ProjectileInfo;
-                    await Task.Run(BowProjectileUpdate);
-                    string curretArrow = ranged.bulletPrefab.name;
-                    if (curretArrow == null) { PlayerStatsFunctions.PostMessage("Prefab Name == null"); return; }
-                    PlayerStatsFunctions.PostMessage($"Bullet Prefab Name = {ranged.bulletPrefab.name}");
-                    switch (curretArrow)
-                    {
-                        case "CraftedArrowProjectile":
-                            // Crafted Arrow
-                            PlayerStatsFunctions.PostMessage($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
-                            ranged._simulatedBulletInfo.muzzleDamage = defaultBowDamage * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update: {ranged._simulatedBulletInfo.muzzleDamage}");
-                            break;
-                        case "3dPrintedArrowProjectile":
-                            // 3dPrinted Arrow
-                            PlayerStatsFunctions.PostMessage($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
-                            ranged._simulatedBulletInfo.muzzleDamage = 30f * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update: {ranged._simulatedBulletInfo.muzzleDamage}");
-                            break;
-                        case "TacticalBowAmmoProjectile":
-                            // Found Arrow
-                            PlayerStatsFunctions.PostMessage($"Current MuzzleDamage = {ranged._simulatedBulletInfo.muzzleDamage}");
-                            ranged._simulatedBulletInfo.muzzleDamage = 35f * (BuyUpgrades.currentBowDamageLevel * 20 / 100 + 1);
-                            PlayerStatsFunctions.PostMessage($"MuzzleDamage After Update: {ranged._simulatedBulletInfo.muzzleDamage}");
-                            break;
-                    }
-                }
-                else { PlayerStatsFunctions.PostMessage("CraftedBowHeld - item == null"); }
+                PlayerStatsFunctions.PostMessage("ref_from_BowWeaponController == NULL");
             }
         }
-
-        public static async Task BowProjectileUpdate()
-        {
-            await Task.Delay(300);
-        }
-
     }
 }
