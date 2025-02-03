@@ -7,10 +7,10 @@ using System.Text.Json.Nodes;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TheForest.Utils;
-using static PlayerUpdadeStats.DataHandler;
+using static PlayerUpgradeStats.DataHandler;
 using Sons.Gui;
 
-namespace PlayerUpdadeStats
+namespace PlayerUpgradeStats
 {
     public class DataHandler
     {

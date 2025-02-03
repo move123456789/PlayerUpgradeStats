@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PlayerUpdadeStats;
+namespace PlayerUpgradeStats;
 
 using static SUI.SUI;
 

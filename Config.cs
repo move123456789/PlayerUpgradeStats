@@ -2,13 +2,14 @@ using RedLoader;
 using SonsSdk;
 using UnityEngine;
 
-namespace PlayerUpdadeStats;
+namespace PlayerUpgradeStats;
 
 public static class Config
 {
     public static ConfigCategory PlayerUpdadeStats { get; private set; }
     public static ConfigCategory PlayerUpdadeStatsAdvanced { get; private set; }
     public static KeybindConfigEntry ToggleMenuKey { get; private set; }
+    public static KeybindConfigEntry ExitMenuKey { get; private set; }
     public static ConfigEntry<bool> DebugLogging { get; private set; }
     public static ConfigEntry<bool> UiTesting { get; private set; }
 
@@ -26,6 +27,17 @@ public static class Config
         ToggleMenuKey.Notify(() =>
         {
             PlayerStatsFunctions.OnMenuKeyPressed();
+        });
+
+        ExitMenuKey = PlayerUpdadeStats.CreateKeybindEntry(
+            "exit_menu_key_pus",
+            "escape",
+            "Exit Menu Key",
+            "Closes The Points Menu.");
+        ExitMenuKey.DefaultValue = "escape";
+        ExitMenuKey.Notify(() =>
+        {
+            PlayerStatsFunctions.OnExitKeyPressed();
         });
 
         DebugLogging = PlayerUpdadeStatsAdvanced.CreateEntry(

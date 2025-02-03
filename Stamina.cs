@@ -1,11 +1,9 @@
 ﻿using Sons.Items.Core;
 using Sons.Weapon;
-using Il2CppSystem.Reflection;
 using TheForest.Utils;
 using UnityEngine;
-using System.Reflection;
 
-namespace PlayerUpdadeStats
+namespace PlayerUpgradeStats
 {
     internal class Stamina
     {
@@ -50,9 +48,8 @@ namespace PlayerUpdadeStats
 
             SetTreeSwingStaminaCost<ModernAxeWeaponController>(356, 7, currentMeleeStaminaLevel); // Modern Axe
             SetTreeSwingStaminaCost<FireAxeWeaponController>(431, 7, currentMeleeStaminaLevel); // Fire Axe
-            SetTreeSwingStaminaCost<TacticalAxeWeaponController>(379, 7, currentMeleeStaminaLevel); // Normal Axe
+            SetTreeSwingStaminaCost<PrimaryAxeWeaponController>(379, 7, currentMeleeStaminaLevel); // Normal Axe
             SetTreeSwingStaminaCost<ChainsawWeaponController>(394, 8, currentMeleeStaminaLevel); // Chainsaw
-
         }
 
         private static void SetTreeSwingStaminaCost<T>(int itemId, float defaultStamina, float currentMeleeStaminaLevel) where T : MonoBehaviour
@@ -128,7 +125,7 @@ namespace PlayerUpdadeStats
 
             // Default Value == 0.4f
             // Reduce timeToRecoverFromRun by X% for each level
-            LocalPlayer.FpCharacter.timeToRecoverFromRun = (float)(0.4f * Math.Pow(Config.TimeToRecoverFromRun, currentLevel));
+            LocalPlayer.FpCharacter._timeToRecoverFromRun = (float)(0.4f * Math.Pow(Config.TimeToRecoverFromRun, currentLevel));
 
 
         }

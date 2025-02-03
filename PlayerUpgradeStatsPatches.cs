@@ -1,18 +1,8 @@
-﻿using RedLoader;
-using Il2CppInterop.Runtime;
-using Il2CppInterop.Runtime.Injection;
-using System.Collections;
-using System.Reflection;
-using Harmony;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Sons.Gameplay.GameSetup;
-using Sons.Weapon;
 using Sons.Gameplay;
-using TheForest.Utils;
-using AssemblyCSharp;
-using Sons.Gameplay.GPS;
 
-namespace PlayerUpdadeStats
+namespace PlayerUpgradeStats
 {
     [HarmonyPatch]
     public class PlayerUpgradeStatsPatches

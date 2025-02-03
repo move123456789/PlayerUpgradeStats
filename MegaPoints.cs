@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace PlayerUpdadeStats
+namespace PlayerUpgradeStats
 {
     public class MegaPoints
     {

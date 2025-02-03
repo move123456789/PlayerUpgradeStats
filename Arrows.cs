@@ -1,12 +1,9 @@
-﻿using Sons.Items.Core;
+﻿using RedLoader;
+using Sons.Items.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TheForest.Utils;
 
-namespace PlayerUpdadeStats
+namespace PlayerUpgradeStats
 {
     public class Arrows
     {
@@ -24,7 +21,18 @@ namespace PlayerUpdadeStats
         private static void SetArrowDamage(int itemId, float defaultDamage, float currentBowDamageLevel)
         {
             ItemData item = ItemDatabaseManager.ItemById(itemId);
-            item.Ammo.ProjectileInfo.muzzleDamage = defaultDamage * (currentBowDamageLevel * 20 / 100 + 1);
+            try
+            {
+                if (item != null)
+                {
+                    item.Ammo.ProjectileInfo.muzzleDamage = defaultDamage * (currentBowDamageLevel * 20 / 100 + 1);
+                }
+                else { RLog.Error($"Failed To find item by id: {itemId}, In SetArrowDamage"); return; }
+            } catch (Exception ex)
+            {
+                RLog.Error($"Failed To Set ArrowDamage for itemID: {itemId}! ERROR: {ex}");
+            }
+            
         }
     }
 }

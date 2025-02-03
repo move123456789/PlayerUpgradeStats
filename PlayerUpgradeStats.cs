@@ -6,7 +6,7 @@ using UnityEngine;
 using SUI;
 using Sons.Items.Core;
 
-namespace PlayerUpdadeStats;
+namespace PlayerUpgradeStats;
 
 public class PlayerUpgradeStats : SonsMod
 {
@@ -15,7 +15,7 @@ public class PlayerUpgradeStats : SonsMod
         // Don't register any update callbacks here. Manually register them instead.
         // Removing this will call OnUpdate, OnFixedUpdate etc. even if you don't use them.
         HarmonyPatchAll = true;
-        OnUpdateCallback = OnUpdate;
+        //OnUpdateCallback = OnUpdate;
     }
 
     protected override void OnInitializeMod()
@@ -45,6 +45,11 @@ public class PlayerUpgradeStats : SonsMod
     protected override void OnGameStart()
     {
         // This is called once the player spawns in the world and gains control.
+
+        // Adding Quit Event / Get HostMode Events
+        SonsSdk.SdkEvents.OnInWorldUpdate.Subscribe(Misc.CheckHostModeOnWorldUpdate);
+        Misc.OnHostModeGotten += Misc.OnHostModeGottenCorrectly;
+
         DataHandler.GetStrengthLevelVitals();
         if (!hasGottenOriginalValues)
         {
@@ -54,49 +59,32 @@ public class PlayerUpgradeStats : SonsMod
             originalJumpHeight = LocalPlayer._FpCharacter_k__BackingField._jumpHeight;
             originalSwimSpeed = LocalPlayer._FpCharacter_k__BackingField._swimSpeed;
         }
-        if (!isQuitEventAdded)
-        {
-            PlayerStatsFunctions.PostMessage("Adding Quit Event");
-            isQuitEventAdded = true;
-            PauseMenu.add_OnQuitEvent((Il2CppSystem.Action)Quitting);
-        }
         PlayerStatsFunctions.UpdateSpeed();
     }
 
     // This is called every frame.
     protected void OnUpdate()
     {
-        //if (Input.GetKeyDown(Config.ToggleMenuKey.Value))
-        //{
-            
-        //}
-        if (Input.GetKeyDown(KeyCode.Escape) && Config.UiTesting.Value == false)
-        {
-            if (PlayerUpgradeStatsUi.IsMainPanelActive) { PlayerUpgradeStatsUi.CloseMainPanel(); }
-            else if (PlayerUpgradeStatsUi.IsMegaPanelActive) { PlayerUpgradeStatsUi.CloseMegaPanel(); }
-        }
-
 
     }
     
 
     internal static bool showMenu = false;
     internal static float MaxVelocity = 50;
-    private bool hasGottenOriginalValues = false;
+    private static bool hasGottenOriginalValues = false;
     internal static float originalWalkSpeed;
     internal static float originalSprintSpeed;
     internal static float originalJumpHeight;
     internal static float originalSwimSpeed;
-    private bool isQuitEventAdded;
 
-
-
-    private void Quitting()
+    internal static void Quitting()
     {
+        Misc.OnHostModeGotten -= Misc.OnHostModeGottenCorrectly;
+        Misc.dialogManager.QuitGameConfirmDialog.remove_OnOption1Clicked((Il2CppSystem.Action)Quitting);
+
         PlayerStatsFunctions.PostMessage("Quit Button Pressed");
         DataHandler.SaveData();
         hasGottenOriginalValues = false;
-        isQuitEventAdded = false;
         PlayerStatsFunctions.pointsUsed = 0;
         PlayerStatsFunctions.currentPoints = 0;
         PlayerStatsFunctions.pointsUsedMega = 0;

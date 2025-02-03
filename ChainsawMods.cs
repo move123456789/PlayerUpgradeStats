@@ -1,8 +1,9 @@
-﻿using Sons.Items.Core;
+﻿using RedLoader;
+using Sons.Items.Core;
 using Sons.Weapon;
 using TheForest.Utils;
 
-namespace PlayerUpdadeStats
+namespace PlayerUpgradeStats
 {
     public class ChainsawMods
     {
@@ -19,7 +20,15 @@ namespace PlayerUpdadeStats
         private static void SetChainSawSpeedLevel(int itemId, float defaultDamage, float currentChainsawSpeedLevel)
         {
             ItemData item = ItemDatabaseManager.ItemById(itemId);
-            item.HeldPrefab.gameObject.GetComponentInChildren<ChainsawWeaponController>()._treeHitFrequency = 0.25f * (1 - currentChainsawSpeedLevel * 19 / 100);
+            try
+            {
+                if (item == null) { RLog.Error($"Failed To find item by id: {itemId}, In SetChainSawSpeedLevel"); return; }
+                item.HeldPrefab.gameObject.GetComponentInChildren<ChainsawWeaponController>()._treeHitFrequency = 0.25f * (1 - currentChainsawSpeedLevel * 19 / 100);
+            } catch (Exception e)
+            {
+                RLog.Error($"Failed to Update Chainsaw Speed Level, ERROR: {e}");
+            }
+            
         }
     }
 }

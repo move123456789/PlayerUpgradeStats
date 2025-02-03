@@ -1,15 +1,8 @@
 ﻿using RedLoader;
 using Sons.Gui;
-using Sons.Weapon;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TheForest.Utils;
-using UnityEngine;
 
-namespace PlayerUpdadeStats
+namespace PlayerUpgradeStats
 {
     internal class PlayerStatsFunctions
     {
@@ -140,13 +133,19 @@ namespace PlayerUpdadeStats
                 PlayerUpgradeStatsUi.OpenMegaPointsButton.Visible(true);  // Makes The Button Visible Still When You Are Under Lvl 10
                 return;
             }
-            if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory || LocalPlayer.Inventory.Logs.HasLogs) { return; }
+            if (!LocalPlayer.IsInWorld || TheForest.Utils.LocalPlayer.IsInInventory) { return; }
 
             if (!PauseMenu.IsActive && PauseMenu._instance.CanBeOpened())
             {
                 PauseMenu._instance.Open();
                 PlayerUpgradeStatsUi.ToggleMainPanel();
             }
+        }
+
+        public static void OnExitKeyPressed()
+        {
+            if (PlayerUpgradeStatsUi.IsMainPanelActive) { PlayerUpgradeStatsUi.CloseMainPanel(); }
+            else if (PlayerUpgradeStatsUi.IsMegaPanelActive) { PlayerUpgradeStatsUi.CloseMegaPanel(); }
         }
 
 
