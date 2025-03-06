@@ -8,6 +8,8 @@ namespace PlayerUpgradeStats
         // Current Upgrade Level of Each Stat
         public static float currentMeleeAndTreeHitStaminaLevel;
         public static float currentPlayerStaminaLevel;
+        public static float currentMaxArrowAmountLevel;
+
 
         // Prices
         internal const int MegaUpgradePrice = 1;
@@ -20,6 +22,7 @@ namespace PlayerUpgradeStats
         {
             PlayerStamina,
             ToolStamina,
+            MaxArrows,
         }
 
         public async static void BuyMegaUpgrade(MegaUpgradeType megaUpgrade)
@@ -47,6 +50,7 @@ namespace PlayerUpgradeStats
                     Stamina.SetTreeSwingStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
                     Stamina.SetSetMeleeStamina(MegaPoints.currentMeleeAndTreeHitStaminaLevel);
                     Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
+                    Arrows.SetMaxArrowAmount(MegaPoints.currentMaxArrowAmountLevel);
                     SetMegaUpgradeLevel(megaUpgrade, newLevel);
                     UpdateMegaUI(megaUpgrade);
                     PlayerStatsFunctions.PostMessage($"Bougth Upgrade: {megaUpgrade}");
@@ -71,6 +75,8 @@ namespace PlayerUpgradeStats
                     return currentPlayerStaminaLevel;
                 case MegaUpgradeType.ToolStamina:
                     return currentMeleeAndTreeHitStaminaLevel;
+                case MegaUpgradeType.MaxArrows:
+                    return currentMaxArrowAmountLevel;
                 default:
                     throw new ArgumentException("Invalid upgrade type");
             }
@@ -88,6 +94,10 @@ namespace PlayerUpgradeStats
                     currentMeleeAndTreeHitStaminaLevel = newLevel;
                     Stamina.SetTreeSwingStamina(newLevel);
                     Stamina.SetSetMeleeStamina(newLevel);
+                    break;
+                case MegaUpgradeType.MaxArrows:
+                    currentMaxArrowAmountLevel = newLevel;
+                    Arrows.SetMaxArrowAmount(newLevel);
                     break;
                 default:
                     throw new ArgumentException("Invalid upgrade type");
@@ -113,6 +123,12 @@ namespace PlayerUpgradeStats
                 PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaCost.Text(costInfo);
                 PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaBonus.Text(speedInfo);
                 PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaLvl.Text(lvlInfo);
+            }
+            else if (megaUpgradeType == MegaUpgradeType.MaxArrows)
+            {
+                PlayerUpgradeStatsUi.MaxArrowsCost.Text(costInfo);
+                PlayerUpgradeStatsUi.MaxArrowsBonus.Text($"Bonus: +{currentLevel * Config.UpgradeMaxAmount}%");
+                PlayerUpgradeStatsUi.MaxArrowsLvl.Text(lvlInfo);
             }
 
             PlayerUpgradeStatsUi.DisplayedPoints_megaPanel.Text($"Special Points: {PlayerStatsFunctions.currentPointsMega}");

@@ -63,6 +63,7 @@ public static class Config
 
     // UI Mega Upgrades Multipiers
     public const int UpdateMegaUIIncreace = 20; // Level x Value.Here = Total Ui % Text
+    public const int UpgradeMaxAmount = 50; // Max Amount of Upgrades
 
-    
+
 }

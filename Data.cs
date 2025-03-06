@@ -43,7 +43,8 @@ namespace PlayerUpgradeStats
                     ["currentKnightVSpeedLevel"] = BuyUpgrades.currentKnightVSpeedLevel,
                     ["currentBowDamageLevel"] = BuyUpgrades.currentBowDamageLevel,
                     ["currentMeleeAndTreeHitStaminaLevel"] = MegaPoints.currentMeleeAndTreeHitStaminaLevel,
-                    ["currentPlayerStaminaLevel"] = MegaPoints.currentPlayerStaminaLevel
+                    ["currentPlayerStaminaLevel"] = MegaPoints.currentPlayerStaminaLevel,
+                    ["currentMaxArrowAmountLevel"] = MegaPoints.currentMaxArrowAmountLevel,
                 };
                 DataHandler.WriteDynamicJsonObject(jsonObj, fileName);
             }
@@ -77,6 +78,7 @@ namespace PlayerUpgradeStats
                             BuyUpgrades.currentBowDamageLevel = saveInfo.currentBowDamageLevel;
                             MegaPoints.currentMeleeAndTreeHitStaminaLevel = saveInfo.currentMeleeAndTreeHitStaminaLevel;
                             MegaPoints.currentPlayerStaminaLevel = saveInfo.currentPlayerStaminaLevel;
+                            MegaPoints.currentMaxArrowAmountLevel = saveInfo.currentMaxArrowAmountLevel;
 
                             UpdateDisplayedData();
                             UpdateDisplayedCost();
@@ -111,6 +113,7 @@ namespace PlayerUpgradeStats
             public float currentBowDamageLevel { get; set; }
             public float currentMeleeAndTreeHitStaminaLevel { get; set; }
             public float currentPlayerStaminaLevel { get; set; }
+            public float currentMaxArrowAmountLevel { get; set; }
 
         }
         public static void UpdateDisplayedData()
@@ -153,7 +156,10 @@ namespace PlayerUpgradeStats
             PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaBonus.Text($"Bonus: +{totalToolStaminaIncrease}%");
             PlayerUpgradeStatsUi.MeleeAndTreeHitStaminaLvl.Text($"Lvl {MegaPoints.currentMeleeAndTreeHitStaminaLevel}/1");
 
-            
+            float totalMaxArrowAmountIncrease = MegaPoints.currentMaxArrowAmountLevel * Config.UpgradeMaxAmount;
+            PlayerUpgradeStatsUi.MaxArrowsBonus.Text($"Bonus: +{totalMaxArrowAmountIncrease}");
+            PlayerUpgradeStatsUi.MaxArrowsLvl.Text($"Lvl {MegaPoints.currentMaxArrowAmountLevel}/1");
+
         }
         public static void UpdateDisplayedCost()
         {

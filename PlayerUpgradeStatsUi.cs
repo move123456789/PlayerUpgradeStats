@@ -84,6 +84,11 @@ public class PlayerUpgradeStatsUi
     internal static SUiElement<SLabelOptions> PlayerStaminaLvl;
     internal static SUiElement<SLabelOptions> PlayerStaminaCost;
 
+    // Max Arrows
+    internal static SUiElement<SLabelOptions> MaxArrowsBonus;
+    internal static SUiElement<SLabelOptions> MaxArrowsLvl;
+    internal static SUiElement<SLabelOptions> MaxArrowsCost;
+
     // ERROR PANEL
     internal static SUiElement<SLabelOptions> displayMessage_errorPanel;
     
@@ -500,6 +505,35 @@ public class PlayerUpgradeStatsUi
             MegaPoints.BuyMegaUpgrade(MegaPoints.MegaUpgradeType.PlayerStamina);
         });
         player_stamina_Container.Add(player_stamina_Btn);
+
+        // Player Stamina
+        var max_arrows_Container = SContainer
+            .Dock(EDockType.Fill)
+            .Horizontal(0, "EE")
+            .Background(ComponentBlack)
+            //.Background(Color.red)
+            .PHeight(50)
+            ;
+        CoulumContainer_megaPanel.Add(max_arrows_Container);
+
+        var max_arrows_Text = SLabel.Text("MaxArrows").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineLeft).Margin(50).AutoSizeContainer(true);
+        max_arrows_Container.Add(max_arrows_Text);
+
+        MaxArrowsLvl = SLabel.Text("Lvl: 0/1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        max_arrows_Container.Add(MaxArrowsLvl);
+
+        MaxArrowsBonus = SLabel.Text("Bonus: + 0%").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.Midline);
+        max_arrows_Container.Add(MaxArrowsBonus);
+
+        MaxArrowsCost = SLabel.Text("Cost: 1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
+        max_arrows_Container.Add(MaxArrowsCost);
+
+        var max_arrows_Btn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        max_arrows_Btn.OnClick(() =>
+        {
+            MegaPoints.BuyMegaUpgrade(MegaPoints.MegaUpgradeType.MaxArrows);
+        });
+        max_arrows_Container.Add(max_arrows_Btn);
 
 
         // ERROR PANEL

@@ -34,6 +34,7 @@ namespace PlayerUpgradeStats
             Stamina.SetPlayerStamina(MegaPoints.currentPlayerStaminaLevel);
             Arrows.SetBowDamage(BuyUpgrades.currentBowDamageLevel);
             ChainsawMods.SetChainSawSpeed(BuyUpgrades.currentChainsawSpeedLevel);
+            Arrows.SetMaxArrowAmount(MegaPoints.currentMaxArrowAmountLevel);
         }
 
         public static int GetCurrentPoints(int currentStrengthLevel, int pointsUsed)

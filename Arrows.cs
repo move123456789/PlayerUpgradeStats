@@ -34,5 +34,49 @@ namespace PlayerUpgradeStats
             }
             
         }
+
+        public static void SetMaxArrowAmount(float currentMaxArrowAmountLevel = 0)
+        {
+            if (!LocalPlayer.IsInWorld)
+            {
+                PlayerStatsFunctions.PostMessage("SetMaxArrowAmount returned, player not in world"); return;
+            }
+            ItemData carbonArrow = ItemDatabaseManager.ItemById(373);
+            if (carbonArrow != null)
+            {
+                if (currentMaxArrowAmountLevel == 0)
+                {
+                    carbonArrow.MaxAmount = 20;
+                }
+                else
+                {
+                    carbonArrow.MaxAmount = 40;
+                }
+            }
+            ItemData stoneArrow = ItemDatabaseManager.ItemById(507);
+            if (stoneArrow != null)
+            {
+                if (currentMaxArrowAmountLevel == 0)
+                {
+                    stoneArrow.MaxAmount = 20;
+                }
+                else
+                {
+                    stoneArrow.MaxAmount = 40;
+                }
+            }
+            ItemData printedArrow = ItemDatabaseManager.ItemById(618);
+            if (printedArrow != null)
+            {
+                if (currentMaxArrowAmountLevel == 0)
+                {
+                    printedArrow.MaxAmount = 20;
+                }
+                else
+                {
+                    printedArrow.MaxAmount = 40;
+                }
+            }
+        }
     }
 }
