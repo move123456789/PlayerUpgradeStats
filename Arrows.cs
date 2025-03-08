@@ -41,6 +41,11 @@ namespace PlayerUpgradeStats
             {
                 PlayerStatsFunctions.PostMessage("SetMaxArrowAmount returned, player not in world"); return;
             }
+            if (Tools.StackModFix.IsStackModInstalled())
+            {
+                PlayerStatsFunctions.PostMessage("StackMod is installed, returning from SetMaxArrowAmount");
+                return;
+            }
             ItemData carbonArrow = ItemDatabaseManager.ItemById(373);
             if (carbonArrow != null)
             {

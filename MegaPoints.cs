@@ -126,6 +126,13 @@ namespace PlayerUpgradeStats
             }
             else if (megaUpgradeType == MegaUpgradeType.MaxArrows)
             {
+                if (Tools.StackModFix.IsStackModInstalled())
+                {
+                    PlayerUpgradeStatsUi.MaxArrowsCost.Text("Disabled");
+                    PlayerUpgradeStatsUi.MaxArrowsBonus.Text("Disabled");
+                    PlayerUpgradeStatsUi.MaxArrowsLvl.Text("Disabled");
+                    return;
+                }
                 PlayerUpgradeStatsUi.MaxArrowsCost.Text(costInfo);
                 PlayerUpgradeStatsUi.MaxArrowsBonus.Text($"Bonus: +{currentLevel * Config.UpgradeMaxAmount}%");
                 PlayerUpgradeStatsUi.MaxArrowsLvl.Text(lvlInfo);

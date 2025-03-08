@@ -88,6 +88,7 @@ public class PlayerUpgradeStatsUi
     internal static SUiElement<SLabelOptions> MaxArrowsBonus;
     internal static SUiElement<SLabelOptions> MaxArrowsLvl;
     internal static SUiElement<SLabelOptions> MaxArrowsCost;
+    internal static SUiElement<SLabelOptions> MaxArrowsBtn;
 
     // ERROR PANEL
     internal static SUiElement<SLabelOptions> displayMessage_errorPanel;
@@ -476,7 +477,6 @@ public class PlayerUpgradeStatsUi
         weapon_stamina_Container.Add(weapon_stamina_Btn);
 
 
-
         // Player Stamina
         var player_stamina_Container = SContainer
             .Dock(EDockType.Fill)
@@ -506,7 +506,8 @@ public class PlayerUpgradeStatsUi
         });
         player_stamina_Container.Add(player_stamina_Btn);
 
-        // Player Stamina
+
+        // Max Arrows
         var max_arrows_Container = SContainer
             .Dock(EDockType.Fill)
             .Horizontal(0, "EE")
@@ -528,12 +529,13 @@ public class PlayerUpgradeStatsUi
         MaxArrowsCost = SLabel.Text("Cost: 1").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10);
         max_arrows_Container.Add(MaxArrowsCost);
 
-        var max_arrows_Btn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
-        max_arrows_Btn.OnClick(() =>
+        MaxArrowsBtn = SLabel.Text("Upgrade").FontColor(Color.white).Font(EFont.RobotoRegular).FontSize(32).PHeight(10).Alignment(TextAlignmentOptions.MidlineRight).Margin(50);
+        MaxArrowsBtn.OnClick(() =>
         {
+            if (Tools.StackModFix.uiDeactivated) { return; }
             MegaPoints.BuyMegaUpgrade(MegaPoints.MegaUpgradeType.MaxArrows);
         });
-        max_arrows_Container.Add(max_arrows_Btn);
+        max_arrows_Container.Add(MaxArrowsBtn);
 
 
         // ERROR PANEL
